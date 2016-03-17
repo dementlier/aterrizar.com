@@ -23,7 +23,7 @@ class UserService {
     }
 
     /**
-    * Changes the password for a given User
+    * Changes the password for a given User.
     * */
     def cambiarContraseña(User u, String pass){
 

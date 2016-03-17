@@ -1,0 +1,21 @@
+<diagram program="umletino" version="14.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>530</x><y>140</y><w>220</w><h>170</h></coordinates><panel_attributes>User
+--
+-nombre
+-apellido
+-nombre de Usuario 
+-eMail
+-fechaDeNacimiento
+-password
+--
++getters()
++setters()
+</panel_attributes><additional_attributes/></element><element><id>UMLClass</id><coordinates><x>120</x><y>150</y><w>250</w><h>120</h></coordinates><panel_attributes>UserService
+--
+
+--
++registrarUsuario(datos de usuario)
++cambiarContraseña(Usuario,  pass: String)
++validarUsuario(Usuario, codigo: String)
++login(username: String, pass: String)</panel_attributes><additional_attributes/></element><element><id>Relation</id><coordinates><x>360</x><y>180</y><w>190</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=* usuarios
+</panel_attributes><additional_attributes>170;20;10;20</additional_attributes></element></diagram>

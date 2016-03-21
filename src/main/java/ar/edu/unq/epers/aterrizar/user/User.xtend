@@ -14,7 +14,7 @@ class User {
     private String password
 
     /**
-    * Constructor
+    * Constructor, si se usa el tipo data se puede ahorrar
     * */
     new(String firstName, String lastName, String userName, String mail, Date birthDay, String pass){
         nombre              = firstName

@@ -12,6 +12,7 @@ class User {
     private String eMail
     private Date fechaDeNacimiento
     private String password
+    private boolean validationState
 
     /**
     * Constructor, si se usa el tipo data se puede ahorrar
@@ -23,5 +24,18 @@ class User {
         eMail               = mail
         fechaDeNacimiento   = birthDay
         password            = pass
+        validationState		= false
     }
+    
+    new(){
+		validationState		= false
+    }
+    
+    /**
+     * Returns the validation code
+     */
+    def String getValidationCode(){
+    	return "Insert validation code generation here"
+    }
+     
 }

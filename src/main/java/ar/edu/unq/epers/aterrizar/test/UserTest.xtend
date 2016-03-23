@@ -5,7 +5,7 @@ import static org.junit.Assert.*
 import java.util.Date
 
 class UserTest {
-    User u = new User("Pepe", "Juarez", "pepej", "p@p.com", new Date(), "1234")
+    User u = new User("Pepe", "Juarez", "pepej", "p@p.com", new Date(), "1234", false)
 
     @Test def void testAUserCanSayItsName(){
         assertEquals(u.getNombre(), "Pepe")

@@ -12,23 +12,23 @@ class User {
     private String eMail
     private Date fechaDeNacimiento
     private String password
-    private boolean validationState
+    private boolean validated
 
     /**
     * Constructor, si se usa el tipo data se puede ahorrar
     * */
-    new(String firstName, String lastName, String userName, String mail, Date birthDay, String pass){
+    new(String firstName, String lastName, String userName, String mail, Date birthDay, String pass, boolean validation){
         nombre              = firstName
         apellido            = lastName
         nombreDeUsuario     = userName
         eMail               = mail
         fechaDeNacimiento   = birthDay
         password            = pass
-        validationState		= false
+        validated			= validation
     }
     
     new(){
-		validationState		= false
+		validated			= false
     }
     
     /**
@@ -37,5 +37,5 @@ class User {
     def String getValidationCode(){
     	return "Insert validation code generation here"
     }
-     
+	
 }

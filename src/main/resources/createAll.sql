@@ -9,7 +9,7 @@ CREATE TABLE `usuarios` (
   `email` varchar(45) DEFAULT NULL,
   `birth` DATE DEFAULT NULL,
   `password` varchar(45) NOT NULL,
-  `validationstate` varchar(45) DEFAULT NULL,
+  `validationstate` BOOL DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -3,7 +3,6 @@ package ar.edu.unq.epers.aterrizar.user
 import java.sql.Connection;
 import java.sql.DriverManager;
 import org.eclipse.xtext.xbase.lib.Functions.Function1
-import java.sql.ResultSet
 
 class UserRepo {
 	
@@ -91,6 +90,16 @@ class UserRepo {
 	 		throw new Exception("El usuario al que se le quiere cambiar la password no existe.")
 	 	}
 	 } 
+	 
+	 /**
+	  * Validates a user in the database
+	  * */
+	 def validateUser(String userName){
+	 	execute[conn|
+	 		val ps = conn.prepareStatement("UPDATE usuarios SET validationstate=TRUE WHERE username=" +userName+ ";")
+	 		ps.execute()
+	 	]
+	 }
 	 
 	def void execute(Function1<Connection, Object> closure){
 		var Connection conn = null

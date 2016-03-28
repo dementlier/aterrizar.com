@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.mail
+package ar.edu.unq.epers.aterrizar.utils
 
 
 interface EnviadorDeMails {

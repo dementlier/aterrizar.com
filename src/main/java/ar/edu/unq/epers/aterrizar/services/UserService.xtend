@@ -1,6 +1,8 @@
-package ar.edu.unq.epers.aterrizar.user
+package ar.edu.unq.epers.aterrizar.services
 
-import ar.edu.unq.epers.aterrizar.mail.EnviadorDeMails
+import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
+import ar.edu.unq.epers.aterrizar.persistence.UserRepo
+import ar.edu.unq.epers.aterrizar.models.User
 
 class UserService {
 	

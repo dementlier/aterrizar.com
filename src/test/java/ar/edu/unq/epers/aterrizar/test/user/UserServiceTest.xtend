@@ -1,7 +1,7 @@
 package ar.edu.unq.epers.aterrizar.test.user
 
-import ar.edu.unq.epers.aterrizar.user.UserService
-import ar.edu.unq.epers.aterrizar.user.User
+import ar.edu.unq.epers.aterrizar.services.UserService
+import ar.edu.unq.epers.aterrizar.models.User
 import org.junit.Before
 import java.sql.Date
 import org.junit.Test

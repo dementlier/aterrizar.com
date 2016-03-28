@@ -1,8 +1,9 @@
-package ar.edu.unq.epers.aterrizar.user
+package ar.edu.unq.epers.aterrizar.persistence
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import org.eclipse.xtext.xbase.lib.Functions.Function1
+import ar.edu.unq.epers.aterrizar.models.User
 
 class UserRepo {
 	

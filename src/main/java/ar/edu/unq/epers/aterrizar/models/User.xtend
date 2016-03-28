@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.user
+package ar.edu.unq.epers.aterrizar.models
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.sql.Date

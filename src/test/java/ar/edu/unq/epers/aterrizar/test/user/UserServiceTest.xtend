@@ -52,33 +52,19 @@ public class UserServiceTest {
 
     @Test
     def void testAUserValidatesCorrectly() {
-        try {
-            assertTrue(userService.validateUser(u.nombreDeUsuario, u.nombreDeUsuario.hashCode))
-        } catch(Exception e) {
-            fail
-        }
+        assertTrue(userService.validateUser(u.nombreDeUsuario, u.nombreDeUsuario.hashCode))
     }
 
     @Test
     def void testAPasswordChanges() {
-        try {
-
-            userService.changePassword(u.nombreDeUsuario, "3456")
-            val u2 = userService.getUser(u.nombreDeUsuario)
-            assertEquals(u2.password, "3456")
-        } catch(Exception e) {
-            fail
-        }
+        userService.changePassword(u.nombreDeUsuario, "3456")
+        val u2 = userService.getUser(u.nombreDeUsuario)
+        assertEquals(u2.password, "3456")
     }
 
-    @Test
+    @Test(expected = Exception)
     def void testARepeatedPasswordDoesntChange() {
-        try {
-            userService.changePassword(u.nombreDeUsuario, u.password)
-            fail
-        } catch(Exception e) {
-            assertEquals(e.getMessage(), "La nueva contraseña no puede ser igual a la anterior.")
-        }
+        userService.changePassword(u.nombreDeUsuario, u.password)
     }
 
     @Test

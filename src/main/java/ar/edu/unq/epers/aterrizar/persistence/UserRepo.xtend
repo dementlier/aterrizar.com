@@ -84,18 +84,13 @@ class UserRepo {
     /**
      * Changes the user password in the database if the user exists
      * */
-    def changePassword(String userName, String passWord) throws Exception{
-        val user = this.getUser(userName)
-        if(user.getPassword != passWord) {
-            execute[conn|
-                val ps = conn.prepareStatement("UPDATE usuarios SET password=? WHERE username=?;")
-                ps.setString(1, passWord)
-                ps.setString(2, userName)
-                ps.execute()
-            ]
-        } else {
-            throw new Exception("La nueva contraseña no puede ser igual a la anterior.")
-        }
+    def changePassword(String username, String passowrd) throws Exception{
+        execute[conn|
+            val ps = conn.prepareStatement("UPDATE usuarios SET password=? WHERE username=?;")
+            ps.setString(1, passowrd)
+            ps.setString(2, username)
+            ps.execute()
+        ]
     }
 
     /**

@@ -46,8 +46,14 @@ class UserService {
     /**
     * Changes the password for a given User.
     * */
-    def changePassword(String username, String pass){
-        repository.changePassword(username, pass)
+    def changePassword(String username, String password){
+        val user = repository.getUser(username)
+        if(user.getPassword != password) {
+            repository.changePassword(username, password)
+        } else {
+            throw new Exception("La nueva contraseña no puede ser igual a la anterior.")
+        }
+
     }
 
     /**

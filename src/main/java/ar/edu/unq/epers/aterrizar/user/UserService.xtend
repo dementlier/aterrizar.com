@@ -35,6 +35,13 @@ class UserService {
     def getUser(String userName) throws Exception{
         repository.getUser(userName)
     }
+    
+    /**
+    * Deletes EVERYTHING
+    * */
+    def cleanDatabase() throws Exception{
+        repository.cleanDatabase()
+    }
 
     /**
     * Changes the password for a given User.

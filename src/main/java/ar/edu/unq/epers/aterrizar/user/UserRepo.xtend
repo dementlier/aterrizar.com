@@ -131,5 +131,12 @@ class UserRepo {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/epers_aterrizar?user=root&password=root")
 	}
+	
+	def cleanDatabase(){
+		execute[conn|
+			val ps = conn.prepareStatement("DELETE FROM usuarios;")
+			ps.execute()
+		]
+	}
 	 
 }

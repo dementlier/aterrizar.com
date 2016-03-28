@@ -54,11 +54,13 @@ class UserService {
     * Validates an User's identity with a code
     * */
     def validateUser(String username, int code) throws Exception{
+
         val user = repository.getUser(username)
         if(user.getValidationCode() == code && !user.isValidated()) {
             repository.validateUser(username)
         }
-        return repository.isValidated(username)
+
+        repository.isValidated(username)
     }
 
     /**

@@ -26,6 +26,20 @@ class UserRepo {
 	 	return userCheckStatus
 	 }
 	 
+	 private def boolean checkForUserAndPass(String userName, String passWord){
+		execute[conn|
+			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +userName+ " AND password=" +passWord+ ";")
+			val rs = ps.executeQuery()
+			
+			if(rs.next()){
+				this.userCheckStatus = true
+			} else {
+				this.userCheckStatus = false
+			}
+		]
+	 	return userCheckStatus
+	 }
+	 
 	 /**
 	  * Registers user into the database if the user doesn't exist
 	  * */
@@ -81,13 +95,14 @@ class UserRepo {
 	  * Changes the user password in the database if the user exists
 	  * */
 	 def changePassword(String userName, String passWord) throws Exception{
-	 	if(this.checkForUser(userName)){
+	 	val user = this.getUser(userName)
+	 	if(user.getPassword != passWord){
 	 		execute[conn|
 	 			val ps = conn.prepareStatement("UPDATE usuarios SET password=" +passWord+ " WHERE username=" +userName+ ";")
 	 			ps.execute()
 	 		]
 	 	} else {
-	 		throw new Exception("El usuario al que se le quiere cambiar la password no existe.")
+	 		throw new Exception("La nueva contraseña no puede ser igual a la anterior")
 	 	}
 	 } 
 	 

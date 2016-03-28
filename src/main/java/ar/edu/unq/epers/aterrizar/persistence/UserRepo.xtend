@@ -138,7 +138,7 @@ class UserRepo {
 	 	return userValidationState
 	 }
 	 
-	def void execute(Function1<Connection, Object> closure){
+	def Object execute(Function1<Connection, Object> closure){
 		var Connection conn = null
 		try{
 			conn = this.connection

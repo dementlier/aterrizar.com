@@ -6,24 +6,43 @@ import org.junit.Before
 import java.sql.Date
 import org.junit.Test
 import static org.junit.Assert.*;
-
+import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
+import org.mockito.Mockito
+import ar.edu.unq.epers.aterrizar.utils.Mail
+import org.mockito.stubbing.Answer
+import org.mockito.invocation.InvocationOnMock
 
 public class UserServiceTest {
 
     UserService userService;
     User u;
+	EnviadorDeMails enviador
+	Mail mail
 
     @Before
     def void setUp(){
+    	// Inicializaciones
         userService = new UserService()
         userService.cleanDatabase()
         u = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
-        userService.registerUser(u);
         
+        // Mocks
+        enviador 	= Mockito.mock(EnviadorDeMails)
+        mail 		= Mockito.mock(Mail)
+        Mockito.doAnswer(new Answer() {
+			override answer(InvocationOnMock invocation) throws Throwable {
+				throw new UnsupportedOperationException("TODO: auto-generated method stub")
+			}
+		}).when(enviador).enviarMail(mail)
+		
+		// Register user
+		userService.setEnviador(enviador)
+        userService.registerUser(u);
     }
 
     @Test
     def void testANewUserRegistersSuccesfullyIntoTheSystem(){
+		
     	try{
     	val u2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
     		userService.registerUser(u2);

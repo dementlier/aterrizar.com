@@ -10,21 +10,21 @@ class UserRepo {
     /**
      * Checks if the username is in the database
      * */
-    private def boolean checkForUser(String userName){
+    private def boolean checkForUser(String username){
         execute[conn|
             val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=?;")
-            ps.setString(1, userName)
+            ps.setString(1, username)
             val rs = ps.executeQuery()
 
             rs.next()
         ]
     }
 
-    def boolean checkLogin(String userName, String passWord){
+    def boolean checkLogin(String username, String password){
         execute[conn|
             val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=? AND password=?;")
-            ps.setString(1, userName)
-            ps.setString(2, passWord)
+            ps.setString(1, username)
+            ps.setString(2, password)
             val rs = ps.executeQuery()
 
             rs.next()
@@ -66,11 +66,11 @@ class UserRepo {
     /**
      * Retrieves the user from the database if the user exists
      * */
-    def User getUser(String userName) throws Exception{
-        if(this.checkForUser(userName)) {
+    def User getUser(String username) throws Exception{
+        if(this.checkForUser(username)) {
             execute[conn|
                 val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=?;")
-                ps.setString(1, userName)
+                ps.setString(1, username)
                 val rs = ps.executeQuery()
                 rs.next()
 
@@ -96,18 +96,18 @@ class UserRepo {
     /**
      * Validates a user in the database
      * */
-    def validateUser(String userName){
+    def validateUser(String username){
         execute[conn|
             val ps = conn.prepareStatement("UPDATE usuarios SET validationstate=TRUE WHERE username=?;")
-            ps.setString(1, userName)
+            ps.setString(1, username)
             ps.execute()
         ]
     }
 
-    def isValidated(String userName){
+    def isValidated(String username){
         execute[conn|
             val ps = conn.prepareStatement("SELECT validationstate FROM usuarios WHERE username=?;")
-            ps.setString(1, userName)
+            ps.setString(1, username)
             val rs = ps.executeQuery()
             rs.next()
 

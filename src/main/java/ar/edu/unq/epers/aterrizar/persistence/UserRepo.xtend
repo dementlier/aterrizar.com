@@ -7,10 +7,6 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1
 
 class UserRepo {
 
-    boolean userCheckStatus = false
-    User userInsideDatabase
-    boolean userValidationState
-
     /**
      * Checks if the username is in the database
      * */
@@ -20,16 +16,11 @@ class UserRepo {
             ps.setString(1, userName)
             val rs = ps.executeQuery()
 
-            if(rs.next()){
-                this.userCheckStatus = true
-            } else {
-                this.userCheckStatus = false
-            }
+            rs.next()
         ]
-        return userCheckStatus
-     }
+    }
 
-     def boolean checkLogin(String userName, String passWord){
+    def boolean checkLogin(String userName, String passWord){
         execute[conn|
             val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=? AND password=?;")
             ps.setString(1, userName)
@@ -38,14 +29,14 @@ class UserRepo {
 
             rs.next()
         ]
-     }
+    }
 
-     /**
-      * Registers user into the database if the user doesn't exist
-      * */
-     def registerUser(User user) throws Exception{
+    /**
+     * Registers user into the database if the user doesn't exist
+     * */
+    def registerUser(User user) throws Exception{
 
-        if(!this.checkForUser(user.getNombreDeUsuario())){
+        if(!this.checkForUser(user.getNombreDeUsuario())) {
             val nombre = user.getNombre()
             val apellido = user.getApellido()
             val nombreDeUsuario = user.getNombreDeUsuario()
@@ -70,34 +61,32 @@ class UserRepo {
         } else {
             throw new Exception("El usuario ya esta registrado.")
         }
-     }
+    }
 
-     /**
-      * Retrieves the user from the database if the user exists
-      * */
-     def User getUser(String userName) throws Exception{
-        if(this.checkForUser(userName)){
+    /**
+     * Retrieves the user from the database if the user exists
+     * */
+    def User getUser(String userName) throws Exception{
+        if(this.checkForUser(userName)) {
             execute[conn|
                 val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=?;")
                 ps.setString(1, userName)
                 val rs = ps.executeQuery()
                 rs.next()
 
-                userInsideDatabase = new User(rs.getString("name"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getDate("birth"), rs.getString("password"), rs.getBoolean("validationstate"))
-                null
+                new User(rs.getString("name"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getDate("birth"), rs.getString("password"), rs.getBoolean("validationstate"))
             ]
         } else {
             throw new Exception("No existe un usuario con ese nombre.")
         }
-        return userInsideDatabase
-     }
+    }
 
-     /**
-      * Changes the user password in the database if the user exists
-      * */
-     def changePassword(String userName, String passWord) throws Exception{
+    /**
+     * Changes the user password in the database if the user exists
+     * */
+    def changePassword(String userName, String passWord) throws Exception{
         val user = this.getUser(userName)
-        if(user.getPassword != passWord){
+        if(user.getPassword != passWord) {
             execute[conn|
                 val ps = conn.prepareStatement("UPDATE usuarios SET password=? WHERE username=?;")
                 ps.setString(1, passWord)
@@ -107,31 +96,29 @@ class UserRepo {
         } else {
             throw new Exception("La nueva contraseña no puede ser igual a la anterior.")
         }
-     }
+    }
 
-     /**
-      * Validates a user in the database
-      * */
-     def validateUser(String userName){
+    /**
+     * Validates a user in the database
+     * */
+    def validateUser(String userName){
         execute[conn|
             val ps = conn.prepareStatement("UPDATE usuarios SET validationstate=TRUE WHERE username=?;")
             ps.setString(1, userName)
             ps.execute()
         ]
-     }
+    }
 
-     def isValidated(String userName){
+    def isValidated(String userName){
         execute[conn|
             val ps = conn.prepareStatement("SELECT validationstate FROM usuarios WHERE username=?;")
             ps.setString(1, userName)
             val rs = ps.executeQuery()
             rs.next()
 
-            userValidationState = rs.getBoolean("validationstate")
-            null
+            rs.getBoolean("validationstate")
         ]
-        return userValidationState
-     }
+    }
 
     def <T> T execute(Function1<Connection, Object> closure){
         var Connection conn = null

@@ -3,6 +3,7 @@ package ar.edu.unq.epers.aterrizar.services
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.utils.Mail
 
 class UserService {
 	
@@ -23,7 +24,7 @@ class UserService {
     def registerUser(User user) throws Exception{
     	try{
 			repository.registerUser(user)
-			this.enviarMail(user.getEMail())
+			this.enviarMail(user.getEMail(), user.getValidationCode())
 		} catch(Exception e) {
 			throw new Exception(e.getMessage())
 		}
@@ -71,8 +72,7 @@ class UserService {
 		repository.checkLogin(username, pass)
     }
     
-    def enviarMail(String email){
-    	// this.mailSender.enviarMail(new Mail(body, subject, email, from))
-    	// Habra que testear con Mockito esto, al ser una interfaz...
+    def enviarMail(String email, int code){
+    	this.mailSender.enviarMail(new Mail("Su codigo es: " + code, "Codigo de validacion", email, "admin@pp.com"))
     }
 }

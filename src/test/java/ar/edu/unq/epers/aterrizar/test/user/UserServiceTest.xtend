@@ -58,7 +58,7 @@ public class UserServiceTest {
     	}
     }
     
-        @Test
+    @Test
     def void testARepeatedPasswordDoesntChange(){
     	try{
     		userService.changePassword(u.nombreDeUsuario, u.password)
@@ -67,6 +67,11 @@ public class UserServiceTest {
     	catch(Exception e){
     		assertEquals(e.getMessage(), "La nueva contraseña no puede ser igual a la anterior.")
     	}
+    }
+    
+    @Test
+    def testAUserLoginsSuccessfully(){
+    		assertTrue(userService.login(u.nombreDeUsuario, u.password))
     }
     
     

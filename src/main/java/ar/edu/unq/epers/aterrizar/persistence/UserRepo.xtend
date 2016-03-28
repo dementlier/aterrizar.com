@@ -30,7 +30,7 @@ class UserRepo {
 	 
 	 def boolean checkLogin(String userName, String passWord){
 		execute[conn|
-			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +userName+ " AND password=" +passWord+ ";")
+			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +"'"+userName+"'" + " AND password=" +"'" + passWord + "'" + ";")
 			val rs = ps.executeQuery()
 			
 			if(rs.next()){

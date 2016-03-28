@@ -15,3 +15,12 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# ignoro archivos de ide
+.idea
+
+# ignoro archivos generados
+target
+src/main/xtend-gen
+src/test/xtend-gen
+aterrizar.com.iml

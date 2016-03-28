@@ -45,6 +45,11 @@ public class UserServiceTest {
         Mockito.verify(enviador).enviarMail(mail)
     }
 
+    @Test(expected = Exception)
+    def void testANewUserCannotRegisterIfAlreadyExists() {
+        userService.registerUser(u);
+    }
+
     @Test
     def void testAUserValidatesCorrectly() {
         try {

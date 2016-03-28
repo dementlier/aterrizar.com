@@ -1,30 +1,29 @@
 package ar.edu.unq.epers.aterrizar.services
 
-import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
-import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.persistence.UserRepo
+import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
-import ar.edu.unq.epers.aterrizar.utils.EnviarMailException
 
 class UserService {
-	
-	UserRepo repository
-	EnviadorDeMails mailSender
-	
-	new(){
-		repository = new UserRepo()
-	}
-	
-	def setEnviador(EnviadorDeMails enviador){
-		mailSender = enviador
-	}
+
+    UserRepo repository
+    EnviadorDeMails mailSender
+
+    new(){
+        repository = new UserRepo()
+    }
+
+    def setEnviador(EnviadorDeMails enviador){
+        mailSender = enviador
+    }
 
     /**
     * Registers a User in the system
     * */
     def registerUser(User user) throws Exception{
-		repository.registerUser(user)
-		this.enviarMail(user.getEMail(), user.getValidationCode())
+        repository.registerUser(user)
+        this.enviarMail(user.getEMail(), user.getValidationCode())
     }
 
     /**
@@ -36,7 +35,7 @@ class UserService {
     def getUser(String userName) throws Exception{
         repository.getUser(userName)
     }
-    
+
     /**
     * Deletes EVERYTHING
     * */
@@ -48,28 +47,28 @@ class UserService {
     * Changes the password for a given User.
     * */
     def changePassword(String username, String pass){
-		repository.changePassword(username, pass)
+        repository.changePassword(username, pass)
     }
 
     /**
     * Validates an User's identity with a code
     * */
     def validateUser(String username, int code) throws Exception{
-		val user = repository.getUser(username)
-		if(user.getValidationCode() == code && !user.isValidated()){
-			repository.validateUser(username)
-		}
-		return repository.isValidated(username)
+        val user = repository.getUser(username)
+        if(user.getValidationCode() == code && !user.isValidated()) {
+            repository.validateUser(username)
+        }
+        return repository.isValidated(username)
     }
 
     /**
     * logs a User into the system
     * */
     def login(String username, String pass){
-		repository.checkLogin(username, pass)
+        repository.checkLogin(username, pass)
     }
-    
+
     def enviarMail(String email, int code){
-    	this.mailSender.enviarMail(new Mail("Su codigo es: " + code, "Codigo de validacion", email, "admin@pp.com"))
+        this.mailSender.enviarMail(new Mail("Su codigo es: " + code, "Codigo de validacion", email, "admin@pp.com"))
     }
 }

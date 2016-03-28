@@ -20,9 +20,8 @@ hs_err_pid*
 .idea
 
 # ignoro archivos generados
-target
-src/main/xtend-gen
-src/test/xtend-gen
+/src/main/xtend-gen
+/src/test/xtend-gen
 aterrizar.com.iml
 .vagrant
 Vagrantfile

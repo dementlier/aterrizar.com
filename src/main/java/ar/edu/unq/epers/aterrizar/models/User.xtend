@@ -1,7 +1,7 @@
 package ar.edu.unq.epers.aterrizar.models
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.sql.Date
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class User {
@@ -23,18 +23,18 @@ class User {
         eMail               = mail
         fechaDeNacimiento   = birthDay
         password            = pass
-        validated			= validation
+        validated           = validation
     }
-    
+
     new(){
-		validated			= false
+        validated            = false
     }
-    
+
     /**
      * Returns the validation code
      */
     def int getValidationCode(){
-    	return nombreDeUsuario.hashCode()
+        return nombreDeUsuario.hashCode()
     }
-	
+
 }

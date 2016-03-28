@@ -17,6 +17,15 @@ class UserService {
     }
 
     /**
+    * Gets the user with the specified userName
+    * @param userName a valid userName
+    * @returns a User
+    * */
+    def getUser(String userName) throws Exception{
+        repository.getUser(userName)
+    }
+
+    /**
     * Changes the password for a given User.
     * */
     def changePassword(String username, String pass){
@@ -24,7 +33,7 @@ class UserService {
     }
 
     /**
-    * Validates an User's identity with a codigo
+    * Validates an User's identity with a code
     * */
     def validateUser(String username, String code) throws Exception{
 		val user = repository.getUser(username)

@@ -14,7 +14,7 @@ class UserRepo {
 	 * */
 	 private def boolean checkForUser(String userName){
 		execute[conn|
-			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +userName+ ";")
+			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +"'"+userName+ "'"+";")
 			val rs = ps.executeQuery()
 			
 			if(rs.next()){
@@ -46,7 +46,7 @@ class UserRepo {
 				ps.setString(2, apellido)
 				ps.setString(3, nombreDeUsuario)
 				ps.setString(4, eMail)
-				// ps.setString(5, fechaDeNacimiento) es una fecha, no puede ser guardada como String...
+				ps.setDate(5, fechaDeNacimiento) //es una fecha, no puede ser guardada como String...
 				ps.setString(6, password)
 				ps.setBoolean(7, validated)
 				
@@ -64,7 +64,7 @@ class UserRepo {
 	 def User getUser(String userName) throws Exception{
 	 	if(this.checkForUser(userName)){
 	 		execute[conn|
-	 			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +userName+ ";")
+	 			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +"'"+userName+ "'"+";")
 	 			val rs = ps.executeQuery()
 	 			rs.next()
 	 			
@@ -83,7 +83,7 @@ class UserRepo {
 	 def changePassword(String userName, String passWord) throws Exception{
 	 	if(this.checkForUser(userName)){
 	 		execute[conn|
-	 			val ps = conn.prepareStatement("UPDATE usuarios SET password=" +passWord+ " WHERE username=" +userName+ ";")
+	 			val ps = conn.prepareStatement("UPDATE usuarios SET password=" +passWord+ " WHERE username=" +"'"+userName+"'"+ ";")
 	 			ps.execute()
 	 		]
 	 	} else {
@@ -96,7 +96,7 @@ class UserRepo {
 	  * */
 	 def validateUser(String userName){
 	 	execute[conn|
-	 		val ps = conn.prepareStatement("UPDATE usuarios SET validationstate=TRUE WHERE username=" +userName+ ";")
+	 		val ps = conn.prepareStatement("UPDATE usuarios SET validationstate=TRUE WHERE username=" +"'"+userName+"'"+ ";")
 	 		ps.execute()
 	 	]
 	 }

@@ -9,6 +9,7 @@ class UserRepo {
 	
 	boolean userCheckStatus = false
 	User userInsideDatabase
+	boolean userValidationState
 	
 	/**
 	 * Checks if the username is in the database
@@ -27,7 +28,7 @@ class UserRepo {
 	 	return userCheckStatus
 	 }
 	 
-	 private def boolean checkForUserAndPass(String userName, String passWord){
+	 def boolean checkLogin(String userName, String passWord){
 		execute[conn|
 			val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=" +userName+ " AND password=" +passWord+ ";")
 			val rs = ps.executeQuery()
@@ -115,6 +116,18 @@ class UserRepo {
 	 		val ps = conn.prepareStatement("UPDATE usuarios SET validationstate=TRUE WHERE username=" +"'"+userName+"'"+ ";")
 	 		ps.execute()
 	 	]
+	 }
+	 
+	 def isValidated(String userName){
+	 	execute[conn|
+	 		val ps = conn.prepareStatement("SELECT validationstate FROM usuarios WHERE username=" +"'"+userName+"'"+ ";")
+	 		val rs = ps.executeQuery()
+	 		rs.next()
+	 		
+	 		userValidationState = rs.getBoolean("validationstate")
+	 		null
+	 	]
+	 	return userValidationState
 	 }
 	 
 	def void execute(Function1<Connection, Object> closure){

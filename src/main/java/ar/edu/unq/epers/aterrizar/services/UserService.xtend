@@ -31,6 +31,7 @@ class UserService {
 
     /**
     * Gets the user with the specified userName
+    * The user must be registered
     * @param userName a valid userName
     * @returns a User
     * */
@@ -55,21 +56,19 @@ class UserService {
     /**
     * Validates an User's identity with a code
     * */
-    def validateUser(String username, String code) throws Exception{
+    def validateUser(String username, int code) throws Exception{
 		val user = repository.getUser(username)
-		if(user.getValidationCode() == code){
+		if(user.getValidationCode() == code && !user.isValidated()){
 			repository.validateUser(username)
 		}
+		return repository.isValidated(username)
     }
 
     /**
     * logs a User into the system
     * */
     def login(String username, String pass){
-		// Hay que penser una manera de que un login tenga sentido.
-		// Podriamos poner un campo en la DB en el que le ponemos un boolean y cuando hace login el boolean se setea a true
-		// y cuando hace logout el boolean se setea a false, y así siempre que tengamos que chequear si esta conectado lo vemos en la DB
-		// Aunque me parece una implementacion horrible, es la única manera que se me ocurrió.
+		repository.checkLogin(username, pass)
     }
     
     def enviarMail(String email){

@@ -33,8 +33,8 @@ class User {
     /**
      * Returns the validation code
      */
-    def String getValidationCode(){
-    	return "Insert validation code generation here"
+    def int getValidationCode(){
+    	return nombreDeUsuario.hashCode()
     }
 	
 }

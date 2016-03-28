@@ -38,15 +38,11 @@ public class UserServiceTest {
     @Test
     def void testANewUserRegistersSuccesfullyIntoTheSystem() {
 
-        try {
-            val u2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
-            userService.registerUser(u2);
-            val user = userService.getUser("pepejuarez");
-            assertEquals(user.getNombreDeUsuario(), u2.getNombreDeUsuario());
-            Mockito.verify(enviador).enviarMail(mail)
-        } catch(Exception e) {
-            fail
-        }
+        val u2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
+        userService.registerUser(u2);
+        val user = userService.getUser("pepejuarez");
+        assertEquals(user.getNombreDeUsuario(), u2.getNombreDeUsuario());
+        Mockito.verify(enviador).enviarMail(mail)
     }
 
     @Test

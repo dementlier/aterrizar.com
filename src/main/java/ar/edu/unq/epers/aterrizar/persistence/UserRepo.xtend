@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.utils.EnviarMailException
 
 class UserRepo {
 	
@@ -36,13 +37,8 @@ class UserRepo {
 			ps.setString(2, passWord)
 			val rs = ps.executeQuery()
 			
-			if(rs.next()){
-				this.userCheckStatus = true
-			} else {
-				this.userCheckStatus = false
-			}
+			rs.next()
 		]
-	 	return userCheckStatus
 	 }
 	 
 	 /**
@@ -138,11 +134,11 @@ class UserRepo {
 	 	return userValidationState
 	 }
 	 
-	def Object execute(Function1<Connection, Object> closure){
+	def <T> T execute(Function1<Connection, Object> closure){
 		var Connection conn = null
 		try{
 			conn = this.connection
-			closure.apply(conn)
+			closure.apply(conn) as T
 		}finally{
 			if(conn != null)
 				conn.close();

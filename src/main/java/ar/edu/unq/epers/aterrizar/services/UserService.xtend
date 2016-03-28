@@ -4,6 +4,7 @@ import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.utils.Mail
+import ar.edu.unq.epers.aterrizar.utils.EnviarMailException
 
 class UserService {
 	
@@ -22,12 +23,8 @@ class UserService {
     * Registers a User in the system
     * */
     def registerUser(User user) throws Exception{
-    	try{
-			repository.registerUser(user)
-			this.enviarMail(user.getEMail(), user.getValidationCode())
-		} catch(Exception e) {
-			throw new Exception(e.getMessage())
-		}
+		repository.registerUser(user)
+		this.enviarMail(user.getEMail(), user.getValidationCode())
     }
 
     /**

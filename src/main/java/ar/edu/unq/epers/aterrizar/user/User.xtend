@@ -1,8 +1,7 @@
 package ar.edu.unq.epers.aterrizar.user
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.Date
-
+import java.sql.Date
 
 @Accessors
 class User {

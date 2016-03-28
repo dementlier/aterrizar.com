@@ -28,6 +28,15 @@ class UserService {
     }
 
     /**
+    * Gets the user with the specified userName
+    * @param userName a valid userName
+    * @returns a User
+    * */
+    def getUser(String userName) throws Exception{
+        repository.getUser(userName)
+    }
+
+    /**
     * Changes the password for a given User.
     * */
     def changePassword(String username, String pass){

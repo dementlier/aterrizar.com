@@ -60,7 +60,7 @@ class UserRepo {
 				ps.setString(2, apellido)
 				ps.setString(3, nombreDeUsuario)
 				ps.setString(4, eMail)
-				ps.setDate(5, fechaDeNacimiento) //es una fecha, no puede ser guardada como String...
+				ps.setDate(5, fechaDeNacimiento)
 				ps.setString(6, password)
 				ps.setBoolean(7, validated)
 				
@@ -102,7 +102,7 @@ class UserRepo {
 	 			ps.execute()
 	 		]
 	 	} else {
-	 		throw new Exception("La nueva contraseña no puede ser igual a la anterior")
+	 		throw new Exception("La nueva contraseña no puede ser igual a la anterior.")
 	 	}
 	 } 
 	 

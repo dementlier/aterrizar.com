@@ -4,5 +4,4 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class UserDoesNotExistsException extends Exception {
-    Mail mail
 }

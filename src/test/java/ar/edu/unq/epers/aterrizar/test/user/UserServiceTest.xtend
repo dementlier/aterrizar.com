@@ -52,7 +52,7 @@ public class UserServiceTest {
 
     @Test
     def void testAUserValidatesCorrectly() {
-        assertEquals(userService.validateUser(u.nombreDeUsuario, u.nombreDeUsuario.hashCode), true)
+        assertTrue(userService.validateUser(u.nombreDeUsuario, u.nombreDeUsuario.hashCode))
     }
 
     @Test

@@ -104,7 +104,7 @@ class UserRepo {
         ]
     }
 
-    def isValidated(String username){
+    def boolean isValidated(String username){
         execute[conn|
             val ps = conn.prepareStatement("SELECT validationstate FROM usuarios WHERE username=?;")
             ps.setString(1, username)

@@ -4,8 +4,9 @@ import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.services.UserService
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.EnviarMailException
-import ar.edu.unq.epers.aterrizar.utils.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.utils.Mail
+import ar.edu.unq.epers.aterrizar.utils.UserAlreadyExistsException
+import ar.edu.unq.epers.aterrizar.utils.UserDoesNotExistsException
 import java.sql.Date
 import org.junit.Before
 import org.junit.Test
@@ -49,6 +50,11 @@ public class UserServiceTest {
     @Test(expected = UserAlreadyExistsException)
     def void testANewUserCannotRegisterIfAlreadyExists() {
         userService.registerUser(u);
+    }
+
+    @Test(expected = UserDoesNotExistsException)
+    def void testAnInexistentUserCannotBeRetrieved() {
+        userService.getUser("i_dont_exist");
     }
 
     @Test

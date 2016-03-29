@@ -1,6 +1,7 @@
 package ar.edu.unq.epers.aterrizar.persistence
 
 import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.utils.UserDoesNotExistsException
 import java.sql.Connection
 import java.sql.DriverManager
 import org.eclipse.xtext.xbase.lib.Functions.Function1
@@ -36,27 +37,27 @@ class UserRepo {
      * */
     def registerUser(User user) throws Exception{
 
-            val nombre = user.getNombre()
-            val apellido = user.getApellido()
-            val nombreDeUsuario = user.getNombreDeUsuario()
-            val eMail = user.getEMail()
-            val fechaDeNacimiento = user.getFechaDeNacimiento()
-            val password = user.getPassword()
-            val validated = user.isValidated()
+        val nombre = user.getNombre()
+        val apellido = user.getApellido()
+        val nombreDeUsuario = user.getNombreDeUsuario()
+        val eMail = user.getEMail()
+        val fechaDeNacimiento = user.getFechaDeNacimiento()
+        val password = user.getPassword()
+        val validated = user.isValidated()
 
-            execute[conn|
-                val ps = conn.prepareStatement("INSERT INTO usuarios (name, surname, username, email, birth, password, validationstate) VALUES (?,?,?,?,?,?,?);")
-                ps.setString(1, nombre)
-                ps.setString(2, apellido)
-                ps.setString(3, nombreDeUsuario)
-                ps.setString(4, eMail)
-                ps.setDate(5, fechaDeNacimiento)
-                ps.setString(6, password)
-                ps.setBoolean(7, validated)
+        execute[conn|
+            val ps = conn.prepareStatement("INSERT INTO usuarios (name, surname, username, email, birth, password, validationstate) VALUES (?,?,?,?,?,?,?);")
+            ps.setString(1, nombre)
+            ps.setString(2, apellido)
+            ps.setString(3, nombreDeUsuario)
+            ps.setString(4, eMail)
+            ps.setDate(5, fechaDeNacimiento)
+            ps.setString(6, password)
+            ps.setBoolean(7, validated)
 
-                ps.execute()
+            ps.execute()
 
-            ]
+        ]
     }
 
     /**
@@ -73,7 +74,7 @@ class UserRepo {
                 new User(rs.getString("name"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getDate("birth"), rs.getString("password"), rs.getBoolean("validationstate"))
             ]
         } else {
-            throw new Exception("No existe un usuario con ese nombre.")
+            throw new UserDoesNotExistsException
         }
     }
 

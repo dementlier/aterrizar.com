@@ -5,6 +5,7 @@ import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.utils.UserAlreadyExistsException
+import ar.edu.unq.epers.aterrizar.utils.UserNewPasswordSameAsOldPasswordException
 
 class UserService {
 
@@ -53,12 +54,12 @@ class UserService {
     /**
     * Changes the password for a given User.
     * */
-    def changePassword(String username, String password){
+    def changePassword(String username, String password) throws Exception{
         val user = repository.getUser(username)
         if(user.getPassword != password) {
             repository.changePassword(username, password)
         } else {
-            throw new Exception("La nueva contraseña no puede ser igual a la anterior.")
+            throw new UserNewPasswordSameAsOldPasswordException
         }
 
     }

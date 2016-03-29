@@ -79,9 +79,9 @@ class UserRepo {
     }
 
     /**
-     * Changes the user password in the database if the user exists
+     * Changes the user password in the database
      * */
-    def changePassword(String username, String passowrd) throws Exception{
+    def changePassword(String username, String passowrd){
         execute[conn|
             val ps = conn.prepareStatement("UPDATE usuarios SET password=? WHERE username=?;")
             ps.setString(1, passowrd)

@@ -7,6 +7,7 @@ import ar.edu.unq.epers.aterrizar.utils.EnviarMailException
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.utils.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.utils.UserDoesNotExistsException
+import ar.edu.unq.epers.aterrizar.utils.UserNewPasswordSameAsOldPasswordException
 import java.sql.Date
 import org.junit.Before
 import org.junit.Test
@@ -69,8 +70,8 @@ public class UserServiceTest {
         assertEquals(u2.password, "3456")
     }
 
-    @Test(expected = Exception)
-    def void testARepeatedPasswordDoesntChange() {
+    @Test(expected = UserNewPasswordSameAsOldPasswordException)
+    def void testAPasswordDoesNotChangeIfItIsSameAsOld() {
         userService.changePassword(u.nombreDeUsuario, u.password)
     }
 

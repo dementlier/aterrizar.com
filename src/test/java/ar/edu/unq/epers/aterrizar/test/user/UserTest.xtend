@@ -1,3 +1,5 @@
+package ar.edu.unq.epers.aterrizar.test.user
+
 import ar.edu.unq.epers.aterrizar.models.User
 import java.sql.Date
 import org.junit.Test

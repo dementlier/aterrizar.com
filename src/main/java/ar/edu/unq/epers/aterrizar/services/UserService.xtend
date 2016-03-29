@@ -4,6 +4,7 @@ import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
+import ar.edu.unq.epers.aterrizar.utils.UserAlreadyExistsException
 
 class UserService {
 
@@ -21,9 +22,15 @@ class UserService {
     /**
     * Registers a User in the system
     * */
-    def registerUser(User user) throws Exception{
-        repository.registerUser(user)
-        this.enviarMail(user.getEMail(), user.getValidationCode())
+    def registerUser(User user){
+
+        if(repository.checkForUser(user.getNombreDeUsuario())) {
+            throw new UserAlreadyExistsException
+        } else {
+            repository.registerUser(user)
+            this.enviarMail(user.getEMail(), user.getValidationCode())
+        }
+
     }
 
     /**

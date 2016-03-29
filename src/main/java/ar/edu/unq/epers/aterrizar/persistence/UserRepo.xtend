@@ -10,7 +10,7 @@ class UserRepo {
     /**
      * Checks if the username is in the database
      * */
-    private def boolean checkForUser(String username){
+    def boolean checkForUser(String username){
         execute[conn|
             val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=?;")
             ps.setString(1, username)
@@ -32,11 +32,10 @@ class UserRepo {
     }
 
     /**
-     * Registers user into the database if the user doesn't exist
+     * Registers user into the database
      * */
     def registerUser(User user) throws Exception{
 
-        if(!this.checkForUser(user.getNombreDeUsuario())) {
             val nombre = user.getNombre()
             val apellido = user.getApellido()
             val nombreDeUsuario = user.getNombreDeUsuario()
@@ -58,9 +57,6 @@ class UserRepo {
                 ps.execute()
 
             ]
-        } else {
-            throw new Exception("El usuario ya esta registrado.")
-        }
     }
 
     /**

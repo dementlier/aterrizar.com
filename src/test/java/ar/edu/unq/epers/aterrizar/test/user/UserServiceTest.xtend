@@ -4,6 +4,7 @@ import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.services.UserService
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.EnviarMailException
+import ar.edu.unq.epers.aterrizar.utils.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import java.sql.Date
 import org.junit.Before
@@ -45,7 +46,7 @@ public class UserServiceTest {
         Mockito.verify(enviador).enviarMail(mail)
     }
 
-    @Test(expected = Exception)
+    @Test(expected = UserAlreadyExistsException)
     def void testANewUserCannotRegisterIfAlreadyExists() {
         userService.registerUser(u);
     }

@@ -17,85 +17,85 @@ import static org.junit.Assert.*
 
 public class UserServiceTest {
 
-    UserService userService;
-    User user;
-    EnviadorDeMails enviador
-    Mail mail
+	UserService userService;
+	User user;
+	EnviadorDeMails enviador
+	Mail mail
 
-    @Before
-    def void setUp() {
-        // Inicializaciones
-        userService = new UserService()
-        userService.deleteAllUsersInDB()
-        user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
+	@Before
+	def void setUp() {
 
-        // Mocks
-        enviador = Mockito.mock(typeof(EnviadorDeMails))
-        mail = new Mail("Su codigo es: " + "pepejuarez".hashCode(), "Codigo de validacion", "p@p.com", "admin@pp.com")
+		// Inicializaciones
+		userService = new UserService()
+		userService.deleteAllUsersInDB()
+		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
 
-        // Register user
-        userService.setEnviador(enviador)
-        userService.registerUser(user);
-    }
+		// Mocks
+		enviador = Mockito.mock(typeof(EnviadorDeMails))
+		mail = new Mail("Su codigo es: " + "pepejuarez".hashCode(), "Codigo de validacion", "p@p.com", "admin@pp.com")
 
-    @Test
-    def void testANewUserRegistersSuccesfullyIntoTheSystem() {
+		// Register user
+		userService.setEnviador(enviador)
+		userService.registerUser(user);
+	}
 
-        val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
-        userService.registerUser(user2);
-        val user = userService.checkForUser("pepejuarez");
-        assertEquals(user.getNombreDeUsuario(), user2.getNombreDeUsuario());
-        Mockito.verify(enviador).enviarMail(mail)
-    }
+	@Test
+	def void testANewUserRegistersSuccesfullyIntoTheSystem() {
 
-    @Test(expected = UserAlreadyExistsException)
-    def void testANewUserCannotRegisterIfAlreadyExists() {
-        userService.registerUser(user);
-    }
+		val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
+		userService.registerUser(user2);
+		val user = userService.checkForUser("pepejuarez");
+		assertEquals(user.getNombreDeUsuario(), user2.getNombreDeUsuario());
+		Mockito.verify(enviador).enviarMail(mail)
+	}
 
-    @Test(expected = UserDoesNotExistsException)
-    def void testAnInexistentUserCannotBeRetrieved() {
-        userService.checkForUser("i_dont_exist");
-    }
+	@Test(expected=UserAlreadyExistsException)
+	def void testANewUserCannotRegisterIfAlreadyExists() {
+		userService.registerUser(user);
+	}
 
-    @Test
-    def void testAUserValidatesCorrectly() {
-        assertTrue(userService.validateUser(user.nombreDeUsuario, user.nombreDeUsuario.hashCode))
-    }
+	@Test(expected=UserDoesNotExistsException)
+	def void testAnInexistentUserCannotBeRetrieved() {
+		userService.checkForUser("i_dont_exist");
+	}
 
-    @Test
-    def void testAPasswordChanges() {
-        userService.changePassword(user.nombreDeUsuario, "3456")
-        val user2 = userService.checkForUser(user.nombreDeUsuario)
-        assertEquals(user2.password, "3456")
-    }
+	@Test
+	def void testAUserValidatesCorrectly() {
+		assertTrue(userService.validateUser(user.nombreDeUsuario, user.nombreDeUsuario.hashCode))
+	}
 
-    @Test(expected = UserNewPasswordSameAsOldPasswordException)
-    def void testAPasswordDoesNotChangeIfItIsSameAsOld() {
-        userService.changePassword(user.nombreDeUsuario, user.password)
-    }
+	@Test
+	def void testAPasswordChanges() {
+		userService.changePassword(user.nombreDeUsuario, "3456")
+		val user2 = userService.checkForUser(user.nombreDeUsuario)
+		assertEquals(user2.password, "3456")
+	}
 
-    @Test
-    def testAUserLoginsSuccessfully() {
-        assertTrue(userService.login(user.nombreDeUsuario, user.password))
-    }
-    
-    @Test(expected = UserDoesNotExistsException)
-    def void testAUserFailsToLoginBecauseTheUserDoesNotExist(){
-    	userService.login("i_dont_exist", "asdasdasd")
-    }
-    
-    @Test
-    def void testAUserFailsToLoginBecausePasswordIsInvalid(){
-    	assertFalse(userService.login(user.nombreDeUsuario, "passNoValida"))
-    }
+	@Test(expected=UserNewPasswordSameAsOldPasswordException)
+	def void testAPasswordDoesNotChangeIfItIsSameAsOld() {
+		userService.changePassword(user.nombreDeUsuario, user.password)
+	}
 
-    @Test(expected = EnviarMailException)
-    def void testCheckForExceptionOnMailSending(){
-        Mockito.doThrow(EnviarMailException).when(enviador).enviarMail(mail)
-        val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
-        userService.registerUser(user2);
-    }
+	@Test
+	def testAUserLoginsSuccessfully() {
+		assertTrue(userService.login(user.nombreDeUsuario, user.password))
+	}
 
+	@Test(expected=UserDoesNotExistsException)
+	def void testAUserFailsToLoginBecauseTheUserDoesNotExist() {
+		userService.login("i_dont_exist", "asdasdasd")
+	}
+
+	@Test
+	def void testAUserFailsToLoginBecausePasswordIsInvalid() {
+		assertFalse(userService.login(user.nombreDeUsuario, "passNoValida"))
+	}
+
+	@Test(expected=EnviarMailException)
+	def void testCheckForExceptionOnMailSending() {
+		Mockito.doThrow(EnviarMailException).when(enviador).enviarMail(mail)
+		val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
+		userService.registerUser(user2);
+	}
 
 }

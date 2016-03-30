@@ -5,5 +5,5 @@ import ar.edu.unq.epers.aterrizar.utils.Mail
 
 @Accessors
 class EnviarMailException extends Exception {
-    Mail mail
+	Mail mail
 }

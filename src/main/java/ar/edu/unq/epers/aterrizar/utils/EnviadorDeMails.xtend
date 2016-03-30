@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.aterrizar.utils
 
 class EnviadorDeMails {
-    def void enviarMail(Mail m){
-    }
+	def void enviarMail(Mail m) {
+	}
 }

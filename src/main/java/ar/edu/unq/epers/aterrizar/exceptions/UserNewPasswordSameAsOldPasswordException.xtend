@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.utils
+package ar.edu.unq.epers.aterrizar.exceptions
 
 import org.eclipse.xtend.lib.annotations.Accessors
 

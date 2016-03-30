@@ -1,36 +1,12 @@
 package ar.edu.unq.epers.aterrizar.persistence
 
 import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.utils.UserDoesNotExistsException
 import java.sql.Connection
 import java.sql.DriverManager
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 
 class UserRepo {
 
-    /**
-     * Checks if the username is in the database
-     * */
-    def boolean checkForUser(String username){
-        execute[conn|
-            val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=?;")
-            ps.setString(1, username)
-            val rs = ps.executeQuery()
-
-            rs.next()
-        ]
-    }
-
-    def boolean checkLogin(String username, String password){
-        execute[conn|
-            val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=? AND password=?;")
-            ps.setString(1, username)
-            ps.setString(2, password)
-            val rs = ps.executeQuery()
-
-            rs.next()
-        ]
-    }
 
     /**
      * Registers user into the database
@@ -59,23 +35,30 @@ class UserRepo {
 
         ]
     }
+    
 
     /**
      * Retrieves the user from the database if the user exists
      * */
     def User getUser(String username) throws Exception{
-        if(this.checkForUser(username)) {
             execute[conn|
                 val ps = conn.prepareStatement("SELECT * FROM usuarios WHERE username=?;")
                 ps.setString(1, username)
                 val rs = ps.executeQuery()
-                rs.next()
-
-                new User(rs.getString("name"), rs.getString("surname"), rs.getString("username"), rs.getString("email"), rs.getDate("birth"), rs.getString("password"), rs.getBoolean("validationstate"))
+                
+                if(rs.next()){
+                new User(rs.getString("name"), 
+                	rs.getString("surname"), 
+                	rs.getString("username"), 
+                	rs.getString("email"), 
+                	rs.getDate("birth"), 
+                	rs.getString("password"), 
+                	rs.getBoolean("validationstate"))
+      			} else {
+      				null
+      			}
             ]
-        } else {
-            throw new UserDoesNotExistsException
-        }
+
     }
 
     /**
@@ -101,16 +84,6 @@ class UserRepo {
         ]
     }
 
-    def boolean isValidated(String username){
-        execute[conn|
-            val ps = conn.prepareStatement("SELECT validationstate FROM usuarios WHERE username=?;")
-            ps.setString(1, username)
-            val rs = ps.executeQuery()
-            rs.next()
-
-            rs.getBoolean("validationstate")
-        ]
-    }
 
     def <T> T execute(Function1<Connection, Object> closure){
         var Connection conn = null
@@ -128,7 +101,7 @@ class UserRepo {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/epers_aterrizar?user=root&password=root")
     }
 
-    def cleanDatabase(){
+    def deleteAllUsersInDB(){
         execute[conn|
             val ps = conn.prepareStatement("DELETE FROM usuarios;")
             ps.execute()

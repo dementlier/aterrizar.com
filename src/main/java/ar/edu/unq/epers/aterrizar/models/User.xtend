@@ -15,6 +15,7 @@ class User {
 	private String password
 	private boolean validated
 	private List<Reservation> reservations
+	private int id;
 
 	/**
     * Constructor, si se usa el tipo data se puede ahorrar
@@ -30,8 +31,8 @@ class User {
 		reservations = new ArrayList<Reservation>()
 	}
 
+	/**Para Hibernate */
 	new() {
-		validated = false
 	}
 
 	/**

@@ -14,6 +14,7 @@ import org.junit.Test
 import org.mockito.Mockito
 
 import static org.junit.Assert.*
+import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 
 public class UserServiceTest {
 
@@ -96,6 +97,13 @@ public class UserServiceTest {
 		Mockito.doThrow(EnviarMailException).when(enviador).enviarMail(mail)
 		val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
 		userService.registerUser(user2);
+	}
+	
+	@Test
+	def consultar() {
+		var user = new UserHibernateService().consultarUser(1);
+		assertEquals("Jose", user.firstname);
+		assertEquals("Juarez", user.lastname);
 	}
 
 }

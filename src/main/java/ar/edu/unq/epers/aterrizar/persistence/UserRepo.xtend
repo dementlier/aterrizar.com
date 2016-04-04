@@ -12,13 +12,13 @@ class UserRepo {
      * */
 	def registerUser(User user) throws Exception{
 
-		val nombre = user.getNombre()
-		val apellido = user.getApellido()
-		val nombreDeUsuario = user.getNombreDeUsuario()
-		val eMail = user.getEMail()
-		val fechaDeNacimiento = user.getFechaDeNacimiento()
-		val password = user.getPassword()
-		val validated = user.isValidated()
+		val nombre = user.firstname
+		val apellido = user.lastname
+		val nombreDeUsuario = user.username
+		val eMail = user.email
+		val fechaDeNacimiento = user.birthdate
+		val password = user.password
+		val validated = user.validated
 
 		execute[ conn |
 			val ps = conn.prepareStatement(

@@ -26,11 +26,11 @@ class UserService {
     * */
 	def registerUser(User user) {
 
-		if (repository.getUser(user.getNombreDeUsuario()) != null) {
+		if (repository.getUser(user.username) != null) {
 			throw new UserAlreadyExistsException
 		} else {
 			repository.registerUser(user)
-			this.enviarMail(user.getEMail(), user.getValidationCode())
+			this.enviarMail(user.email, user.validationCode)
 		}
 	}
 
@@ -46,7 +46,7 @@ class UserService {
     * */
 	def changePassword(String username, String password) throws Exception{
 		val user = checkForUser(username)
-		if (user.getPassword != password) {
+		if (user.password != password) {
 			repository.changePassword(username, password)
 		} else {
 			throw new UserNewPasswordSameAsOldPasswordException
@@ -60,7 +60,7 @@ class UserService {
 	def validateUser(String username, int code) throws Exception{
 
 		val user = checkForUser(username)
-		if (user.getValidationCode() == code && !user.isValidated()) {
+		if (user.validationCode == code && !user.validated) {
 			repository.validateUser(username)
 			user.setValidated(true)
 		}

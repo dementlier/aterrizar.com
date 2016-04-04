@@ -2,6 +2,8 @@ package ar.edu.unq.epers.aterrizar.models
 
 import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
+import java.util.ArrayList
 
 @Accessors
 class User {
@@ -12,6 +14,7 @@ class User {
 	private Date fechaDeNacimiento
 	private String password
 	private boolean validated
+	private List<Reservation> reservations
 
 	/**
     * Constructor, si se usa el tipo data se puede ahorrar
@@ -24,6 +27,7 @@ class User {
 		fechaDeNacimiento = birthDay
 		password = pass
 		validated = validation
+		reservations = new ArrayList<Reservation>()
 	}
 
 	new() {
@@ -35,6 +39,10 @@ class User {
      */
 	def int getValidationCode() {
 		return nombreDeUsuario.hashCode()
+	}
+	
+	def void addReservation(Reservation r){
+		reservations.add(r)
 	}
 
 }

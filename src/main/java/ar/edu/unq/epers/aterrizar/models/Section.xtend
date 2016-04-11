@@ -13,6 +13,16 @@ class Section {
 	Date departureTime
 	List<Seat> seats
 	
+	new(){}
+	//Se define a mano por que hemos tenido problemos con el Annotation Data en el pasado
+	new(int price, String orig, String dest, Date arriv, Date deprtr, List<Seat> buttHolders){
+		this.price 		 = price
+		this.origin 	 = orig
+		this.destination = dest
+		this.arrivalTime = arriv
+		this.seats 		 = buttHolders
+	}
+	
 	// Mepa que ademas de User debería recibir el Seat que quiere reservar.
 	def void reserveSeat(User user){
 	// primero se tendría que crear la reserva como corresponde, por ahora es un placeHolder.

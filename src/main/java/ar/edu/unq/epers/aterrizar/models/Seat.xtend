@@ -8,6 +8,8 @@ class Seat {
 	private User reserver
 	private SeatCategory category
 	
+	new(){}
+	
 	new(int cost){
 		price = cost
 		reserver = null

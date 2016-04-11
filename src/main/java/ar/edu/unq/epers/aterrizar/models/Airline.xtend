@@ -1,6 +1,19 @@
 package ar.edu.unq.epers.aterrizar.models
 
+import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
+
+@Accessors
 class Airline {
+	private List<Flight> flights
 	
-	// search(Criteria criteria) no hice los criterios, los hago más adelante, tengo que pensar el composite.
+	new(){}
+	
+	new(List<Flight> someFlights){
+		this.flights = someFlights
+	}
+	
+	def search(Criteria criteria){
+		//TODO...
+	}
 }

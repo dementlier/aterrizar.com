@@ -9,13 +9,20 @@ class UserHibernateRepo {
 	}
 	
 	def get(String username){
-		return SessionManager.getSession().createCriteria(typeof(User)).add(Restrictions.eq("username", username)).list().get(0) as User
+		val list = SessionManager.getSession().createCriteria(typeof(User)).add(Restrictions.eq("username", username)).list()
+		var User user 
+		if (list.size > 0){
+			user = list.get(0) as User
+		}else{
+			user = null
+		}
+		user
 	}
 	
 	def deleteAllUsersInDB(){
-		val hql = String.format("delete from %s","usuarios");
-    	val query = SessionManager.getSession().createQuery(hql)
-    	query.executeUpdate();
+		val hql = "delete from usuarios"
+    	val query = SessionManager.getSession().createSQLQuery(hql)
+    	query.executeUpdate()
 	}
 
 	def save(User u) {

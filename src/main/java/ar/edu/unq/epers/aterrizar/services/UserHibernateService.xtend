@@ -29,7 +29,7 @@ class UserHibernateService {
 			} else {
 				repo.save(user)
 				this.enviarMail(user.email, user.validationCode)
-				user
+				void
 			}
 		]);
 	}
@@ -42,8 +42,9 @@ class UserHibernateService {
     * Deletes EVERYTHING
     * */
 	def deleteAllUsersInDB() {
-		new UserHibernateRepo().deleteAllUsersInDB()
-		void
+		SessionManager.runInSession([
+			new UserHibernateRepo().deleteAllUsersInDB()
+		])
 	}
 	
 	

@@ -23,6 +23,12 @@ class UserHibernateServiceTest {
 		// Inicializaciones
 		userService = new UserHibernateService()
 		userService.deleteAllUsersInDB()
+		// Mocks
+		enviador = Mockito.mock(typeof(EnviadorDeMails))
+		mail = new Mail("Su codigo es: " + "pepejuarez".hashCode(), "Codigo de validacion", "p@p.com", "admin@pp.com")
+
+		// Register user
+		userService.setEnviador(enviador)
 		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
 		userService.registerUser(user);
 	}

@@ -22,9 +22,9 @@ class UserHibernateServiceTest {
 
 		// Inicializaciones
 		userService = new UserHibernateService()
-		userService.deleteAllUsersInDB()
+//		userService.deleteAllUsersInDB()
 		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
-		userService.registerUser(user);
+//		userService.registerUser(user);
 	}
 	
 	@Test

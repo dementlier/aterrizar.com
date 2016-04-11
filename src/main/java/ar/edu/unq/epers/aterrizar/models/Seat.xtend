@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Seat {
 	private int price
 	private User reserver
+	private SeatCategory category
 	
 	new(int cost){
 		price = cost

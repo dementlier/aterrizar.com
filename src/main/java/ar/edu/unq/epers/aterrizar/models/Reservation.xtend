@@ -8,6 +8,10 @@ class Reservation {
 	private int price
 	private List<Seat> seats
 	
+	new(){
+		
+	}
+	
 	new(List<Seat> buttHolders){
 		seats = buttHolders
 	}

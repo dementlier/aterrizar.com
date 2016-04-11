@@ -22,14 +22,14 @@ class UserHibernateServiceTest {
 
 		// Inicializaciones
 		userService = new UserHibernateService()
-//		userService.deleteAllUsersInDB()
+		userService.deleteAllUsersInDB()
 		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
-//		userService.registerUser(user);
+		userService.registerUser(user);
 	}
 	
 	@Test
 	def consultar() {
-		var user = new UserHibernateService().consultarUser(1);
+		var user = new UserHibernateService().consultarUser("josejuarez");
 		assertEquals("Jose", user.firstname);
 		assertEquals("Juarez", user.lastname);
 	}

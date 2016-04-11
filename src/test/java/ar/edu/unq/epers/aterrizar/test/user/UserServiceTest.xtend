@@ -99,11 +99,4 @@ public class UserServiceTest {
 		userService.registerUser(user2);
 	}
 	
-	@Test
-	def consultar() {
-		var user = new UserHibernateService().consultarUser(1);
-		assertEquals("Jose", user.firstname);
-		assertEquals("Juarez", user.lastname);
-	}
-
 }

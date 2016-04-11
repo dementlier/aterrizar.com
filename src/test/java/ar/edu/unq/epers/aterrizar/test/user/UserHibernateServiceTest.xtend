@@ -9,6 +9,9 @@ import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import java.sql.Date
+import ar.edu.unq.epers.aterrizar.models.Reservation
+import java.util.ArrayList
+import ar.edu.unq.epers.aterrizar.models.Seat
 
 class UserHibernateServiceTest {
 
@@ -16,6 +19,7 @@ class UserHibernateServiceTest {
 	User user;
 	EnviadorDeMails enviador
 	Mail mail
+	Reservation reserva
 
 	@Before
 	def void setUp() {
@@ -31,6 +35,7 @@ class UserHibernateServiceTest {
 		userService.setEnviador(enviador)
 		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
 		userService.registerUser(user);
+		reserva = new Reservation(10, new ArrayList<Seat>())
 	}
 	
 	@Test
@@ -38,5 +43,12 @@ class UserHibernateServiceTest {
 		var user = new UserHibernateService().consultarUser("josejuarez");
 		assertEquals("Jose", user.firstname);
 		assertEquals("Juarez", user.lastname);
+	}
+	
+	@Test
+	def agregarReserva() {
+		var user = new UserHibernateService().consultarUser("josejuarez");
+		user.addReservation(reserva)
+		assertEquals(user.reservations.size(), 1);
 	}
 }

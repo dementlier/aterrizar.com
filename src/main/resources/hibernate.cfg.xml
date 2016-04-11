@@ -11,10 +11,12 @@
         <property name="hibernate.connection.password">root</property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
-
+        <mapping resource="ar/edu/unq/epers/aterrizar/models/Seat.hbm.xml"></mapping>
+		<mapping resource="ar/edu/unq/epers/aterrizar/models/Reservation.hbm.xml"></mapping>
         <mapping resource="ar/edu/unq/epers/aterrizar/models/User.hbm.xml"></mapping>
+        
 		
     </session-factory>
 </hibernate-configuration>

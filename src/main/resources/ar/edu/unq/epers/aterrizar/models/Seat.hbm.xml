@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ar.edu.unq.epers.aterrizar.models.Reservation" table="reservas">
+	<class name="ar.edu.unq.epers.aterrizar.models.Seat" table="asientos">
 
 		<id name="id" type="java.lang.Integer">
 			<column name="id" />
@@ -12,10 +12,6 @@
 
 		<property name="price" column="price" type="int" />
 
-		<bag name="seats" cascade="all">
-			<key column="seat_id" />
-			<one-to-many class="Seat" />
-		</bag>
-		
+		<one-to-one name="reserver" class="ar.edu.unq.epers.aterrizar.models.User" />
 	</class>
 </hibernate-mapping>

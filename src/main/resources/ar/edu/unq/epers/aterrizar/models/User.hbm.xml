@@ -4,15 +4,15 @@
  
 <hibernate-mapping>
     <class name="ar.edu.unq.epers.aterrizar.models.User" table="usuarios" >
+    
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-
+        
         <property name="firstname" type="string">
             <column name="name" length="45" not-null="false" default="NULL" unique="false" />
         </property>
-                
         <property name="lastname" type="string">
             <column name="surname" length="45" not-null="false" default="NULL" unique="false" />
         </property>

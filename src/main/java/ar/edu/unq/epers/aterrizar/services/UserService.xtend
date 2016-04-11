@@ -45,7 +45,7 @@ class UserService {
     * Changes the password for a given User.
     * */
 	def changePassword(String username, String password) throws Exception{
-		val user = checkForUser(username)
+		val user = getUser(username)
 		if (user.password != password) {
 			repository.changePassword(username, password)
 		} else {
@@ -59,7 +59,7 @@ class UserService {
     * */
 	def validateUser(String username, int code) throws Exception{
 
-		val user = checkForUser(username)
+		val user = getUser(username)
 		if (user.validationCode == code && !user.validated) {
 			repository.validateUser(username)
 			user.setValidated(true)
@@ -71,7 +71,7 @@ class UserService {
     * logs a User into the system
     * */
 	def login(String username, String pass) throws Exception{
-		val user = checkForUser(username)
+		val user = getUser(username)
 		user.password == pass
 
 	}
@@ -83,7 +83,7 @@ class UserService {
 	/**
      * Checks if a user exists in the DB, if it does, it returns it, if it doesn't it throws an UserDoesNotExistException
      */
-	def checkForUser(String username) throws Exception{
+	def getUser(String username) throws Exception{
 		val user = repository.getUser(username)
 		if (user == null) {
 			throw new UserDoesNotExistsException()

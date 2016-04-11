@@ -45,7 +45,7 @@ public class UserServiceTest {
 
 		val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
 		userService.registerUser(user2);
-		val user = userService.checkForUser("pepejuarez");
+		val user = userService.getUser("pepejuarez");
 		assertEquals(user.username, user2.username);
 		Mockito.verify(enviador).enviarMail(mail)
 	}
@@ -57,7 +57,7 @@ public class UserServiceTest {
 
 	@Test(expected=UserDoesNotExistsException)
 	def void testAnInexistentUserCannotBeRetrieved() {
-		userService.checkForUser("i_dont_exist");
+		userService.getUser("i_dont_exist");
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class UserServiceTest {
 	@Test
 	def void testAPasswordChanges() {
 		userService.changePassword(user.username, "3456")
-		val user2 = userService.checkForUser(user.username)
+		val user2 = userService.getUser(user.username)
 		assertEquals(user2.password, "3456")
 	}
 

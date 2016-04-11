@@ -12,7 +12,7 @@ class UserHibernateService {
 	
 	def consultarUser(String username) {
 		SessionManager.runInSession([
-			new UserHibernateRepo().get(username)
+			new UserHibernateRepo().getBy("username",username) as User
 		])
 	}
 	
@@ -23,7 +23,7 @@ class UserHibernateService {
 	def registerUser(User user) {
 		SessionManager.runInSession([
 			val repo = new UserHibernateRepo()
-			if (repo.get(user.username) != null) {
+			if (repo.getBy("username", user.username)as User != null) {
 				throw new UserAlreadyExistsException
 			} else {
 				repo.save(user)

@@ -1,7 +1,6 @@
 package ar.edu.unq.epers.aterrizar.test.user
 
 import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.services.UserService
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.exceptions.EnviarMailException
 import ar.edu.unq.epers.aterrizar.utils.Mail
@@ -14,11 +13,11 @@ import org.junit.Test
 import org.mockito.Mockito
 
 import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.services.UserHibernateService
+import ar.edu.unq.epers.aterrizar.services.UserJDBCService
 
-public class UserServiceTest {
+public class UserJDBCServiceTest {
 
-	UserService userService;
+	UserJDBCService userService;
 	User user;
 	EnviadorDeMails enviador
 	Mail mail
@@ -27,7 +26,7 @@ public class UserServiceTest {
 	def void setUp() {
 
 		// Inicializaciones
-		userService = new UserService()
+		userService = new UserJDBCService()
 		userService.deleteAllUsersInDB()
 		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
 

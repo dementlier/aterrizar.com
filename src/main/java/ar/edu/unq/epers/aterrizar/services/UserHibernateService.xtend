@@ -1,10 +1,9 @@
 package ar.edu.unq.epers.aterrizar.services
 
+import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException
+import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
 import ar.edu.unq.epers.aterrizar.persistence.UserHibernateRepo
-import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.persistence.UserRepo
-import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 

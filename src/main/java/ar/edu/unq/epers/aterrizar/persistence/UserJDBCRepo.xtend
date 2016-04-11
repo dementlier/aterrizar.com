@@ -5,7 +5,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 
-class UserRepo {
+class UserJDBCRepo {
 
 	/**
      * Registers user into the database

@@ -1,20 +1,20 @@
 package ar.edu.unq.epers.aterrizar.services
 
 import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.exceptions.UserNewPasswordSameAsOldPasswordException
 import ar.edu.unq.epers.aterrizar.exceptions.UserDoesNotExistsException
+import ar.edu.unq.epers.aterrizar.persistence.UserJDBCRepo
 
-class UserService {
+class UserJDBCService {
 
-	UserRepo repository
+	UserJDBCRepo repository
 	EnviadorDeMails mailSender
 
 	new() {
-		repository = new UserRepo()
+		repository = new UserJDBCRepo()
 	}
 
 	def setEnviador(EnviadorDeMails enviador) {

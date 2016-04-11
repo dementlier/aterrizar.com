@@ -12,6 +12,7 @@ class Section {
 	Date arrivalTime
 	Date departureTime
 	List<Seat> seats
+	private int id
 	
 	new(){}
 	//Se define a mano por que hemos tenido problemos con el Annotation Data en el pasado

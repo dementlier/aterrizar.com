@@ -6,6 +6,7 @@ import java.util.List
 @Accessors
 class Airline {
 	private List<Flight> flights
+	private int id
 	
 	new(){}
 	

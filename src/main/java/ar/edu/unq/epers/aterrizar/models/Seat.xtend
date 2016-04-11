@@ -7,6 +7,7 @@ class Seat {
 	private int price
 	private User reserver
 	private SeatCategory category
+	private int id
 	
 	new(){}
 	

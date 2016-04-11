@@ -12,7 +12,7 @@ class UserHibernateService {
 	
 	def consultarUser(String username) {
 		SessionManager.runInSession([
-			new UserHibernateRepo().getBy("username",username) as User
+			new UserHibernateRepo().getBy("username", username) as User
 		])
 	}
 	

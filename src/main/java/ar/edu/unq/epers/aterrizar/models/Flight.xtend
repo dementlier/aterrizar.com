@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Flight {
 	private List<Section> sections
+	private int id;
 	
 	new(){}
 	

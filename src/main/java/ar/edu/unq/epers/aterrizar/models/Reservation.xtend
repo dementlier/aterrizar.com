@@ -7,6 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Reservation {
 	private int price
 	private List<Seat> seats
+	private int id
 	
 	new(){
 		

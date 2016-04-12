@@ -21,8 +21,7 @@ class UserJDBCRepo {
 		val validated = user.validated
 
 		execute[ conn |
-			val ps = conn.prepareStatement(
-				"INSERT INTO usuarios (name, surname, username, email, birth, password, validationstate) VALUES (?,?,?,?,?,?,?);")
+			val ps = conn.prepareStatement("INSERT INTO usuarios (name, surname, username, email, birth, password, validationstate) VALUES (?,?,?,?,?,?,?);")
 			ps.setString(1, nombre)
 			ps.setString(2, apellido)
 			ps.setString(3, nombreDeUsuario)

@@ -76,6 +76,9 @@ class UserJDBCService {
 
 	}
 
+    /**
+     * 
+     */
 	def enviarMail(String email, int code) {
 		this.mailSender.enviarMail(new Mail("Su codigo es: " + code, "Codigo de validacion", email, "admin@pp.com"))
 	}

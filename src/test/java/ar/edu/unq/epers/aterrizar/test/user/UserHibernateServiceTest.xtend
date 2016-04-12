@@ -43,15 +43,15 @@ class UserHibernateServiceTest {
 	}
 	
 	@Test
-	def consultar() {
-		var user = new UserHibernateService().consultarUser("josejuarez");
+	def testGettingARegisteredUser() {
+		var user = new UserHibernateService().getUser("josejuarez");
 		assertEquals("Jose", user.firstname);
 		assertEquals("Juarez", user.lastname);
 	}
 	
 	@Test
-	def agregarReserva() {
-		var user = new UserHibernateService().consultarUser("josejuarez");
+	def testAddAReservationToAExistingUser() {
+		var user = new UserHibernateService().getUser("josejuarez");
 		user.addReservation(reserva)
 		assertEquals(user.reservations.size(), 1);
 	}

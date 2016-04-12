@@ -20,8 +20,8 @@ class Seat {
 		reserver == null
 	}
 	
-	def getPriceFactor(SeatCategory seatCategory){
-		switch(seatCategory){
+	def getPriceFactor(){
+		switch(category){
 			case Business: return 1
 			case Tourist: return 2
 			case First: return 3

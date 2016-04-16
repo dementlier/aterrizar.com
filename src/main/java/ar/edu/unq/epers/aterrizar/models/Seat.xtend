@@ -11,8 +11,9 @@ class Seat {
 	
 	new(){}
 	
-	new(int cost){
-		price = cost
+	new(int cost, SeatCategory seatCategory){
+		category = seatCategory
+		price = cost + getPriceFactor()
 		reserver = null
 	}
 	
@@ -25,6 +26,7 @@ class Seat {
 			case Business: return 1
 			case Tourist: return 2
 			case First: return 3
+			default: 0
 		}
 	}
 }

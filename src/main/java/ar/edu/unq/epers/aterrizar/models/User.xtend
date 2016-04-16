@@ -7,15 +7,17 @@ import java.util.ArrayList
 
 @Accessors
 class User {
-	private String firstname
-	private String lastname
-	private String username
-	private String email
-	private Date birthdate
-	private String password
-	private boolean validated
-	private List<Reservation> reservations
-	private int id;
+	String firstname
+	String lastname
+	String username
+	String email
+	Date birthdate
+	String password
+	boolean validated
+	List<Reservation> reservations
+	int id
+	List<Search> searches
+	
 
 	/**
     * Constructor, si se usa el tipo data se puede ahorrar
@@ -29,6 +31,7 @@ class User {
 		password = pass
 		validated = validation
 		reservations = new ArrayList<Reservation>()
+		searches = new ArrayList<Search>()
 	}
 
 	/**Para Hibernate */

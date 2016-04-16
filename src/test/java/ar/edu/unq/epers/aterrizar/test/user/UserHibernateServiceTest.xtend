@@ -38,7 +38,7 @@ class UserHibernateServiceTest {
 		userService.registerUser(user);
 		
 		// Reservations
-		reserva = new Reservation(10, new ArrayList<Seat>())
+		reserva = new Reservation(new ArrayList<Seat>())
 		
 	}
 	

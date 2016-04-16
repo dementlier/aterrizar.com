@@ -13,8 +13,11 @@ class Reservation {
 		
 	}
 	
-	new(int price, List<Seat> buttHolders){
-		this.price = price
+	new(List<Seat> buttHolders){
+		this.price = 0
 		this.seats = buttHolders
+		for(seat : seats){
+			price += seat.price
+		}
 	}
 }

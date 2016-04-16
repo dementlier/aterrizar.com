@@ -13,11 +13,16 @@ class Searcher {
 		airlines = new ArrayList<Airline>()
 	}
 	
-	def search(Criteria criteria){
-		//TODO...
+	def search(Search searchCriterias){
+		var list = new ArrayList<Flight>()
+		for(airline : airlines){
+			list.addAll(searchCriterias.search(airline))
+		}
+		list
 	}
+	
 	def reserve(){
-		//TODO...
+		//TODO... 
 	}
 	
 }

@@ -53,4 +53,13 @@ class Section {
 		reservableSeats
 	}
 	
+	def hasSeatsOfCategory(SeatCategory category){
+		var bool = true
+		var index = 0
+		while(index < seats.size() && bool){
+			bool = bool && (seats.get(index).category == category)
+		}
+		bool
+	}
+	
 }

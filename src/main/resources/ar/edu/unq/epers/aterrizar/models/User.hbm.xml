@@ -38,6 +38,10 @@
 			<key column="reservation_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Reservation" />
 		</bag>
+		<bag name="searches" cascade="all" lazy="false">
+			<key column="search_id" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Search" />
+		</bag>
 	</class>
 	
 </hibernate-mapping>

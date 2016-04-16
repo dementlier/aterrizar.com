@@ -16,9 +16,9 @@
 		<property name="arrivalTime" column="price" type="java.sql.Date" />
 		<property name="departureTime" column="price" type="java.sql.Date" />
 
-		<bag name="seats" cascade="all">
+		<bag name="seats" cascade="all" lazy="false">
 			<key column="seat_id" />
-			<one-to-many class="Seat" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Seat" />
 		</bag>
 
 	</class>

@@ -30,7 +30,7 @@
 			name="ar.edu.unq.epers.aterrizar.models.CriteriaSeatCategory" table="criterioCategoriaAsiento">
 			<property name="category" column="category">
 				<type name="org.hibernate.type.EnumType">
-					<param name="enumClass">ar.unq.epers.aterrizar.models.SeatCategory</param>
+					<param name="enumClass">ar.edu.unq.epers.aterrizar.models.SeatCategory</param>
 					<param name="usaNamed">true</param>
 				</type>
 			</property>

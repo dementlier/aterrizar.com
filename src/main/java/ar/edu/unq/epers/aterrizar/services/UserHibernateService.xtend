@@ -6,6 +6,7 @@ import ar.edu.unq.epers.aterrizar.persistence.SessionManager
 import ar.edu.unq.epers.aterrizar.persistence.UserHibernateRepo
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
+import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
 
 class UserHibernateService {
     
@@ -16,7 +17,7 @@ class UserHibernateService {
      */
     def getUser(String username) {
         SessionManager.runInSession([
-            new UserHibernateRepo().getBy("username", username) as User
+            new HibernateRepo(User).getBy("username", username) as User
         ])
     }
     

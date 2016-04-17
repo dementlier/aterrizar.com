@@ -8,9 +8,14 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Searcher {
 	
 	List<Airline> airlines
+	private int id
 	
 	new(){
 		airlines = new ArrayList<Airline>()
+	}
+	
+	new(List<Airline> aerolineas){
+		airlines = aerolineas
 	}
 	
 	def search(Search searchCriterias){

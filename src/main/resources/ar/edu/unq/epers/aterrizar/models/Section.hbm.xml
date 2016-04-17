@@ -11,10 +11,10 @@
 		</id>
 
 		<property name="price" column="price" type="int" />
-		<property name="origin" column="price" type="string" />
-		<property name="destination" column="price" type="string" />
-		<property name="arrivalTime" column="price" type="java.sql.Date" />
-		<property name="departureTime" column="price" type="java.sql.Date" />
+		<property name="origin" column="origin" type="string" />
+		<property name="destination" column="destination" type="string" />
+		<property name="arrivalTime" column="arrivaltime" type="java.sql.Date" />
+		<property name="departureTime" column="departuretime" type="java.sql.Date" />
 
 		<bag name="seats" cascade="all" lazy="false">
 			<key column="seat_id" />

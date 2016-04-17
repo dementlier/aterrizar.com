@@ -28,10 +28,10 @@
 
 		<union-subclass
 			name="ar.edu.unq.epers.aterrizar.models.CriteriaSeatCategory" table="criterioCategoriaAsiento">
-			<property name="category" column="category">
+			<property name="categoryWanted" column="category">
 				<type name="org.hibernate.type.EnumType">
 					<param name="enumClass">ar.edu.unq.epers.aterrizar.models.SeatCategory</param>
-					<param name="usaNamed">true</param>
+					<param name="useNamed">true</param>
 				</type>
 			</property>
 		</union-subclass>
@@ -39,8 +39,8 @@
 		<union-subclass
 			name="ar.edu.unq.epers.aterrizar.models.CriteriaOriginAndDestination"
 			table="criterioOrigenDestino">
-			<property name="origin" column="origin" type="string" />
-			<property name="destination" column="destination" type="string" />
+			<property name="originWanted" column="origin" type="string" />
+			<property name="destinationWanted" column="destination" type="string" />
 		</union-subclass>
 
 		<union-subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaComposite"

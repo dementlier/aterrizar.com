@@ -2,7 +2,9 @@ package ar.edu.unq.epers.aterrizar.models
 
 import ar.edu.unq.epers.aterrizar.models.Criteria
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class CriteriaSeatCategory extends Criteria {
 	
 	SeatCategory categoryWanted

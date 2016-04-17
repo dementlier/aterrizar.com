@@ -3,7 +3,9 @@ package ar.edu.unq.epers.aterrizar.models
 import ar.edu.unq.epers.aterrizar.models.Criteria
 import java.util.List
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class CriteriaComposite extends Criteria {
 	
 	List<Criteria> criterias

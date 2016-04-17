@@ -48,5 +48,9 @@ class User {
 	def void addReservation(Reservation r){
 		reservations.add(r)
 	}
+	
+	def void addSearch(Search search){
+		searches.add(search)
+	}
 
 }

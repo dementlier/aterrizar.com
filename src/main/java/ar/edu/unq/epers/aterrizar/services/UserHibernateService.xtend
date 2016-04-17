@@ -3,7 +3,6 @@ package ar.edu.unq.epers.aterrizar.services
 import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
-import ar.edu.unq.epers.aterrizar.persistence.UserHibernateRepo
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
@@ -33,7 +32,7 @@ class UserHibernateService {
      */
     def registerUser(User user) {
         SessionManager.runInSession([
-            val repo = new UserHibernateRepo()
+            val repo = new HibernateRepo(User)
             if (repo.getBy("username", user.username) as User != null) {
                 throw new UserAlreadyExistsException
             } else {
@@ -56,7 +55,14 @@ class UserHibernateService {
      * */
     def deleteAllUsersInDB() {
         SessionManager.runInSession([
-            new UserHibernateRepo().deleteAllInDB("usuarios")
+            new HibernateRepo(User).deleteAllInDB("usuarios")
+        ])
+    }
+    
+    def saveUser(User user){
+    	SessionManager.runInSession([
+            new HibernateRepo(User).save(user)
+            void
         ])
     }
 

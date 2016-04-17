@@ -17,7 +17,5 @@ class Airline {
 		this.name = someName
 	}
 		
-	def search(Criteria criteria){
-		//TODO...
-	}
+
 }

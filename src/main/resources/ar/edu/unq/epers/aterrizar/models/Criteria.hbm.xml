@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ar.edu.unq.epers.aterrizar.models.Criteria"
+		abstract="true" table="criterios">
+
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="increment" />
+		</id>
+
+		<union-subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaAirline"
+			table="criterioAerolinea">
+			<property name="airlineName" column="airlineName" type="string" />
+		</union-subclass>
+
+		<union-subclass
+			name="ar.edu.unq.epers.aterrizar.models.CriteriaArrivalDate" table="criterioFechaArribo">
+			<property name="wantedDate" column="wantedDate" type="java.sql.Date" />
+		</union-subclass>
+
+		<union-subclass
+			name="ar.edu.unq.epers.aterrizar.models.CriteriaDepartureDate" table="criterioFechaSalida">
+			<property name="wantedDate" column="wantedDate" type="java.sql.Date" />
+		</union-subclass>
+
+		<union-subclass
+			name="ar.edu.unq.epers.aterrizar.models.CriteriaSeatCategory" table="criterioCategoriaAsiento">
+			<property name="category" column="category">
+				<type name="org.hibernate.type.EnumType">
+					<param name="enumClass">ar.unq.epers.aterrizar.models.SeatCategory</param>
+					<param name="usaNamed">true</param>
+				</type>
+			</property>
+		</union-subclass>
+
+		<union-subclass
+			name="ar.edu.unq.epers.aterrizar.models.CriteriaOriginAndDestination"
+			table="criterioOrigenDestino">
+			<property name="origin" column="origin" type="string" />
+			<property name="destination" column="destination" type="string" />
+		</union-subclass>
+
+		<union-subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaComposite"
+			table="criterioComposite">
+			<bag name="criterias" cascade="all" lazy="false">
+				<key column="criteria_id" />
+				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
+			</bag>
+		</union-subclass>
+	</class>
+</hibernate-mapping>

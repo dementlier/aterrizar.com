@@ -10,7 +10,7 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">root</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 		<property name="show_sql">true</property>
 		<mapping resource="ar/edu/unq/epers/aterrizar/models/Seat.hbm.xml"></mapping>
 		<mapping resource="ar/edu/unq/epers/aterrizar/models/Reservation.hbm.xml"></mapping>
@@ -20,6 +20,7 @@
 		<mapping resource="ar/edu/unq/epers/aterrizar/models/Flight.hbm.xml"></mapping>
 		<mapping resource="ar/edu/unq/epers/aterrizar/models/Section.hbm.xml"></mapping>
 		<mapping resource="ar/edu/unq/epers/aterrizar/models/Airline.hbm.xml"></mapping>
+		<mapping resource="ar/edu/unq/epers/aterrizar/models/Searcher.hbm.xml"></mapping>
 
 	</session-factory>
 </hibernate-configuration>

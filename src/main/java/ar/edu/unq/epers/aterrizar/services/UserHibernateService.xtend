@@ -55,7 +55,7 @@ class UserHibernateService {
      * */
     def deleteAllUsersInDB() {
         SessionManager.runInSession([
-            new HibernateRepo(User).deleteAllInDB("usuarios")
+            new HibernateRepo(User).deleteAllInDB("User")
         ])
     }
     

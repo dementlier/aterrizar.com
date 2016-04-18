@@ -28,9 +28,6 @@ class Flight {
 		}
 		return bool
 	}
-	
-	def search(Criteria criteria){
-		//TODO...
-	}
+
 	
 }

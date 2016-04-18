@@ -53,7 +53,7 @@ class SearcherHibernateService {
      * */
     def deleteAllSearchersInDB() {
         SessionManager.runInSession([
-            new HibernateRepo(Searcher).deleteAllInDB("buscador")
+            new HibernateRepo(Searcher).deleteAllInDB("Searcher")
         ])
     }
     
@@ -62,7 +62,7 @@ class SearcherHibernateService {
      * */
     def deleteAllSectionsInDB() {
         SessionManager.runInSession([
-            new HibernateRepo(Section).deleteAllInDB("secciones")
+            new HibernateRepo(Section).deleteAllInDB("Section")
         ])
     }
     
@@ -71,7 +71,7 @@ class SearcherHibernateService {
      * */
     def deleteAllSeatsInDB() {
         SessionManager.runInSession([
-            new HibernateRepo(Seat).deleteAllInDB("asientos")
+            new HibernateRepo(Seat).deleteAllInDB("Seat")
         ])
     }
 	

@@ -15,7 +15,7 @@
 
 		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaAnd"
 			discriminator-value="AND">
-			<list name="criterias">
+			<list name="criterias" cascade="all">
 				<key column="id" />
 				<list-index column="indexColumn" />
 				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
@@ -24,7 +24,7 @@
 
 		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaOr"
 			discriminator-value="OR">
-			<list name="criterias">
+			<list name="criterias" cascade="all">
 				<key column="id" />
 				<list-index column="indexColumn" />
 				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />

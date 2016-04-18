@@ -17,6 +17,7 @@ class SeatTest {
 	User user
 	@Before
 	def void setUp(){
+
 		seat = new Seat(15, SeatCategory.Tourist)
 		user = new User("Pablo", "Perez", "pperez", "p@prz.com", Date.valueOf("2016-4-18"), "1234", false)
 		uService = new UserHibernateService

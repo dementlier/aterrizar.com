@@ -22,9 +22,9 @@ class HibernateRepo<T> {
 		instance
 	}
 	
-	def deleteAllInDB(String tableName){
-		val hql = String.format("delete from %s", tableName)
-		val query = SessionManager.getSession().createSQLQuery(hql)
+	def deleteAllInDB(String entityName){
+		val hql = String.format("delete from %s", entityName)
+		val query = SessionManager.getSession().createQuery(hql)
 		query.executeUpdate()
 	}
 	

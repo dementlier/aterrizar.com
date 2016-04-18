@@ -13,6 +13,10 @@
 			<key column="flight_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Section" />
 		</bag>
+		<property name="origin" type="string" column="origin" />
+		<property name="destination" type="string" column="destination" />
+		<property name="arrivalDate" type="java.sql.Date" column="arrivalDate" />
+		<property name="departureDate" type="java.sql.Date" column="departureDate" />
 
 	</class>
 </hibernate-mapping>

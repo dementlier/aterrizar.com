@@ -1,16 +1,16 @@
 package ar.edu.unq.epers.aterrizar.test.models
 
-import org.junit.Before
-import org.junit.Test
-import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
+import ar.edu.unq.epers.aterrizar.models.Seat
+import ar.edu.unq.epers.aterrizar.models.SeatCategory
 import ar.edu.unq.epers.aterrizar.models.Section
+import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
 import java.sql.Date
 import java.util.ArrayList
 import java.util.List
-import ar.edu.unq.epers.aterrizar.models.Seat
-import ar.edu.unq.epers.aterrizar.models.SeatCategory
-import org.junit.After
+import org.junit.Before
+import org.junit.Test
+
+import static org.junit.Assert.*
 
 class SectionTest {
 	SearcherHibernateService service

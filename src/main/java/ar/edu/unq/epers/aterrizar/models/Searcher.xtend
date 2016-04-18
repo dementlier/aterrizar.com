@@ -1,9 +1,9 @@
 package ar.edu.unq.epers.aterrizar.models
 
-import ar.edu.unq.epers.aterrizar.services.UserHibernateService
-import java.util.ArrayList
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
+import java.util.ArrayList
+import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 
 @Accessors
 class Searcher {

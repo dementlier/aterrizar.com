@@ -20,6 +20,12 @@ class SearcherHibernateService {
         ])
 	}
 	
+	def getSeat(int id) {
+		SessionManager.runInSession([
+            new HibernateRepo(Seat).get(id) as Seat
+        ])
+	}
+	
 	def saveSearcher(Searcher searcher){
 		SessionManager.runInSession([
             new HibernateRepo(Searcher).save(searcher)
@@ -30,6 +36,13 @@ class SearcherHibernateService {
 	def saveSection(Section section){
 		SessionManager.runInSession([
             new HibernateRepo(Section).save(section)
+            void
+        ])
+	}
+	
+	def saveSeat(Seat seat) {
+		SessionManager.runInSession([
+            new HibernateRepo(Seat).save(seat)
             void
         ])
 	}
@@ -61,6 +74,8 @@ class SearcherHibernateService {
             new HibernateRepo(Seat).deleteAllInDB("asientos")
         ])
     }
+	
+
     
 	
 }

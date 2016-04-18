@@ -20,7 +20,7 @@ class SearcherHibernateServiceTest {
 	@Test
 	def void testSavingAndGettingASearcher(){
 		service.saveSearcher(searcher)
-		assertEquals(service.getSearcher(1).id, 1)
+		assertEquals(service.getSearcher(searcher.id).id, searcher.id)
 	}
 	
 

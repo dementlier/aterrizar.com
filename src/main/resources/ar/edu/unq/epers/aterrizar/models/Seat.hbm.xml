@@ -19,6 +19,6 @@
 			</type>
 		</property>
 
-		<one-to-one name="reserver" class="ar.edu.unq.epers.aterrizar.models.User" />
+		<many-to-one name="reserver" class="ar.edu.unq.epers.aterrizar.models.User" />
 	</class>
 </hibernate-mapping>

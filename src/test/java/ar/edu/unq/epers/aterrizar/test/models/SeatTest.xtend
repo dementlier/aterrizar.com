@@ -6,12 +6,12 @@ import org.junit.Test
 class SeatTest {
 	
 	@Before
-	def setUp(){
+	def void setUp(){
 		
 	}
 	
 	@Test
-	def testAlgo(){
+	def void testAlgo(){
 		
 	}
 }

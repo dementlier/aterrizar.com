@@ -5,6 +5,7 @@ import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
+import org.eclipse.xtend.lib.annotations.EqualsHashCode
 
 @Accessors
 class Searcher {

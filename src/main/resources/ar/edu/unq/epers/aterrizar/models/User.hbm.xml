@@ -22,7 +22,7 @@
 			<column name="username" not-null="true" unique="true" />
 		</property>
 		<property name="password" type="string">
-			<column name="password" not-null="true" unique="true" />
+			<column name="password" not-null="true" unique="false" />
 		</property>
 		<property name="email" type="string">
 			<column name="email" not-null="false" default="NULL" unique="false" />

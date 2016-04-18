@@ -19,6 +19,6 @@
 			</type>
 		</property>
 
-		<many-to-one name="seat_id" class="ar.edu.unq.epers.aterrizar.models.User" />
+		<many-to-one name="reserver" column="seat_id" not-null="false" class="ar.edu.unq.epers.aterrizar.models.User" />
 	</class>
 </hibernate-mapping>

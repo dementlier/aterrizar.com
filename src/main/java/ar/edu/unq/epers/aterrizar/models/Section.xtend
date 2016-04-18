@@ -15,7 +15,8 @@ class Section {
 	List<Seat> seats
 	private int id
 	
-	new(){}
+	new(){
+	}
 	//Se define a mano por que hemos tenido problemos con el Annotation Data en el pasado
 	new(int price, String orig, String dest, Date arriv, Date deprtr, List<Seat> buttHolders){
 		this.price 		 = price
@@ -61,6 +62,10 @@ class Section {
 			bool = bool && (seats.get(index).category == category)
 		}
 		bool
+	}
+	
+	def addSeat(Seat seat){
+		seats.add(seat)
 	}
 	
 }

@@ -26,7 +26,7 @@ class Searcher {
 	 */
 	def search(User user, Search searchCriterias){
 		var list = SessionManager.runInSession([
-			SessionManager.getSession.createQuery(searchCriterias.getHQL).list() as List<Flight>
+			SessionManager.getSession.createQuery(searchCriterias.getHQL()).list() as List<Flight>
 		])
 		user.addSearch(searchCriterias)
 		new UserHibernateService().saveUser(user)

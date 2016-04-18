@@ -11,15 +11,28 @@
 			<generator class="increment" />
 		</id>
 
-		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaComposed">
+		<discriminator column="discColumn" />
+
+		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaAnd"
+			discriminator-value="AND">
 			<list name="criterias">
 				<key column="id" />
-				<list-index column="indexColumn"/>
+				<list-index column="indexColumn" />
 				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
 			</list>
 		</subclass>
 
-		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaEquals">
+		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaOr"
+			discriminator-value="OR">
+			<list name="criterias">
+				<key column="id" />
+				<list-index column="indexColumn" />
+				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
+			</list>
+		</subclass>
+
+		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaEquals"
+			discriminator-value="EQUALS">
 			<property name="field" type="string" />
 			<property name="value" type="string" />
 		</subclass>

@@ -9,6 +9,11 @@ class CriteriaEquals extends Criteria {
 	String field
 	String value
 	
+	new(String string, String string2) {
+		field = string
+		value = string2
+	}
+	
 	override getHQL() {
 		return field + "='" + value + "' "	
 	}

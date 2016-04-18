@@ -11,44 +11,17 @@
 			<generator class="increment" />
 		</id>
 
-		<union-subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaAirline"
-			table="criterioAerolinea">
-			<property name="airlineName" column="airlineName" type="string" />
-		</union-subclass>
-
-		<union-subclass
-			name="ar.edu.unq.epers.aterrizar.models.CriteriaArrivalDate" table="criterioFechaArribo">
-			<property name="wantedDate" column="wantedDate" type="java.sql.Date" />
-		</union-subclass>
-
-		<union-subclass
-			name="ar.edu.unq.epers.aterrizar.models.CriteriaDepartureDate" table="criterioFechaSalida">
-			<property name="wantedDate" column="wantedDate" type="java.sql.Date" />
-		</union-subclass>
-
-		<union-subclass
-			name="ar.edu.unq.epers.aterrizar.models.CriteriaSeatCategory" table="criterioCategoriaAsiento">
-			<property name="categoryWanted" column="category">
-				<type name="org.hibernate.type.EnumType">
-					<param name="enumClass">ar.edu.unq.epers.aterrizar.models.SeatCategory</param>
-					<param name="useNamed">true</param>
-				</type>
-			</property>
-		</union-subclass>
-
-		<union-subclass
-			name="ar.edu.unq.epers.aterrizar.models.CriteriaOriginAndDestination"
-			table="criterioOrigenDestino">
-			<property name="originWanted" column="origin" type="string" />
-			<property name="destinationWanted" column="destination" type="string" />
-		</union-subclass>
-
-		<union-subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaComposite"
-			table="criterioComposite">
-			<bag name="criterias" cascade="all" lazy="false">
-				<key column="criteria_id" />
+		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaComposed">
+			<list name="criterias">
+				<key column="id" />
+				<list-index column="indexColumn"/>
 				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
-			</bag>
-		</union-subclass>
+			</list>
+		</subclass>
+
+		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaEquals">
+			<property name="field" type="string" />
+			<property name="value" type="string" />
+		</subclass>
 	</class>
 </hibernate-mapping>

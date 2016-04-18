@@ -10,9 +10,10 @@
 			<generator class="identity" />
 		</id>
 
-		<bag name="criterias" cascade="all" lazy="false">
-			<key column="search_id" />
+		<list name="criterias" cascade="all" lazy="false">
+			<key column="id" />
+			<list-index column="indexColumn" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
-		</bag>
+		</list>
 	</class>
 </hibernate-mapping>

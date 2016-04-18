@@ -35,11 +35,11 @@
 				unique="false" sql-type="tinyInt" />
 		</property>
 		<bag name="reservations" cascade="all" lazy="false">
-			<key column="reservation_id" />
+			<key column="user_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Reservation" />
 		</bag>
 		<bag name="searches" cascade="all" lazy="false">
-			<key column="search_id" />
+			<key column="user_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Search" />
 		</bag>
 	</class>

@@ -11,7 +11,7 @@
 		</id>
 
 		<bag name="airlines" cascade="all" lazy="false">
-			<key column="airline_id" />
+			<key column="searcher_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Airline" />
 		</bag>
 	</class>

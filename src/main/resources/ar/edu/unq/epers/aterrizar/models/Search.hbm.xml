@@ -11,7 +11,7 @@
 		</id>
 
 		<bag name="criterias" cascade="all" lazy="false">
-			<key column="criteria_id" />
+			<key column="search_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
 		</bag>
 	</class>

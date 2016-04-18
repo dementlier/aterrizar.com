@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
+import ar.edu.unq.epers.aterrizar.persistence.SessionManager
 
 @Accessors
 class Searcher {
@@ -24,10 +25,9 @@ class Searcher {
 	 * @returns List<Flight>
 	 */
 	def search(User user, Search searchCriterias){
-		var list = new ArrayList<Flight>()
-		for(airline : airlines){
-			list.addAll(searchCriterias.search(airline))
-		}
+		var list = SessionManager.runInSession([
+			SessionManager.getSession.createQuery(searchCriterias.getHQL).list() as List<Flight>
+		])
 		user.addSearch(searchCriterias)
 		new UserHibernateService().saveUser(user)
 		list

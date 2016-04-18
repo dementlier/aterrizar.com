@@ -62,15 +62,5 @@ class SearcherHibernateService {
         ])
     }
     
-     /**
-     * Deletes ABSOLUTELY EVERYTHING
-     * */
-    def deleteAllInDB() {
-        SessionManager.runInSession([
-            new HibernateRepo(Searcher).deleteAll()
-        ])
-    }
-    
-    
 	
 }

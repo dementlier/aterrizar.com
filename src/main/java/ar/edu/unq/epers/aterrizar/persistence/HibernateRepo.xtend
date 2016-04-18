@@ -28,11 +28,6 @@ class HibernateRepo<T> {
 		query.executeUpdate()
 	}
 	
-	def deleteAll(){
-		val query = SessionManager.getSession().createSQLQuery("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK")
-		query.executeUpdate()
-	}
-	
 	def save(T algo) {
 		SessionManager.getSession().saveOrUpdate(algo)
 	}

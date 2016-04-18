@@ -2,6 +2,7 @@ package ar.edu.unq.epers.aterrizar.models
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.ArrayList
 
 @Accessors
 class Airline {
@@ -9,7 +10,9 @@ class Airline {
 	private int id
 	String name
 	
-	new(){}
+	new(){
+		flights = new ArrayList<Flight>()
+	}
 	
 	new(String someName, List<Flight> someFlights){
 		this.flights = someFlights

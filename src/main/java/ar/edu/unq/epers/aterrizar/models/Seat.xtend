@@ -29,4 +29,5 @@ class Seat {
 			default: 0
 		}
 	}
+	
 }

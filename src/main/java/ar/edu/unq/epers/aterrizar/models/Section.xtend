@@ -22,6 +22,7 @@ class Section {
 		this.origin 	 = orig
 		this.destination = dest
 		this.arrivalTime = arriv
+		this.departureTime = deprtr
 		this.seats 		 = buttHolders
 	}
 	

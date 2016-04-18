@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.test.searcher
+package ar.edu.unq.epers.aterrizar.test.services
 
 import org.junit.Before
 import org.junit.Test

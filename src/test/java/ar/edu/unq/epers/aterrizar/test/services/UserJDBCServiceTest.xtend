@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.test.user
+package ar.edu.unq.epers.aterrizar.test.services
 
 import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails

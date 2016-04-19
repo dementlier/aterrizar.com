@@ -10,8 +10,8 @@
 			<generator class="identity" />
 		</id>
 
-		<list name="criterias" cascade="all ,delete" inverse="false" lazy="false">
-			<key column="id" />
+		<list name="criterias" cascade="all" inverse="true" lazy="false">
+			<key column="search_id" />
 			<list-index column="indexColumn" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
 		</list>

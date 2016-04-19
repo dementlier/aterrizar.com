@@ -30,7 +30,7 @@ class SectionTest {
 	
 	@Test
 	def void testASectionIsSavedAndRetrievedCorrectly(){
-		assertEquals(new SearcherHibernateService().getSection(1).id, 1)
+		assertEquals(new SearcherHibernateService().getSection(section.id).id, section.id)
 	}
 	
 	@Test

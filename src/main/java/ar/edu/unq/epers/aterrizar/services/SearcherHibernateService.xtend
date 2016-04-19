@@ -5,6 +5,8 @@ import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
 import ar.edu.unq.epers.aterrizar.models.Searcher
 import ar.edu.unq.epers.aterrizar.models.Section
 import ar.edu.unq.epers.aterrizar.models.Seat
+import ar.edu.unq.epers.aterrizar.models.Airline
+import ar.edu.unq.epers.aterrizar.models.Flight
 
 class SearcherHibernateService {
 	
@@ -53,6 +55,10 @@ class SearcherHibernateService {
      * */
     def deleteAllSearchersInDB() {
         SessionManager.runInSession([
+        	new HibernateRepo(Seat).deleteAllInDB("Seat")
+        	new HibernateRepo(Section).deleteAllInDB("Section")
+        	new HibernateRepo(Flight).deleteAllInDB("Flight")
+        	new HibernateRepo(Airline).deleteAllInDB("Airline")
             new HibernateRepo(Searcher).deleteAllInDB("Searcher")
         ])
     }
@@ -62,6 +68,7 @@ class SearcherHibernateService {
      * */
     def deleteAllSectionsInDB() {
         SessionManager.runInSession([
+            new HibernateRepo(Section).deleteAllInDB("Seat")
             new HibernateRepo(Section).deleteAllInDB("Section")
         ])
     }

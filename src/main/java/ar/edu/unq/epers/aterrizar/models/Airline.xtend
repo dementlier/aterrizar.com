@@ -19,5 +19,4 @@ class Airline {
 		this.name = someName
 	}
 		
-
 }

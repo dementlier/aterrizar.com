@@ -36,6 +36,8 @@ class User {
 
 	/**Para Hibernate */
 	new() {
+		searches = new ArrayList<Search>()
+		reservations = new ArrayList<Reservation>()		
 	}
 
 	/**

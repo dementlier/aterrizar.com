@@ -13,7 +13,7 @@
 
 		<property name="price" column="price" type="int" />
 
-		<bag name="seats" cascade="all ,delete" inverse="false" lazy="false">
+		<bag name="seats" cascade="all" inverse="false" lazy="false">
 			<key column="reservation_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Seat" />
 		</bag>

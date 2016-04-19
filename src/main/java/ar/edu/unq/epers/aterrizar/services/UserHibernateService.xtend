@@ -6,6 +6,8 @@ import ar.edu.unq.epers.aterrizar.persistence.SessionManager
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
+import ar.edu.unq.epers.aterrizar.models.Reservation
+import ar.edu.unq.epers.aterrizar.models.Search
 
 class UserHibernateService {
     
@@ -55,13 +57,15 @@ class UserHibernateService {
      * */
     def deleteAllUsersInDB() {
         SessionManager.runInSession([
+            new HibernateRepo(Reservation).deleteAllInDB("Reservation") 
+            new HibernateRepo(Search).deleteAllInDB("Search")          	
             new HibernateRepo(User).deleteAllInDB("User")
         ])
     }
     
-    def saveUser(User user){
+    def saveUser(User userToSave){
     	SessionManager.runInSession([
-            new HibernateRepo(User).save(user)
+            new HibernateRepo(User).save(userToSave)
             void
         ])
     }

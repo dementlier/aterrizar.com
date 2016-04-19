@@ -30,12 +30,13 @@ class SectionTest {
 	
 	@Test
 	def void testASectionIsSavedAndRetrievedCorrectly(){
-		assertEquals(new SearcherHibernateService().getSection(section.id).id, section.id)
+		var retrievedSection = new SearcherHibernateService().getSection(section.id)
+		assertEquals(section.id, retrievedSection.id)
 	}
 	
 	@Test
 	def void testASectionSaysItsReservableSeats(){
-		assertEquals(service.getSection(section.id).reservableSeats.size, seats.size)
+		assertEquals(seats.size, service.getSection(section.id).reservableSeats.size )
 	}
 	
 	@Test
@@ -44,7 +45,7 @@ class SectionTest {
 		section.addSeat(seat2)
 		service.saveSection(section)
 		assertTrue(service.getSection(section.id).isReservationPossible(seats))
-		assertEquals(service.getSection(section.id).reservableSeats.size, 2)
+		assertEquals(2, service.getSection(section.id).reservableSeats.size)
 	}
 	
 }

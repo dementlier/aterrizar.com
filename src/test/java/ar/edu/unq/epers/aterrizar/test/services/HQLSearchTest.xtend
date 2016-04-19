@@ -20,6 +20,7 @@ class HQLSearchTest {
 	Airline aerolinea
 	Searcher searcher
 	Airline aerolinea2
+	User user
 	
 	@Before
 	def void setUp() {
@@ -54,21 +55,26 @@ class HQLSearchTest {
 		searcher = new Searcher()
 		searcher.airlines.add(aerolinea)
 		searcher.airlines.add(aerolinea2)
-		
 
 		searcherService.saveSearcher(searcher)
+		
+		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
+		
 	}
 	
 	@Test
 	def testHQLCriteriaEquals() {
+		
+		var criteria = new CriteriaEquals("airline.name", "Pepe Airlines")
 		var searchCriteria = new Search()
-		searchCriteria.criterias.add(new CriteriaEquals("airline.name", "Pepe Airlines"))
-		var list = searcher.search(new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false), searchCriteria)
+		searchCriteria.criterias.add(criteria)
+		var list = searcher.search(user, searchCriteria)
+		
 		assertEquals(1, list.size() )
-		assertEquals(aerolinea.flights.get(0).origin, "Madrid")
-		assertEquals(aerolinea.flights.get(0).destination, "Orlando")
-		assertEquals(list.get(0).origin, "Madrid")
-		assertEquals(list.get(0).destination, "Orlando")
+		assertEquals("Madrid", aerolinea.flights.get(0).origin)
+		assertEquals("Orlando", aerolinea.flights.get(0).destination)
+		assertEquals("Madrid", list.get(0).origin)
+		assertEquals("Orlando", list.get(0).destination)
 		// Se hizo esto porque el hashCode cambia, y no queremos cambiar el hashCode (lease, no tenemos tiempo :( )
 	}
 	
@@ -81,8 +87,8 @@ class HQLSearchTest {
 		searchCriteria.criterias.add(criteriaAnd)
 		var list = searcher.search(new User("Pepe", "Juarez", "pepejuarez", "pee@p.com", new Date(1), "1234", false), searchCriteria)
 		assertEquals(1, list.size())
-		assertEquals(list.get(0).origin, "Tokyo")
-		assertEquals(list.get(0).destination, "Madrid")
+		assertEquals("Tokyo", list.get(0).origin)
+		assertEquals("Madrid", list.get(0).destination)
 		// Se hizo esto porque el hashCode cambia, y no queremos cambiar el hashCode (lease, no tenemos tiempo :( )
 	}	
 
@@ -95,10 +101,10 @@ class HQLSearchTest {
 		searchCriteria.criterias.add(criteriaOr)
 		var list = searcher.search(new User("Pepe", "Juarez", "pepejuarez", "pee@p.com", new Date(1), "1234", false), searchCriteria)
 		assertEquals(2, list.size())
-		assertEquals(list.get(1).origin, "Tokyo")
-		assertEquals(list.get(1).destination, "Madrid")
-		assertEquals(list.get(0).origin, "Madrid")
-		assertEquals(list.get(0).destination, "Orlando")
+		assertEquals("Tokyo", list.get(1).origin)
+		assertEquals("Madrid", list.get(1).destination)
+		assertEquals("Madrid", list.get(0).origin)
+		assertEquals("Orlando", list.get(0).destination)
 		// Se hizo esto porque el hashCode cambia, y no queremos cambiar el hashCode (lease, no tenemos tiempo :( )
 	}		
 		

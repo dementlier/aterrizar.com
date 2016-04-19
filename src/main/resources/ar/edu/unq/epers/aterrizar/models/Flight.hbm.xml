@@ -9,7 +9,7 @@
 			<column name="id" />
 			<generator class="identity" />
 		</id>
-		<bag name="sections" cascade="all-delete-orphan" inverse="true" lazy="false">
+		<bag name="sections" cascade="all ,delete" inverse="false" lazy="false">
 			<key column="flight_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Section" />
 		</bag>

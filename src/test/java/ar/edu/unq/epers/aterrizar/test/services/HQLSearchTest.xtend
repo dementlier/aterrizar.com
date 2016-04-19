@@ -36,7 +36,7 @@ class HQLSearchTest {
 	}
 	
 	@Test
-	def testHQL() {
+	def testHQLCriteriaEquals() {
 		var searchCriteria = new Search()
 		searchCriteria.criterias.add(new CriteriaEquals("airline.name", "Pepe Airlines"))
 		var list = searcher.search(new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false), searchCriteria)

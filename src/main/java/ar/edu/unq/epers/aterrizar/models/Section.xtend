@@ -46,13 +46,13 @@ class Section {
 	}
 	
 	def List<Seat> reservableSeats(){
-		var reservableSeats = new ArrayList<Seat>()
+		var seatsReservables = new ArrayList<Seat>()
 		for(seat : this.seats){
 			if(seat.isReservable()){
-				reservableSeats.add(seat)
+				seatsReservables.add(seat)
 			}
 		}
-		reservableSeats
+		seatsReservables
 	}
 	
 	def hasSeatsOfCategory(SeatCategory category){

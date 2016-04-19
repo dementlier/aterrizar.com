@@ -16,7 +16,7 @@
 		<property name="arrivalTime" column="arrivaltime" type="java.sql.Date" />
 		<property name="departureTime" column="departuretime" type="java.sql.Date" />
 
-		<bag name="seats" cascade="all-delete-orphan" inverse="true" lazy="false">
+		<bag name="seats" cascade="all ,delete" inverse="false" lazy="false">
 			<key column="section_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Seat" />
 		</bag>

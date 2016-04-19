@@ -10,7 +10,7 @@
 			<generator class="identity" />
 		</id>
 
-		<list name="criterias" cascade="all-delete-orphan" inverse="true" lazy="false">
+		<list name="criterias" cascade="all ,delete" inverse="false" lazy="false">
 			<key column="id" />
 			<list-index column="indexColumn" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />

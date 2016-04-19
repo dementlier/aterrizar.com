@@ -5,7 +5,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 
-class UserRepo {
+class UserJDBCRepo {
 
 	/**
      * Registers user into the database
@@ -21,8 +21,7 @@ class UserRepo {
 		val validated = user.validated
 
 		execute[ conn |
-			val ps = conn.prepareStatement(
-				"INSERT INTO usuarios (name, surname, username, email, birth, password, validationstate) VALUES (?,?,?,?,?,?,?);")
+			val ps = conn.prepareStatement("INSERT INTO usuarios (name, surname, username, email, birth, password, validationstate) VALUES (?,?,?,?,?,?,?);")
 			ps.setString(1, nombre)
 			ps.setString(2, apellido)
 			ps.setString(3, nombreDeUsuario)

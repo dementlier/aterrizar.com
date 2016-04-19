@@ -1,20 +1,20 @@
 package ar.edu.unq.epers.aterrizar.services
 
 import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.persistence.UserRepo
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException
 import ar.edu.unq.epers.aterrizar.exceptions.UserNewPasswordSameAsOldPasswordException
 import ar.edu.unq.epers.aterrizar.exceptions.UserDoesNotExistsException
+import ar.edu.unq.epers.aterrizar.persistence.UserJDBCRepo
 
-class UserService {
+class UserJDBCService {
 
-	UserRepo repository
+	UserJDBCRepo repository
 	EnviadorDeMails mailSender
 
 	new() {
-		repository = new UserRepo()
+		repository = new UserJDBCRepo()
 	}
 
 	def setEnviador(EnviadorDeMails enviador) {
@@ -45,7 +45,7 @@ class UserService {
     * Changes the password for a given User.
     * */
 	def changePassword(String username, String password) throws Exception{
-		val user = checkForUser(username)
+		val user = getUser(username)
 		if (user.password != password) {
 			repository.changePassword(username, password)
 		} else {
@@ -59,7 +59,7 @@ class UserService {
     * */
 	def validateUser(String username, int code) throws Exception{
 
-		val user = checkForUser(username)
+		val user = getUser(username)
 		if (user.validationCode == code && !user.validated) {
 			repository.validateUser(username)
 			user.setValidated(true)
@@ -71,11 +71,14 @@ class UserService {
     * logs a User into the system
     * */
 	def login(String username, String pass) throws Exception{
-		val user = checkForUser(username)
+		val user = getUser(username)
 		user.password == pass
 
 	}
 
+    /**
+     * 
+     */
 	def enviarMail(String email, int code) {
 		this.mailSender.enviarMail(new Mail("Su codigo es: " + code, "Codigo de validacion", email, "admin@pp.com"))
 	}
@@ -83,7 +86,7 @@ class UserService {
 	/**
      * Checks if a user exists in the DB, if it does, it returns it, if it doesn't it throws an UserDoesNotExistException
      */
-	def checkForUser(String username) throws Exception{
+	def getUser(String username) throws Exception{
 		val user = repository.getUser(username)
 		if (user == null) {
 			throw new UserDoesNotExistsException()

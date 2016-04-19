@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ar.edu.unq.epers.aterrizar.models.Search" table="busquedas">
+
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+
+		<list name="criterias" cascade="all" inverse="true" lazy="false">
+			<key column="search_id" />
+			<list-index column="indexColumn" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
+		</list>
+	</class>
+</hibernate-mapping>

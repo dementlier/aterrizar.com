@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ar.edu.unq.epers.aterrizar.models.User" table="usuarios">
+
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+
+		<property name="firstname" type="string">
+			<column name="name" length="45" not-null="false" default="NULL"
+				unique="false" />
+		</property>
+		<property name="lastname" type="string">
+			<column name="surname" length="45" not-null="false" default="NULL"
+				unique="false" />
+		</property>
+		<property name="username" type="string">
+			<column name="username" not-null="true" unique="true" />
+		</property>
+		<property name="password" type="string">
+			<column name="password" not-null="true" unique="false" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" not-null="false" default="NULL" unique="false" />
+		</property>
+		<property name="birthdate" type="java.sql.Date">
+			<column name="birth" not-null="false" default="NULL" unique="false" />
+		</property>
+		<property name="validated" type="boolean">
+			<column name="validationstate" not-null="false" default="NULL"
+				unique="false" sql-type="tinyInt" />
+		</property>
+		<bag name="reservations" cascade="all" inverse="false" lazy="false">
+			<key column="user_id" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Reservation" />
+		</bag>
+		<bag name="searches" cascade="all" inverse="false" lazy="false">
+			<key column="user_id" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Search" />
+		</bag>
+	</class>
+	
+</hibernate-mapping>

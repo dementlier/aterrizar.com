@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ar.edu.unq.epers.aterrizar.models.Section" table="secciones">
+
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+
+		<property name="price" column="price" type="int" />
+		<property name="origin" column="origin" type="string" />
+		<property name="destination" column="destination" type="string" />
+		<property name="arrivalTime" column="arrivaltime" type="java.sql.Date" />
+		<property name="departureTime" column="departuretime" type="java.sql.Date" />
+
+		<bag name="seats" cascade="all" inverse="false" lazy="false">
+			<key column="section_id" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Seat" />
+		</bag>
+
+	</class>
+</hibernate-mapping>

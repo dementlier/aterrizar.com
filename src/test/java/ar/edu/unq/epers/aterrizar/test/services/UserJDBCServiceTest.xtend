@@ -1,7 +1,6 @@
-package ar.edu.unq.epers.aterrizar.test.user
+package ar.edu.unq.epers.aterrizar.test.services
 
 import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.services.UserService
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.exceptions.EnviarMailException
 import ar.edu.unq.epers.aterrizar.utils.Mail
@@ -14,10 +13,11 @@ import org.junit.Test
 import org.mockito.Mockito
 
 import static org.junit.Assert.*
+import ar.edu.unq.epers.aterrizar.services.UserJDBCService
 
-public class UserServiceTest {
+public class UserJDBCServiceTest {
 
-	UserService userService;
+	UserJDBCService userService;
 	User user;
 	EnviadorDeMails enviador
 	Mail mail
@@ -26,7 +26,7 @@ public class UserServiceTest {
 	def void setUp() {
 
 		// Inicializaciones
-		userService = new UserService()
+		userService = new UserJDBCService()
 		userService.deleteAllUsersInDB()
 		user = new User("Jose", "Juarez", "josejuarez", "pe@p.com", new Date(1), "1234", false)
 
@@ -44,7 +44,7 @@ public class UserServiceTest {
 
 		val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
 		userService.registerUser(user2);
-		val user = userService.checkForUser("pepejuarez");
+		val user = userService.getUser("pepejuarez");
 		assertEquals(user.username, user2.username);
 		Mockito.verify(enviador).enviarMail(mail)
 	}
@@ -56,7 +56,7 @@ public class UserServiceTest {
 
 	@Test(expected=UserDoesNotExistsException)
 	def void testAnInexistentUserCannotBeRetrieved() {
-		userService.checkForUser("i_dont_exist");
+		userService.getUser("i_dont_exist");
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class UserServiceTest {
 	@Test
 	def void testAPasswordChanges() {
 		userService.changePassword(user.username, "3456")
-		val user2 = userService.checkForUser(user.username)
+		val user2 = userService.getUser(user.username)
 		assertEquals(user2.password, "3456")
 	}
 
@@ -97,5 +97,5 @@ public class UserServiceTest {
 		val user2 = new User("Pepe", "Juarez", "pepejuarez", "p@p.com", new Date(1), "1234", false)
 		userService.registerUser(user2);
 	}
-
+	
 }

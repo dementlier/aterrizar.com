@@ -4,16 +4,16 @@ import org.junit.Before
 import org.junit.Test
 import static org.junit.Assert.*
 import ar.edu.unq.epers.aterrizar.models.Searcher
-import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
+import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 class SearcherHibernateServiceTest {
-	SearcherHibernateService service
+	SearcherHibernateRepo service
 	Searcher searcher
 	
 	@Before
 	def void setUp(){
 		searcher = new Searcher()
-		service  = new SearcherHibernateService()
+		service  = new SearcherHibernateRepo()
 		service.deleteAllSearchersInDB()
 	}
 	

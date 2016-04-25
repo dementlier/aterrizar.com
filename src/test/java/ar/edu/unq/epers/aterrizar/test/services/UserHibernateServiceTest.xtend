@@ -12,12 +12,12 @@ import java.sql.Date
 import ar.edu.unq.epers.aterrizar.models.Reservation
 import java.util.ArrayList
 import ar.edu.unq.epers.aterrizar.models.Seat
-import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
+import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 class UserHibernateServiceTest {
 
 	UserHibernateService userService
-	SearcherHibernateService searcherService
+	SearcherHibernateRepo searcherService
 	User user;
 	EnviadorDeMails enviador
 	Mail mail
@@ -27,7 +27,7 @@ class UserHibernateServiceTest {
 	def void setUp() {
 
 		// Inicializaciones
-		searcherService = new SearcherHibernateService
+		searcherService = new SearcherHibernateRepo
 		searcherService.deleteAllSeatsInDB
 		userService = new UserHibernateService()
 		userService.deleteAllUsersInDB()

@@ -3,7 +3,6 @@ package ar.edu.unq.epers.aterrizar.test.services
 import org.junit.Before
 import org.junit.Test
 import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
 import ar.edu.unq.epers.aterrizar.models.Flight
 import ar.edu.unq.epers.aterrizar.models.Airline
 import ar.edu.unq.epers.aterrizar.models.Searcher
@@ -14,6 +13,7 @@ import java.sql.Date
 import ar.edu.unq.epers.aterrizar.models.CriteriaAnd
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 import ar.edu.unq.epers.aterrizar.models.CriteriaOr
+import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 class HQLSearchTest {
 	
@@ -25,7 +25,7 @@ class HQLSearchTest {
 	@Before
 	def void setUp() {
 		
-		var searcherService = new SearcherHibernateService()		
+		var searcherService = new SearcherHibernateRepo()		
 		searcherService.deleteAllSearchersInDB()
 		var userService = new UserHibernateService()
 		userService.deleteAllUsersInDB()

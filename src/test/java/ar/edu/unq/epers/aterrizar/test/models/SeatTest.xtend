@@ -7,12 +7,12 @@ import ar.edu.unq.epers.aterrizar.models.Seat
 import ar.edu.unq.epers.aterrizar.models.SeatCategory
 import java.sql.Date
 import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.services.SearcherHibernateService
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
+import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 class SeatTest {
 	Seat seat
-	SearcherHibernateService searcherService
+	SearcherHibernateRepo searcherService
 	UserHibernateService userService
 	User user
 	@Before
@@ -23,7 +23,7 @@ class SeatTest {
 		userService = new UserHibernateService
 		userService.saveUser(user)
 		seat.setReserver(user)
-		searcherService = new SearcherHibernateService
+		searcherService = new SearcherHibernateRepo
 		searcherService.saveSeat(seat)
 	}
 	

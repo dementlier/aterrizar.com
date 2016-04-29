@@ -13,13 +13,16 @@ class Flight {
 	String destination
 	Date departureDate
 	Date arrivalDate
+	int price
 
 	new(){
 		sections = new ArrayList<Section>()
+		price = 0
 	}
 	
 	new(List<Section> someSections){
 		this.sections = someSections
+		refreshPrice()
 	}
 	
 	def hasSeatsOfCategory(SeatCategory category){
@@ -30,5 +33,15 @@ class Flight {
 		return bool
 	}
 
+	def setSections(List<Section> someSections){
+		this.sections = someSections
+		refreshPrice()
+	}
+	
+	def refreshPrice(){
+		for(section : sections){
+			price = price + section.price
+		}				
+	}
 	
 }

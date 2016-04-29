@@ -9,6 +9,7 @@ class Search {
 	
 	List<Criteria> criterias
 	private int id
+	FlightOrder flightOrder
 	
 	new(){
 		criterias = new ArrayList<Criteria>()
@@ -19,6 +20,17 @@ class Search {
 		for(criteria : criterias){
 			res = res + criteria.getHQL()
 		}
-		return res
+		return res + hqlForOrder()
 	}
+	
+	def hqlForOrder(){
+		switch(flightOrder){
+			case Cost : "ORDER BY flights.price ASC"
+			case SectionNo : "ORDER BY count(flights.sections) ASC" // no se si anda.
+			case Duration : "" // TODO podria agregarle una property Duration...
+			default : ""
+			
+		}
+	}
+	
 }

@@ -15,7 +15,7 @@ import ar.edu.unq.epers.aterrizar.models.CriteriaOr
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 import ar.edu.unq.epers.aterrizar.services.SearcherService
 
-class HQLSearchTest {
+class HQLCriteriaSearchTest {
 	
 	Airline aerolinea
 	SearcherService searcher

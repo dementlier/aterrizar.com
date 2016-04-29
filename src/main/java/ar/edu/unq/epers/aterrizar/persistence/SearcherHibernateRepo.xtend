@@ -2,11 +2,11 @@ package ar.edu.unq.epers.aterrizar.persistence
 
 import ar.edu.unq.epers.aterrizar.models.Airline
 import ar.edu.unq.epers.aterrizar.models.Flight
-import ar.edu.unq.epers.aterrizar.models.Searcher
 import ar.edu.unq.epers.aterrizar.models.Seat
 import ar.edu.unq.epers.aterrizar.models.Section
 import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
+import ar.edu.unq.epers.aterrizar.services.SearcherService
 
 class SearcherHibernateRepo {
 
@@ -17,7 +17,7 @@ class SearcherHibernateRepo {
 	}
 	
 	def getSearcher(int id){
-		getX(id, Searcher)
+		getX(id, SearcherService)
 	}
 	
 	def getSection(int id){
@@ -36,7 +36,7 @@ class SearcherHibernateRepo {
         ])
 	}
 	
-	def saveSearcher(Searcher searcher){
+	def saveSearcher(SearcherService searcher){
 		saveX(searcher)
 	}
 	
@@ -58,7 +58,7 @@ class SearcherHibernateRepo {
         	new HibernateRepo(Section).deleteAllInDB("Section")
         	new HibernateRepo(Flight).deleteAllInDB("Flight")
         	new HibernateRepo(Airline).deleteAllInDB("Airline")
-            new HibernateRepo(Searcher).deleteAllInDB("Searcher")
+            new HibernateRepo(SearcherService).deleteAllInDB("SearcherService")
         ])
     }
     

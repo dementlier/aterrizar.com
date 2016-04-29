@@ -5,7 +5,6 @@ import org.junit.Test
 import static org.junit.Assert.*
 import ar.edu.unq.epers.aterrizar.models.Flight
 import ar.edu.unq.epers.aterrizar.models.Airline
-import ar.edu.unq.epers.aterrizar.models.Searcher
 import ar.edu.unq.epers.aterrizar.models.Search
 import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.models.CriteriaEquals
@@ -14,11 +13,12 @@ import ar.edu.unq.epers.aterrizar.models.CriteriaAnd
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 import ar.edu.unq.epers.aterrizar.models.CriteriaOr
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
+import ar.edu.unq.epers.aterrizar.services.SearcherService
 
 class HQLSearchTest {
 	
 	Airline aerolinea
-	Searcher searcher
+	SearcherService searcher
 	Airline aerolinea2
 	User user
 	
@@ -52,7 +52,7 @@ class HQLSearchTest {
 		aerolinea2.flights.add(vuelo2)		
 		aerolinea2.flights.add(vuelo3)
 				
-		searcher = new Searcher()
+		searcher = new SearcherService()
 		searcher.airlines.add(aerolinea)
 		searcher.airlines.add(aerolinea2)
 

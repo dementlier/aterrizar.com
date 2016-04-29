@@ -1,13 +1,17 @@
-package ar.edu.unq.epers.aterrizar.models
+package ar.edu.unq.epers.aterrizar.services
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
+import ar.edu.unq.epers.aterrizar.models.Airline
+import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.Search
+import ar.edu.unq.epers.aterrizar.models.Flight
 
 @Accessors
-class Searcher {
+class SearcherService {
 	
 	List<Airline> airlines
 	private int id

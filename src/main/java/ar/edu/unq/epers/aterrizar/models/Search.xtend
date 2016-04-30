@@ -16,9 +16,12 @@ class Search {
 	}
 	
 	def getHQL(){
-		var res = "SELECT flights FROM Airline as airline INNER JOIN airline.flights as flights WHERE "
-		for(criteria : criterias){
-			res = res + criteria.getHQL()
+		var res = "SELECT flights FROM Airline as airline INNER JOIN airline.flights as flights "
+		if(criterias.size()>0){
+			res = res + "WHERE "
+			for(criteria : criterias){
+				res = res + criteria.getHQL()
+			}
 		}
 		return res + hqlForOrder()
 	}

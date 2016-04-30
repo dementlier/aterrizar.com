@@ -14,6 +14,7 @@ import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 import ar.edu.unq.epers.aterrizar.models.CriteriaOr
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 import ar.edu.unq.epers.aterrizar.services.SearcherService
+import ar.edu.unq.epers.aterrizar.models.FlightOrder
 
 class HQLCriteriaSearchTest {
 	
@@ -33,15 +34,18 @@ class HQLCriteriaSearchTest {
 		var vuelo = new Flight()
 		vuelo.origin = "Madrid"
 		vuelo.destination = "Orlando"
-
+		vuelo.price = 100
+		
 		
 		var vuelo2 = new Flight()
 		vuelo2.origin = "Sirya"
 		vuelo2.destination = "Orlando"
+		vuelo2.price = 200
 		
 		var vuelo3 = new Flight()
 		vuelo3.origin = "Tokyo"
 		vuelo3.destination = "Madrid"
+		vuelo3.price = 300
 		
 		aerolinea = new Airline()
 		aerolinea.name = "Pepe Airlines"
@@ -85,7 +89,7 @@ class HQLCriteriaSearchTest {
 		criteriaAnd.criterias.add(new CriteriaEquals("airline.name", "Not Pepe Airlines"))
 		criteriaAnd.criterias.add(new CriteriaEquals("flights.destination", "Madrid"))
 		searchCriteria.criterias.add(criteriaAnd)
-		var list = searcher.search(new User("Pepe", "Juarez", "pepejuarez", "pee@p.com", new Date(1), "1234", false), searchCriteria)
+		var list = searcher.search(user, searchCriteria)
 		assertEquals(1, list.size())
 		assertEquals("Tokyo", list.get(0).origin)
 		assertEquals("Madrid", list.get(0).destination)
@@ -99,7 +103,7 @@ class HQLCriteriaSearchTest {
 		criteriaOr.criterias.add(new CriteriaEquals("airline.name", "Pepe Airlines"))
 		criteriaOr.criterias.add(new CriteriaEquals("flights.destination", "Madrid"))
 		searchCriteria.criterias.add(criteriaOr)
-		var list = searcher.search(new User("Pepe", "Juarez", "pepejuarez", "pee@p.com", new Date(1), "1234", false), searchCriteria)
+		var list = searcher.search(user, searchCriteria)
 		assertEquals(2, list.size())
 		assertEquals("Tokyo", list.get(1).origin)
 		assertEquals("Madrid", list.get(1).destination)
@@ -107,5 +111,14 @@ class HQLCriteriaSearchTest {
 		assertEquals("Orlando", list.get(0).destination)
 		// Se hizo esto porque el hashCode cambia, y no queremos cambiar el hashCode (lease, no tenemos tiempo :( )
 	}		
-		
+	
+	@Test
+	def testHQLCriteriaConOrdenPorCosto(){
+		var searchCriteria = new Search()
+		searchCriteria.setFlightOrder(FlightOrder.Cost)
+		var list = searcher.search(user, searchCriteria)
+		assertEquals(100, list.get(0).price)
+		assertEquals(200, list.get(1).price)
+		assertEquals(300, list.get(2).price)				
+	}	
 }

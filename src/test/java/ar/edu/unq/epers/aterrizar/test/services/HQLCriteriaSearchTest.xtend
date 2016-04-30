@@ -15,6 +15,7 @@ import ar.edu.unq.epers.aterrizar.models.CriteriaOr
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 import ar.edu.unq.epers.aterrizar.services.SearcherService
 import ar.edu.unq.epers.aterrizar.models.FlightOrder
+import ar.edu.unq.epers.aterrizar.models.Section
 
 class HQLCriteriaSearchTest {
 	
@@ -30,22 +31,37 @@ class HQLCriteriaSearchTest {
 		searcherService.deleteAllSearchersInDB()
 		var userService = new UserHibernateService()
 		userService.deleteAllUsersInDB()
+		
+		var section1vuelo1 = new Section()
+		
+		var section1vuelo2 = new Section()
+		var section2vuelo2 = new Section()
+		
+		var section1vuelo3 = new Section()
+		var section2vuelo3 = new Section()
+		var section3vuelo3 = new Section()
 
 		var vuelo = new Flight()
 		vuelo.origin = "Madrid"
 		vuelo.destination = "Orlando"
 		vuelo.price = 100
+		vuelo.addSection(section1vuelo1)
 		
 		
 		var vuelo2 = new Flight()
 		vuelo2.origin = "Sirya"
 		vuelo2.destination = "Orlando"
 		vuelo2.price = 200
+		vuelo2.addSection(section1vuelo2)
+		vuelo2.addSection(section2vuelo2)
 		
 		var vuelo3 = new Flight()
 		vuelo3.origin = "Tokyo"
 		vuelo3.destination = "Madrid"
 		vuelo3.price = 300
+		vuelo3.addSection(section1vuelo3)
+		vuelo3.addSection(section2vuelo3)
+		vuelo3.addSection(section3vuelo3)
 		
 		aerolinea = new Airline()
 		aerolinea.name = "Pepe Airlines"
@@ -120,5 +136,27 @@ class HQLCriteriaSearchTest {
 		assertEquals(100, list.get(0).price)
 		assertEquals(200, list.get(1).price)
 		assertEquals(300, list.get(2).price)				
-	}	
+	}
+	
+	@Test
+	def testHQLCriteriaConOrdenPorEscalas(){
+		var searchCriteria = new Search()
+		searchCriteria.setFlightOrder(FlightOrder.SectionNo)
+		var list = searcher.search(user, searchCriteria)
+		assertEquals(aerolinea.flights.get(0).sections.size(), list.get(0).sections.size())
+		assertEquals(aerolinea2.flights.get(0).sections.size(), list.get(1).sections.size())
+		assertEquals(aerolinea2.flights.get(1).sections.size(), list.get(2).sections.size())
+		assertEquals(3, list.size())
+	}
+	
+	@Test
+	def testHQLCriteriaConOrdenPorEscalasNotHappyPath(){
+		var searchCriteria = new Search()
+		searchCriteria.setFlightOrder(FlightOrder.SectionNo)
+		var list = searcher.search(user, searchCriteria)
+		assertNotEquals(aerolinea.flights.get(0).sections.size(), list.get(2).sections.size())
+		assertNotEquals(aerolinea2.flights.get(0).sections.size(), list.get(0).sections.size())
+		assertNotEquals(aerolinea2.flights.get(1).sections.size(), list.get(1).sections.size())
+		assertEquals(3, list.size())
+	}		
 }

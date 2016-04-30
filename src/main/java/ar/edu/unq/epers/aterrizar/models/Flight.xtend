@@ -21,8 +21,24 @@ class Flight {
 	}
 	
 	new(List<Section> someSections){
-		this.sections = someSections
-		refreshPrice()
+		setSections(someSections)
+	}
+	
+	def refreshDurationAndLocations() {
+		origin = this.sections.get(0).getOrigin()
+		destination = this.sections.get(0).getDestination()
+		departureDate = this.sections.get(0).getDepartureTime()
+		arrivalDate = this.sections.get(0).getArrivalTime()
+		for(section : this.sections){
+			if(section.arrivalTime.after(arrivalDate)){
+				arrivalDate = section.arrivalTime
+				destination = section.destination
+			}
+			if(section.departureTime.before(departureDate)){
+				departureDate = section.departureTime
+				origin = section.origin
+			}		
+		}
 	}
 	
 	def hasSeatsOfCategory(SeatCategory category){
@@ -36,12 +52,19 @@ class Flight {
 	def setSections(List<Section> someSections){
 		this.sections = someSections
 		refreshPrice()
+//		refreshDurationAndLocations()
 	}
 	
 	def refreshPrice(){
 		for(section : sections){
 			price = price + section.price
 		}				
+	}
+	
+	def addSection(Section section){
+		this.sections.add(section)
+		refreshPrice()
+//		refreshDurationAndLocations()
 	}
 	
 }

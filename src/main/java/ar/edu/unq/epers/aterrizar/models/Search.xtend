@@ -29,7 +29,7 @@ class Search {
 	def hqlForOrder(){
 		switch(flightOrder){
 			case Cost : "ORDER BY flights.price ASC"
-			case SectionNo : "ORDER BY count(flights.sections) ASC" // no se si anda.
+			case SectionNo : "INNER JOIN flights.sections as sections GROUP BY flights ORDER BY count(*) ASC" // no se si anda.
 			case Duration : "" // TODO podria agregarle una property Duration...
 			default : ""
 			

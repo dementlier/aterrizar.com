@@ -17,7 +17,6 @@ class Flight {
 
 	new(){
 		sections = new ArrayList<Section>()
-		price = 0
 	}
 	
 	new(List<Section> someSections){
@@ -52,10 +51,11 @@ class Flight {
 	def setSections(List<Section> someSections){
 		this.sections = someSections
 		refreshPrice()
-//		refreshDurationAndLocations()
+		refreshDurationAndLocations()
 	}
 	
 	def refreshPrice(){
+		price = 0
 		for(section : sections){
 			price = price + section.price
 		}				
@@ -64,7 +64,7 @@ class Flight {
 	def addSection(Section section){
 		this.sections.add(section)
 		refreshPrice()
-//		refreshDurationAndLocations()
+		refreshDurationAndLocations()
 	}
 	
 }

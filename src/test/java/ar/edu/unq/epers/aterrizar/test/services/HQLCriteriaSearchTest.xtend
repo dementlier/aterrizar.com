@@ -33,32 +33,67 @@ class HQLCriteriaSearchTest {
 		userService.deleteAllUsersInDB()
 		
 		var section1vuelo1 = new Section()
+		section1vuelo1 => [
+			origin = "Madrid"
+			destination = "Orlando"
+			price = 100
+			departureTime = Date.valueOf("2016-7-26")
+			arrivalTime = Date.valueOf("2016-7-27")
+		]
 		
 		var section1vuelo2 = new Section()
+		section1vuelo2 => [
+			origin = "Syria"
+			destination = "Barcelona"
+			price = 100
+			departureTime = Date.valueOf("2016-7-26")
+			arrivalTime = Date.valueOf("2016-7-27")
+			
+		]
 		var section2vuelo2 = new Section()
+		section2vuelo2 => [
+			origin = "Barcelona"
+			destination = "Orlando"
+			price = 100
+			departureTime = Date.valueOf("2016-7-27")
+			arrivalTime = Date.valueOf("2016-7-28")
+			
+		]
 		
 		var section1vuelo3 = new Section()
+		section1vuelo3 => [
+			origin = "Tokyo"
+			destination = "Siberia"
+			price = 100
+			departureTime = Date.valueOf("2016-7-26")
+			arrivalTime = Date.valueOf("2016-7-27")			
+		]
 		var section2vuelo3 = new Section()
+		section2vuelo3 => [
+			origin = "Siberia"
+			destination = "Berlin"
+			price = 100
+			departureTime = Date.valueOf("2016-7-27")
+			arrivalTime = Date.valueOf("2016-7-28")			
+		]
 		var section3vuelo3 = new Section()
+		section3vuelo3 => [
+			origin = "Berlin"
+			destination = "Madrid"
+			price = 100
+			departureTime = Date.valueOf("2016-7-28")
+			arrivalTime = Date.valueOf("2016-7-29")			
+		]
 
 		var vuelo = new Flight()
-		vuelo.origin = "Madrid"
-		vuelo.destination = "Orlando"
-		vuelo.price = 100
 		vuelo.addSection(section1vuelo1)
 		
 		
 		var vuelo2 = new Flight()
-		vuelo2.origin = "Sirya"
-		vuelo2.destination = "Orlando"
-		vuelo2.price = 200
 		vuelo2.addSection(section1vuelo2)
 		vuelo2.addSection(section2vuelo2)
 		
 		var vuelo3 = new Flight()
-		vuelo3.origin = "Tokyo"
-		vuelo3.destination = "Madrid"
-		vuelo3.price = 300
 		vuelo3.addSection(section1vuelo3)
 		vuelo3.addSection(section2vuelo3)
 		vuelo3.addSection(section3vuelo3)
@@ -158,5 +193,15 @@ class HQLCriteriaSearchTest {
 		assertNotEquals(aerolinea2.flights.get(0).sections.size(), list.get(0).sections.size())
 		assertNotEquals(aerolinea2.flights.get(1).sections.size(), list.get(1).sections.size())
 		assertEquals(3, list.size())
+	}
+	
+	@Test 
+	def testHQLCriteriaConOrdenPorDuracion(){
+		var searchCriteria = new Search()
+		searchCriteria.setFlightOrder(FlightOrder.Duration)
+		var list = searcher.search(user, searchCriteria)
+		assertEquals(Date.valueOf("2016-7-27"), list.get(0).arrivalDate)
+		assertEquals(Date.valueOf("2016-7-28"), list.get(1).arrivalDate)
+		assertEquals(Date.valueOf("2016-7-29"), list.get(2).arrivalDate)
 	}		
 }

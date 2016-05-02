@@ -13,10 +13,11 @@
 		<property name="destination" type="string" column="destination" />
 		<property name="arrivalDate" type="java.sql.Date" column="arrivalDate" />
 		<property name="departureDate" type="java.sql.Date" column="departureDate" />
+		<property name="price" type="java.lang.Integer" column="price" />
 		<bag name="sections" cascade="all" inverse="false" lazy="false">
 			<key column="flight_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Section" />
 		</bag>
-		
+
 	</class>
 </hibernate-mapping>

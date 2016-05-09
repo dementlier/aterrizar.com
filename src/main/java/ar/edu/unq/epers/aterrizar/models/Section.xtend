@@ -39,8 +39,12 @@ class Section {
 	
 	def boolean isReservationPossible(List<Seat> seats){
 		var res = true
-		for(seat : seats){
-			res = res && seat.isReservable()
+		if(this.seats.containsAll(seats)){
+			for(seat : seats){
+				res = res && seat.isReservable()
+			}	
+		} else {
+			res = false
 		}
 		return res
 	}

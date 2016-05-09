@@ -9,6 +9,9 @@ import ar.edu.unq.epers.aterrizar.models.Airline
 import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.models.Search
 import ar.edu.unq.epers.aterrizar.models.Flight
+import ar.edu.unq.epers.aterrizar.models.Section
+import ar.edu.unq.epers.aterrizar.models.Seat
+import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 @Accessors
 class SearcherService {
@@ -37,5 +40,33 @@ class SearcherService {
 		list
 	}
 	
+	def reserveSeats(User user, Section section, List<Seat> seats){
+		val repo = new SearcherHibernateRepo()
+		section.reserveSeats(user, seats)
+		SessionManager.runInSession([
+			repo.saveSection(section)
+			repo.saveX(user)
+			null
+		])
+	}
+	
+	// Solo esta porque son 2 requerimientos diferentes, supongo... se podría obviar porque en una UI
+	// nos podriamos encargar de hacer el cambio de Seat a List<Seat> sin necesidad de que nuestro servicio cambie
+	def reserveSeat(User user, Section section, Seat seat){
+		var list = new ArrayList<Seat>()
+		list.add(seat)
+		this.reserveSeats(user, section, list)
+	}
+	
+	def reservableSeats(Section section){
+		section.reservableSeats()
+	}
 
+	def saveSearch(User user, Search searchCriterias){
+		user.addSearch(searchCriterias)
+		SessionManager.runInSession([
+			new SearcherHibernateRepo().saveX(user)
+			null
+		])
+	}
 }

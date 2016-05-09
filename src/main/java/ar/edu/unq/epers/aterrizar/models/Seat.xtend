@@ -17,6 +17,14 @@ class Seat {
 		reserver = null
 	}
 	
+	override int hashCode(){
+		id
+	}
+	
+	override boolean equals(Object o){
+		this.id == (o as Seat).id
+	}
+	
 	def boolean isReservable(){
 		reserver == null
 	}

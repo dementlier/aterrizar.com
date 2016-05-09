@@ -7,6 +7,7 @@ import ar.edu.unq.epers.aterrizar.models.FriendRelationshipType
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.RelationshipType
+import java.util.ArrayList
 
 class FriendsRepo {
 	GraphDatabaseService graph

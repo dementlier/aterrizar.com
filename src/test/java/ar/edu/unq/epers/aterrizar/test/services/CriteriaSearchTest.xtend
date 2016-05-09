@@ -17,7 +17,7 @@ import ar.edu.unq.epers.aterrizar.services.SearcherService
 import ar.edu.unq.epers.aterrizar.models.FlightOrder
 import ar.edu.unq.epers.aterrizar.models.Section
 
-class HQLCriteriaSearchTest {
+class CriteriaSearchTest {
 	
 	Airline aerolinea
 	SearcherService searcher

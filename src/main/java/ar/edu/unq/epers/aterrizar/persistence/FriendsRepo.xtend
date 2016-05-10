@@ -7,7 +7,6 @@ import ar.edu.unq.epers.aterrizar.models.FriendRelationshipType
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.RelationshipType
-import java.util.ArrayList
 
 class FriendsRepo {
 	GraphDatabaseService graph
@@ -60,7 +59,7 @@ class FriendsRepo {
 
 	def getFriends(User user) {
 		val nodeUser = this.getUserNode(user)
-		val nodeFriends = this.relatedNodes(nodeUser, FriendRelationshipType.FRIEND, Direction.INCOMING)
+		val nodeFriends = this.relatedNodes(nodeUser, FriendRelationshipType.FRIEND, Direction.INCOMING) 
 		nodeFriends.map[toUser].toSet
 	}
 

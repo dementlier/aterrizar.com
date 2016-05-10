@@ -39,6 +39,7 @@ class UserHibernateService {
                 throw new UserAlreadyExistsException
             } else {
                 repo.save(user)
+                new FriendService().addUser(user) // Necesario para asegurar que exista el usuario en la base de datos para friendships
                 this.enviarMail(user.email, user.validationCode)
                 void
             }

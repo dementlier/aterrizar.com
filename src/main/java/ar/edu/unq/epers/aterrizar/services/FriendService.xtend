@@ -5,6 +5,7 @@ import ar.edu.unq.epers.aterrizar.persistence.FriendsRepo
 import ar.edu.unq.epers.aterrizar.models.FriendRelationshipType
 import ar.edu.unq.epers.aterrizar.models.User
 import ar.edu.unq.epers.aterrizar.models.MessageTransferType
+import java.util.HashSet
 
 class FriendService {
 	
@@ -63,6 +64,18 @@ class FriendService {
 			home.getMessages(user, MessageTransferType.RECEIVED)
 		]
 	}
-
+	
+	def getConnectedUsers(User user){
+		GraphServiceRunner::run[
+			val home = createHome(it)
+			var HashSet<User> res = new HashSet<User>()
+			var friends = home.getFriends(user)
+			res.addAll(friends)
+			for(friend : friends){
+				res.addAll(home.getFriends(friend).filter[f | f.username != user.username])
+			}
+			res
+		]
+	}
 
 }

@@ -5,7 +5,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
 
-
 @Accessors
 class User {
 	String firstname
@@ -56,5 +55,13 @@ class User {
 	def void addSearch(Search search){
 		searches.add(search)
 	}
-
+	
+	override hashCode(){
+		username.hashCode()
+	}
+	
+	override equals(Object o){
+		var userToCompare = o as User
+		this.username == userToCompare.username
+	}
 }

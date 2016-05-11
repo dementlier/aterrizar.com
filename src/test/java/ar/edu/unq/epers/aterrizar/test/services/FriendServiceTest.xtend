@@ -56,7 +56,7 @@ class FriendServiceTest {
 		friendService.befriend(user, user2)
 		friendService.befriend(user, user3)
 		var friends = friendService.friends(user)
-		assertEquals(friends.size(), 2);
+		assertEquals(2, friends.size());
 		assertTrue(friends.exists[u | u.username == user2.username])
 		assertTrue(friends.exists[u | u.username == user3.username])
 		
@@ -92,6 +92,21 @@ class FriendServiceTest {
 		var messagesReceivedByUser2 = friendService.getMessagesReceivedBy(user2)
 		assertEquals(0, messagesSentByUser.size())
 		assertEquals(0, messagesReceivedByUser2.size())
+	}
+	
+	@Test
+	def testUsersConectedToUser1(){
+		friendService.befriend(user, user2)
+		friendService.befriend(user, user3)
+		friendService.befriend(user2, user4)
+		friendService.befriend(user3, user5)
+		friendService.befriend(user2, user3)
+		var connectedUsers = friendService.getConnectedUsers(user)
+		assertEquals(4, connectedUsers.size())
+		assertTrue(connectedUsers.exists[u | u.username == user2.username])
+		assertTrue(connectedUsers.exists[u | u.username == user3.username])
+		assertTrue(connectedUsers.exists[u | u.username == user4.username])
+		assertTrue(connectedUsers.exists[u | u.username == user5.username])
 	}
 	
 	@After

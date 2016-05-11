@@ -7,6 +7,7 @@ import ar.edu.unq.epers.aterrizar.models.FriendRelationshipType
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.RelationshipType
+import ar.edu.unq.epers.aterrizar.models.MessageTransferType
 
 class FriendsRepo {
 	GraphDatabaseService graph
@@ -19,6 +20,9 @@ class FriendsRepo {
 		DynamicLabel.label("User")
 	}
 	
+	private def messageLabel() {
+		DynamicLabel.label("Message")
+	}
 	
 	def createUserNode(User user) {
 		val node = this.graph.createNode(userLabel)
@@ -26,6 +30,31 @@ class FriendsRepo {
 		node.setProperty("username", user.username)
 		node.setProperty("firstname", user.firstname)
 		node.setProperty("lastname", user.lastname)
+		
+		node
+	}
+	
+	def sendMessage(User from, User to, String message){
+		val nodoFrom = this.getUserNode(from)
+		val nodoTo = this.getUserNode(to)
+		val nodoMessage = this.createMessageNode(message)
+		
+		nodoFrom.createRelationshipTo(nodoMessage, MessageTransferType.SENT)
+		nodoTo.createRelationshipTo(nodoMessage, MessageTransferType.RECEIVED)
+	}
+	
+	def createMessageNode(String message){
+		val node = this.graph.createNode(messageLabel)
+		
+		node.setProperty("message", message)
+		
+		node
+	}
+	
+	def getMessages(User user, MessageTransferType transferType){
+		val userNode = this.getUserNode(user)
+		val nodeMessages = this.relatedNodes(userNode, transferType, Direction.OUTGOING)
+		nodeMessages.map[toMessageString].toList
 	}
 
 	def deleteUserNode(User user) {
@@ -56,6 +85,10 @@ class FriendsRepo {
 			lastname = nodo.getProperty("lastname") as String
 		]
 	}
+	
+	private def toMessageString(Node node){
+		node.getProperty("message") as String
+	}
 
 	def getFriends(User user) {
 		val nodeUser = this.getUserNode(user)
@@ -67,5 +100,14 @@ class FriendsRepo {
 		nodo.getRelationships(tipo, direccion).map[it.getOtherNode(nodo)]
 	}
 
+
+	def areFriends(User user1, User user2){
+		val user1Node = this.getUserNode(user1)
+		val user2Node = this.getUserNode(user2)
+		val user1NodeFriends = this.relatedNodes(user1Node, FriendRelationshipType.FRIEND, Direction.INCOMING)
+		user1NodeFriends.toList.exists[u | u == user2Node]
+		// Me hubiese gustado poder checkearlo de forma mas simple, teniendo un metodo que
+		// si le paso dos nodos y una relacion me diga si existe o no, pero no hay.
+	}
 
 }

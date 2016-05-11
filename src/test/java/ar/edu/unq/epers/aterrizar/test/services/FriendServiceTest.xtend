@@ -64,7 +64,35 @@ class FriendServiceTest {
 	
 	// TODO Modelar nodo Mensaje que tenga sender, receiver y cuerpo
 	// Los usuarios mandan mensajes que se agregan al service y quedan flotando ahí
-	// No hace falta agregar un mensaje a un usuario. Solo envían. 
+	// No hace falta agregar un mensaje a un usuario. Solo envían.
+	
+	// Me di cuenta despues de este comentario, cuando ya habia terminado todo la creacion y demas
+	// y solo me faltaba testear, termine haciendo un mensaje que solo es un string
+	// que se guarda como nodo y que se lo relaciona tanto con el sender como con el receiver
+	// y que son 2 relaciones con distinto tipo (SENT, RECEIVED).
+	// Si lo habian charlado con los profes de que tenia que ser como lo dijeron despues lo cambiamos,
+	// total es más facil de su manera, pero pense que habia que usar relaciones!
+	
+	@Test
+	def testMessagesAreSentCorrectlyToAnUserThatAFriendWithSender(){
+		friendService.befriend(user, user2)
+		friendService.sendMessage(user, user2, "Mensaje")
+		var messagesSentByUser = friendService.getMessagesSentBy(user)
+		var messagesReceivedByUser2 = friendService.getMessagesReceivedBy(user2)
+		assertEquals(1, messagesSentByUser.size())
+		assertEquals(1, messagesReceivedByUser2.size())
+		assertEquals("Mensaje", messagesSentByUser.head)
+		assertEquals("Mensaje", messagesReceivedByUser2.head)
+	}
+	
+	@Test
+	def testMessagesAreNotSentCorrectlyToAnUserThatIsNotAFriendWithSender(){
+		friendService.sendMessage(user, user2, "Mensaje")
+		var messagesSentByUser = friendService.getMessagesSentBy(user)
+		var messagesReceivedByUser2 = friendService.getMessagesReceivedBy(user2)
+		assertEquals(0, messagesSentByUser.size())
+		assertEquals(0, messagesReceivedByUser2.size())
+	}
 	
 	@After
 	def void tearDown(){

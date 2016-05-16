@@ -8,6 +8,9 @@ import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.RelationshipType
 import ar.edu.unq.epers.aterrizar.models.MessageTransferType
+import org.neo4j.graphdb.traversal.Evaluators
+import java.util.HashSet
+import ar.edu.unq.epers.aterrizar.models.FriendableUser
 
 class FriendsRepo {
 	GraphDatabaseService graph
@@ -78,7 +81,7 @@ class FriendsRepo {
 	}
 
 	private def toUser(Node nodo) {
-		new User => [
+		new FriendableUser => [
 			username = nodo.getProperty("username") as String
 			firstname = nodo.getProperty("firstname") as String
 			lastname = nodo.getProperty("lastname") as String
@@ -97,6 +100,19 @@ class FriendsRepo {
 
 	protected def relatedNodes(Node nodo, RelationshipType tipo, Direction direccion) {
 		nodo.getRelationships(tipo, direccion).map[it.getOtherNode(nodo)]
+	}
+
+	def connectedUsers(User user) {
+		var td = graph.traversalDescription().breadthFirst().relationships(FriendRelationshipType.FRIEND,
+			Direction.OUTGOING).evaluator(Evaluators.excludeStartPosition());
+		var paths = td.traverse(this.getUserNode(user.username));
+		var set = new HashSet
+		for (path : paths) {
+			set.add(path.endNode.toUser)
+		}
+
+		set
+
 	}
 
 	def areFriends(User user1, User user2) {

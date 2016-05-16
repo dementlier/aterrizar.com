@@ -17,12 +17,12 @@ class User {
 	List<Reservation> reservations
 	int id
 	List<Search> searches
-	
 
 	/**
-    * Constructor, si se usa el tipo data se puede ahorrar
-    * */
-	new(String firstName, String lastName, String userName, String mail, Date birthDay, String pass, boolean validation) {
+	 * Constructor, si se usa el tipo data se puede ahorrar
+	 * */
+	new(String firstName, String lastName, String userName, String mail, Date birthDay, String pass,
+		boolean validation) {
 		firstname = firstName
 		lastname = lastName
 		username = userName
@@ -37,31 +37,22 @@ class User {
 	/**Para Hibernate */
 	new() {
 		searches = new ArrayList<Search>()
-		reservations = new ArrayList<Reservation>()		
+		reservations = new ArrayList<Reservation>()
 	}
-	
 
 	/**
-     * Returns the validation code
-     */
+	 * Returns the validation code
+	 */
 	def int getValidationCode() {
 		return username.hashCode()
 	}
-	
-	def void addReservation(Reservation r){
+
+	def void addReservation(Reservation r) {
 		reservations.add(r)
 	}
-	
-	def void addSearch(Search search){
+
+	def void addSearch(Search search) {
 		searches.add(search)
 	}
-	
-	override hashCode(){
-		username.hashCode()
-	}
-	
-	override equals(Object o){
-		var userToCompare = o as User
-		this.username == userToCompare.username
-	}
+
 }

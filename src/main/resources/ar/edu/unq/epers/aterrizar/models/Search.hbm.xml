@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ar.edu.unq.epers.aterrizar.models.Search" table="busquedas">
+	<class name="ar.edu.unq.epers.aterrizar.models.searches.Search" table="busquedas">
 
 		<id name="id" type="java.lang.Integer">
 			<column name="id" />
@@ -12,7 +12,7 @@
 		
 		<property name="flightOrder" column="flightOrder">
 			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">ar.edu.unq.epers.aterrizar.models.FlightOrder</param>
+				<param name="enumClass">ar.edu.unq.epers.aterrizar.models.searches.FlightOrder</param>
 				<param name="useNamed">true</param>
 			</type>
 		</property>
@@ -20,7 +20,7 @@
 		<list name="criterias" cascade="all" inverse="true" lazy="false">
 			<key column="search_id" />
 			<list-index column="indexColumn" />
-			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.searches.Criteria" />
 		</list>
 	</class>
 </hibernate-mapping>

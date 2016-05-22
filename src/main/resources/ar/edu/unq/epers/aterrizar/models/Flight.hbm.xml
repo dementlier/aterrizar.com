@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ar.edu.unq.epers.aterrizar.models.Flight" table="vuelos">
+	<class name="ar.edu.unq.epers.aterrizar.models.airlines.Flight" table="vuelos">
 
 		<id name="id" type="java.lang.Integer">
 			<column name="id" />
@@ -16,7 +16,7 @@
 		<property name="price" type="java.lang.Integer" column="price" />
 		<bag name="sections" cascade="all" inverse="false" lazy="false">
 			<key column="flight_id" />
-			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Section" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.airlines.Section" />
 		</bag>
 
 	</class>

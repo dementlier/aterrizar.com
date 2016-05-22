@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.models
+package ar.edu.unq.epers.aterrizar.models.airlines
 
 import java.sql.Date
 import java.util.List

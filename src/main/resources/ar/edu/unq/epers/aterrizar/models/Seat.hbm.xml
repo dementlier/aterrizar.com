@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ar.edu.unq.epers.aterrizar.models.Seat" table="asientos">
+	<class name="ar.edu.unq.epers.aterrizar.models.airlines.Seat" table="asientos">
 
 		<id name="id" type="java.lang.Integer">
 			<column name="id" />
@@ -14,11 +14,11 @@
 
 		<property name="category" column="category">
 			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">ar.edu.unq.epers.aterrizar.models.SeatCategory</param>
+				<param name="enumClass">ar.edu.unq.epers.aterrizar.models.airlines.SeatCategory</param>
 				<param name="useNamed">true</param>
 			</type>
 		</property>
 
-		<many-to-one name="reserver" column="reserver_id" not-null="false" class="ar.edu.unq.epers.aterrizar.models.User" />
+		<many-to-one name="reserver" column="reserver_id" not-null="false" class="ar.edu.unq.epers.aterrizar.models.user.User" />
 	</class>
 </hibernate-mapping>

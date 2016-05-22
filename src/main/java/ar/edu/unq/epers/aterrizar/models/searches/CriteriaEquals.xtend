@@ -1,6 +1,5 @@
-package ar.edu.unq.epers.aterrizar.models
+package ar.edu.unq.epers.aterrizar.models.searches
 
-import ar.edu.unq.epers.aterrizar.models.Criteria
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors

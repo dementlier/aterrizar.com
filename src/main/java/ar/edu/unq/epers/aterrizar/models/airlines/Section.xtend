@@ -1,9 +1,11 @@
-package ar.edu.unq.epers.aterrizar.models
+package ar.edu.unq.epers.aterrizar.models.airlines
 
 import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
+import ar.edu.unq.epers.aterrizar.models.user.User
+import ar.edu.unq.epers.aterrizar.models.user.Reservation
 
 @Accessors
 class Section {

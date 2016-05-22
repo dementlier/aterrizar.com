@@ -5,13 +5,13 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import java.sql.Date
-import ar.edu.unq.epers.aterrizar.models.Reservation
+import ar.edu.unq.epers.aterrizar.models.user.Reservation
 import java.util.ArrayList
-import ar.edu.unq.epers.aterrizar.models.Seat
+import ar.edu.unq.epers.aterrizar.models.airlines.Seat
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 class UserHibernateServiceTest {

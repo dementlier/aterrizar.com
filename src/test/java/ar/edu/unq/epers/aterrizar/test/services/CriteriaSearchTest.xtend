@@ -3,19 +3,19 @@ package ar.edu.unq.epers.aterrizar.test.services
 import org.junit.Before
 import org.junit.Test
 import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.models.Flight
-import ar.edu.unq.epers.aterrizar.models.Airline
-import ar.edu.unq.epers.aterrizar.models.Search
-import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.models.CriteriaEquals
+import ar.edu.unq.epers.aterrizar.models.airlines.Flight
+import ar.edu.unq.epers.aterrizar.models.airlines.Airline
+import ar.edu.unq.epers.aterrizar.models.searches.Search
+import ar.edu.unq.epers.aterrizar.models.user.User
+import ar.edu.unq.epers.aterrizar.models.searches.CriteriaEquals
 import java.sql.Date
-import ar.edu.unq.epers.aterrizar.models.CriteriaAnd
+import ar.edu.unq.epers.aterrizar.models.searches.CriteriaAnd
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
-import ar.edu.unq.epers.aterrizar.models.CriteriaOr
+import ar.edu.unq.epers.aterrizar.models.searches.CriteriaOr
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 import ar.edu.unq.epers.aterrizar.services.SearcherService
-import ar.edu.unq.epers.aterrizar.models.FlightOrder
-import ar.edu.unq.epers.aterrizar.models.Section
+import ar.edu.unq.epers.aterrizar.models.searches.FlightOrder
+import ar.edu.unq.epers.aterrizar.models.airlines.Section
 
 class CriteriaSearchTest {
 	

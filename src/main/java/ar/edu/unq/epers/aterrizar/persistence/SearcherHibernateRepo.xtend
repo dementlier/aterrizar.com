@@ -1,9 +1,9 @@
 package ar.edu.unq.epers.aterrizar.persistence
 
-import ar.edu.unq.epers.aterrizar.models.Airline
-import ar.edu.unq.epers.aterrizar.models.Flight
-import ar.edu.unq.epers.aterrizar.models.Seat
-import ar.edu.unq.epers.aterrizar.models.Section
+import ar.edu.unq.epers.aterrizar.models.airlines.Airline
+import ar.edu.unq.epers.aterrizar.models.airlines.Flight
+import ar.edu.unq.epers.aterrizar.models.airlines.Seat
+import ar.edu.unq.epers.aterrizar.models.airlines.Section
 import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
 import ar.edu.unq.epers.aterrizar.services.SearcherService

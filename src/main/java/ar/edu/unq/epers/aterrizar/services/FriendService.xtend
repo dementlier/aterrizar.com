@@ -2,9 +2,9 @@ package ar.edu.unq.epers.aterrizar.services
 
 import org.neo4j.graphdb.GraphDatabaseService
 import ar.edu.unq.epers.aterrizar.persistence.FriendsRepo
-import ar.edu.unq.epers.aterrizar.models.FriendRelationshipType
-import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.models.MessageTransferType
+import ar.edu.unq.epers.aterrizar.models.relationships.FriendRelationshipType
+import ar.edu.unq.epers.aterrizar.models.user.User
+import ar.edu.unq.epers.aterrizar.models.relationships.MessageTransferType
 
 class FriendService {
 

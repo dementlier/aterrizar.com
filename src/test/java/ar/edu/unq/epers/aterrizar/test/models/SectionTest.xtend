@@ -1,8 +1,8 @@
 package ar.edu.unq.epers.aterrizar.test.models
 
-import ar.edu.unq.epers.aterrizar.models.Seat
-import ar.edu.unq.epers.aterrizar.models.SeatCategory
-import ar.edu.unq.epers.aterrizar.models.Section
+import ar.edu.unq.epers.aterrizar.models.airlines.Seat
+import ar.edu.unq.epers.aterrizar.models.airlines.SeatCategory
+import ar.edu.unq.epers.aterrizar.models.airlines.Section
 import java.sql.Date
 import java.util.ArrayList
 import java.util.List

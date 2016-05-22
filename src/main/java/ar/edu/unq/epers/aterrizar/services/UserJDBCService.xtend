@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.aterrizar.services
 
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException

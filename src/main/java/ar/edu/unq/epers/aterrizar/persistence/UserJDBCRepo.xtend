@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.aterrizar.persistence
 
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import java.sql.Connection
 import java.sql.DriverManager
 import org.eclipse.xtext.xbase.lib.Functions.Function1

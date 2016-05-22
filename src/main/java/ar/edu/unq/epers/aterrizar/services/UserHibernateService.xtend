@@ -1,13 +1,13 @@
 package ar.edu.unq.epers.aterrizar.services
 
 import ar.edu.unq.epers.aterrizar.exceptions.UserAlreadyExistsException
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
-import ar.edu.unq.epers.aterrizar.models.Reservation
-import ar.edu.unq.epers.aterrizar.models.Search
+import ar.edu.unq.epers.aterrizar.models.user.Reservation
+import ar.edu.unq.epers.aterrizar.models.searches.Search
 
 class UserHibernateService {
     

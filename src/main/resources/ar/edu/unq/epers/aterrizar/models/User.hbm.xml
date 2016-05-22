@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ar.edu.unq.epers.aterrizar.models.User" table="usuarios">
+	<class name="ar.edu.unq.epers.aterrizar.models.user.User" table="usuarios">
 
 		<id name="id" type="java.lang.Integer">
 			<column name="id" />
@@ -36,11 +36,11 @@
 		</property>
 		<bag name="reservations" cascade="all" inverse="false" lazy="false">
 			<key column="user_id" />
-			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Reservation" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.user.Reservation" />
 		</bag>
 		<bag name="searches" cascade="all" inverse="false" lazy="false">
 			<key column="user_id" />
-			<one-to-many class="ar.edu.unq.epers.aterrizar.models.Search" />
+			<one-to-many class="ar.edu.unq.epers.aterrizar.models.searches.Search" />
 		</bag>
 	</class>
 	

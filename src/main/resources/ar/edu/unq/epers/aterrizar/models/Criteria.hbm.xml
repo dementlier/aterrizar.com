@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ar.edu.unq.epers.aterrizar.models.Criteria"
+	<class name="ar.edu.unq.epers.aterrizar.models.searches.Criteria"
 		abstract="true" table="criterios">
 
 		<id name="id" type="java.lang.Integer">
@@ -13,25 +13,25 @@
 
 		<discriminator column="discColumn" />
 
-		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaAnd"
+		<subclass name="ar.edu.unq.epers.aterrizar.models.searches.CriteriaAnd"
 			discriminator-value="AND">
 			<list name="criterias" cascade="all" inverse="false">
 				<key column="parent_id" />
 				<list-index column="indexColumn" />
-				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
+				<one-to-many class="ar.edu.unq.epers.aterrizar.models.searches.Criteria" />
 			</list>
 		</subclass>
 
-		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaOr"
+		<subclass name="ar.edu.unq.epers.aterrizar.models.searches.CriteriaOr"
 			discriminator-value="OR">
 			<list name="criterias" cascade="all" inverse="false">
 				<key column="parent_id" />
 				<list-index column="indexColumn" />
-				<one-to-many class="ar.edu.unq.epers.aterrizar.models.Criteria" />
+				<one-to-many class="ar.edu.unq.epers.aterrizar.models.searches.Criteria" />
 			</list>
 		</subclass>
 
-		<subclass name="ar.edu.unq.epers.aterrizar.models.CriteriaEquals"
+		<subclass name="ar.edu.unq.epers.aterrizar.models.searches.CriteriaEquals"
 			discriminator-value="EQUALS">
 			<property name="field" type="string" />
 			<property name="value" type="string" />

@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.aterrizar.test.services
 
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.services.FriendService
 import java.sql.Date
 import org.junit.After

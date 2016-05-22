@@ -1,16 +1,16 @@
 package ar.edu.unq.epers.aterrizar.persistence
 
 import org.neo4j.graphdb.GraphDatabaseService
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import org.neo4j.graphdb.DynamicLabel
-import ar.edu.unq.epers.aterrizar.models.FriendRelationshipType
+import ar.edu.unq.epers.aterrizar.models.relationships.FriendRelationshipType
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.RelationshipType
-import ar.edu.unq.epers.aterrizar.models.MessageTransferType
+import ar.edu.unq.epers.aterrizar.models.relationships.MessageTransferType
 import org.neo4j.graphdb.traversal.Evaluators
 import java.util.HashSet
-import ar.edu.unq.epers.aterrizar.models.FriendableUser
+import ar.edu.unq.epers.aterrizar.models.user.FriendableUser
 
 class FriendsRepo {
 	GraphDatabaseService graph

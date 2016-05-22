@@ -5,12 +5,12 @@ import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 import ar.edu.unq.epers.aterrizar.persistence.SessionManager
-import ar.edu.unq.epers.aterrizar.models.Airline
-import ar.edu.unq.epers.aterrizar.models.User
-import ar.edu.unq.epers.aterrizar.models.Search
-import ar.edu.unq.epers.aterrizar.models.Flight
-import ar.edu.unq.epers.aterrizar.models.Section
-import ar.edu.unq.epers.aterrizar.models.Seat
+import ar.edu.unq.epers.aterrizar.models.airlines.Airline
+import ar.edu.unq.epers.aterrizar.models.user.User
+import ar.edu.unq.epers.aterrizar.models.searches.Search
+import ar.edu.unq.epers.aterrizar.models.airlines.Flight
+import ar.edu.unq.epers.aterrizar.models.airlines.Section
+import ar.edu.unq.epers.aterrizar.models.airlines.Seat
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 
 @Accessors

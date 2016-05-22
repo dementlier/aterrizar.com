@@ -3,10 +3,10 @@ package ar.edu.unq.epers.aterrizar.test.models
 import org.junit.Before
 import org.junit.Test
 import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.models.Seat
-import ar.edu.unq.epers.aterrizar.models.SeatCategory
+import ar.edu.unq.epers.aterrizar.models.airlines.Seat
+import ar.edu.unq.epers.aterrizar.models.airlines.SeatCategory
 import java.sql.Date
-import ar.edu.unq.epers.aterrizar.models.User
+import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.services.UserHibernateService
 import ar.edu.unq.epers.aterrizar.persistence.SearcherHibernateRepo
 

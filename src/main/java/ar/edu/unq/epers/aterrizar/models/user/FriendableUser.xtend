@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.models
+package ar.edu.unq.epers.aterrizar.models.user
 
 import org.eclipse.xtend.lib.annotations.Accessors
 

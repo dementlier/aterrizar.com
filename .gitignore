@@ -25,3 +25,4 @@ hs_err_pid*
 aterrizar.com.iml
 .vagrant
 Vagrantfile
+/bin/

@@ -70,5 +70,12 @@ class FriendService {
 			home.connectedUsers(user)
 		]
 	}
+	
+	def areFriends(User user1, User user2){
+		GraphServiceRunner::run [
+			val home = createHome(it)
+			home.areFriends(user1, user2)
+		]
+	}
 
 }

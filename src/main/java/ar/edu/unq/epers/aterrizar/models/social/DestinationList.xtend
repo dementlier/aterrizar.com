@@ -1,15 +1,17 @@
-package ar.edu.unq.epers.aterrizar.models.user
+package ar.edu.unq.epers.aterrizar.models.social
 
 import java.util.List
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import java.util.ArrayList
 import ar.edu.unq.epers.aterrizar.models.social.Destination
+import ar.edu.unq.epers.aterrizar.services.FriendService
 
 class DestinationList {
 	String username
 	List<String> publicList
 	List<String> privateList
 	List<String> friendsList
+
 	
 	def getDestinations(Visibility visibility){
 		val res = new ArrayList<String>()

@@ -20,4 +20,8 @@ class Destination {
 		dislikes.add(username)
 	}
 	
+	def addComment(Comment comment){
+		this.comments.add(comment)
+	}
+	
 }

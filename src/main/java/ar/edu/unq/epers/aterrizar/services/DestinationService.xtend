@@ -7,6 +7,11 @@ import ar.edu.unq.epers.aterrizar.persistence.MongoDB
 import ar.edu.unq.epers.aterrizar.models.social.Comment
 
 class DestinationService {
+	FriendService fService
+	
+	new(){
+		fService = new FriendService
+	}
 
 	def addDestination(SocialUser user, Destination destination, Visibility visibility){
 		user.addDestination(destination, visibility)
@@ -51,5 +56,22 @@ class DestinationService {
 		saveDestination(destination)
 	}
 	
+	def addComment(Destination destination, Comment comment){
+		destination.addComment(comment)
+		saveDestination(destination)
+	}
+	
+	def getVisibleDestinationsOfTo(SocialUser watched, SocialUser watching){
+
+	}
+	
+	def getVisibilityFor(SocialUser user, SocialUser user2){
+		var fUser1 = fService.
+		switch(user){
+			case user.username == user2.username:
+				return Visibility.PRIVATE
+			case fService.areFriends()
+		}
+	}
 	
 }

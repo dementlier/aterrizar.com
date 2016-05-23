@@ -5,6 +5,7 @@ import java.util.HashMap
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import ar.edu.unq.epers.aterrizar.models.social.Destination
 import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.models.social.DestinationList
 
 @Accessors
 class SocialUser {
@@ -14,4 +15,9 @@ class SocialUser {
 	def addDestination(Destination destination, Visibility visibility){
 		this.destinations.saveDestination(destination, visibility)
 	}
+	
+	def getDestinationsWithTopVisibility(Visibility visibility){
+		this.destinations.getDestinations(visibility)
+	}
+	
 }

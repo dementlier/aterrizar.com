@@ -6,6 +6,6 @@ import ar.edu.unq.epers.aterrizar.models.social.Destination
 class DestinationService {
 	
 	def addDestination(SocialUser user, Destination destination){
-		
+		 
 	}
 }

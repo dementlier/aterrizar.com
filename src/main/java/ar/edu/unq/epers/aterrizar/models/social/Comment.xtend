@@ -9,4 +9,12 @@ class Comment {
 	List<String> likes
 	List<String> dislikes
 	Visibility visibility
+	
+	def like(String username){
+		likes.add(username)
+	}
+	
+	def dislike(String username){
+		dislikes.add(username)
+	}
 }

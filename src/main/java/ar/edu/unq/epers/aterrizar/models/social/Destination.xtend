@@ -9,7 +9,15 @@ class Destination {
 	String name
 	List<SocialUser> users
 	List<Comment> comments
-	List<SocialUser> likes
-	List<SocialUser> dislikes
+	List<String> likes
+	List<String> dislikes
+	
+	def like(String username){
+		likes.add(username)
+	}
+	
+	def dislike(String username){
+		dislikes.add(username)
+	}
 	
 }

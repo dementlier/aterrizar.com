@@ -5,6 +5,7 @@ import ar.edu.unq.epers.aterrizar.models.social.Destination
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import ar.edu.unq.epers.aterrizar.persistence.MongoDB
 import ar.edu.unq.epers.aterrizar.models.social.Comment
+import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
 
 class DestinationService {
 	FriendService fService
@@ -61,17 +62,22 @@ class DestinationService {
 		saveDestination(destination)
 	}
 	
-	def getVisibleDestinationsOfTo(SocialUser watched, SocialUser watching){
-
+	def getDestinationsOf(SocialUser user, Visibility visibility){
+		// TODO parte de getProfile
 	}
 	
-	def getVisibilityFor(SocialUser user, SocialUser user2){
-		var fUser1 = fService.
-		switch(user){
-			case user.username == user2.username:
-				return Visibility.PRIVATE
-			case fService.areFriends()
-		}
+	def getVisibleProfile(SocialUser watched, SocialUser watching){
+		if(watched.username == watching.username){
+			getProfile(watched, Visibility.PRIVATE)
+		} else if(fService.areFriends(toUser(watched), toUser(watching))){
+			getProfile(watched, Visibility.FRIENDS)
+		} else {
+			getProfile(watched, Visibility.PUBLIC)
+		}		
+	}
+	
+	def getProfile(SocialUser user, Visibility visibility) {
+		// TODO	
 	}
 	
 }

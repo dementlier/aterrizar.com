@@ -1,6 +1,5 @@
 package ar.edu.unq.epers.aterrizar.models.social
 
-import ar.edu.unq.epers.aterrizar.models.user.SocialUser
 import java.util.List
 
 class Comment {

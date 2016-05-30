@@ -7,10 +7,19 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Destination {
 	String name
-	List<SocialUser> users
 	List<Comment> comments
 	List<String> likes
 	List<String> dislikes
+	Visibility visibility
+	
+	new(String name, Visibility visibility){
+		this.name = name
+		this.visibility = visibility
+	}
+	
+	new(){
+		
+	}
 	
 	def like(String username){
 		likes.add(username)

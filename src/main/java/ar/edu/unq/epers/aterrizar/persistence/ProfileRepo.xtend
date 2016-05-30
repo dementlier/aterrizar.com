@@ -4,6 +4,8 @@ import org.mongojack.JacksonDBCollection
 import java.util.List
 import org.mongojack.DBQuery.Query
 import org.mongojack.MapReduce
+import org.mongojack.DBProjection
+import com.mongodb.DBObject
 
 class ProfileRepo<T> {
 	private JacksonDBCollection<T, String> mongoCollection;
@@ -22,6 +24,10 @@ class ProfileRepo<T> {
 
 	def find(Query object) {
 		return mongoCollection.find(object);
+	}
+	
+	def find(Query object, DBObject projection) {
+		return mongoCollection.find(object, projection);
 	}
 
 	def <E, S> mapReduce(String map, String reduce, Class<E> entrada, Class<S> salida) {

@@ -7,6 +7,10 @@ import ar.edu.unq.epers.aterrizar.persistence.MongoDB
 import ar.edu.unq.epers.aterrizar.models.social.Comment
 import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
 import org.mongojack.DBQuery
+import ar.edu.unq.epers.aterrizar.models.social.Profile
+import java.util.ArrayList
+import org.mongojack.DBProjection
+import java.util.List
 
 class DestinationService {
 	FriendService fService
@@ -63,29 +67,38 @@ class DestinationService {
 		saveDestination(destination)
 	}
 	
-	def getDestinationsOf(SocialUser user, Visibility visibility){
-		// TODO parte de getProfile
+	def getDestinationsOf(SocialUser user, List<Visibility> visibilities){
+		var db = MongoDB.instance()
+		var users = db.collection(SocialUser)
+		val res = new ArrayList<Destination>()
+		res.addAll(
+			users.find(DBQuery.is("username", user.username)
+				.in("destinations.visibility", visibilities)
+				.in("destinations.comments.visibility", visibilities)
+			).toArray.map[u | u.destinations]
+		)
+		return res
 	}
 	
 	def getVisibleProfile(SocialUser watched, SocialUser watching){
+		var list = new ArrayList<Visibility>
 		if(watched.username == watching.username){
-			getProfile(watched, Visibility.PRIVATE)
+			list.add(Visibility.PRIVATE)
+			list.add(Visibility.FRIENDS)
+			list.add(Visibility.PUBLIC)
+			getProfile(watched, list)
 		} else if(fService.areFriends(toUser(watched), toUser(watching))){
-			getProfile(watched, Visibility.FRIENDS)
+			list.add(Visibility.FRIENDS)
+			list.add(Visibility.PUBLIC)
+			getProfile(watched, list)
 		} else {
-			getProfile(watched, Visibility.PUBLIC)
+			list.add(Visibility.PUBLIC)
+			getProfile(watched, list)
 		}		
 	}
 	
-	def getProfile(SocialUser user, Visibility visibility) {
-		// TODO	
+	def getProfile(SocialUser user, List<Visibility> visibilities) {
+		return new Profile(user.username, getDestinationsOf(user, visibilities))
 	}
 	
-	// No estoy seguro si esto anda, pero aparentemente asi se usa
-	def getDestinationByName(String name){
-		var db = MongoDB.instance()
-		var coll = db.collection(Destination)
-		var cursor = coll.find(DBQuery.is("name", name))
-		return cursor.curr
-	}
 }

@@ -6,6 +6,7 @@ import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import ar.edu.unq.epers.aterrizar.persistence.MongoDB
 import ar.edu.unq.epers.aterrizar.models.social.Comment
 import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
+import org.mongojack.DBQuery
 
 class DestinationService {
 	FriendService fService
@@ -80,4 +81,11 @@ class DestinationService {
 		// TODO	
 	}
 	
+	// No estoy seguro si esto anda, pero aparentemente asi se usa
+	def getDestinationByName(String name){
+		var db = MongoDB.instance()
+		var coll = db.collection(Destination)
+		var cursor = coll.find(DBQuery.is("name", name))
+		return cursor.curr
+	}
 }

@@ -1,6 +1,7 @@
 package ar.edu.unq.epers.aterrizar.services
 
 import ar.edu.unq.epers.aterrizar.models.user.SocialUser
+import static ar.edu.unq.epers.aterrizar.utils.VisibilityTransformer.*
 import ar.edu.unq.epers.aterrizar.models.social.Destination
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import ar.edu.unq.epers.aterrizar.persistence.MongoDB
@@ -82,7 +83,7 @@ class DestinationService {
 		val res = new ArrayList<Destination>()
 		
 		val inLista = new BasicDBList()
-		inLista.addAll(visibilities)
+		inLista.addAll(visibilities.map[v | toString(v)])
 		val in = new BasicDBObject("$in", inLista )
 		val vis = new BasicDBObject("visibility", in )
 		val elemMatch = new BasicDBObject("$elemMatch", vis )

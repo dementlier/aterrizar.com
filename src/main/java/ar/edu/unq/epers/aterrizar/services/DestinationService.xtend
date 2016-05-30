@@ -9,7 +9,6 @@ import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.models.social.Profile
 import java.util.ArrayList
-import org.mongojack.DBProjection
 import java.util.List
 
 class DestinationService {
@@ -19,15 +18,15 @@ class DestinationService {
 		fService = new FriendService
 	}
 
-	def addDestination(SocialUser user, Destination destination, Visibility visibility){
-		user.addDestination(destination, visibility)
+	def void addDestination(SocialUser user, Destination destination){
+		user.addDestination(destination)
 		saveUser(user)
 	}
 	
 	def saveUser(SocialUser user){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
-		users.insert(user)
+		users.mongoCollection.update(DBQuery.is("username", user.username), user)
 	}
 	
 	def saveComment(Comment comment){
@@ -99,6 +98,11 @@ class DestinationService {
 	
 	def getProfile(SocialUser user, List<Visibility> visibilities) {
 		return new Profile(user.username, getDestinationsOf(user, visibilities))
+	}
+	
+	def void dropDB(){
+		var db = MongoDB.instance()
+		db.collection(SocialUser).mongoCollection.drop
 	}
 	
 }

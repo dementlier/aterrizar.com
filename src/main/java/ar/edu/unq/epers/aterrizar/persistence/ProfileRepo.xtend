@@ -26,6 +26,10 @@ class ProfileRepo<T> {
 		return mongoCollection.find(object);
 	}
 	
+	def find(DBObject object) {
+		return mongoCollection.find(object);
+	}
+	
 	def find(Query object, DBObject projection) {
 		return mongoCollection.find(object, projection);
 	}

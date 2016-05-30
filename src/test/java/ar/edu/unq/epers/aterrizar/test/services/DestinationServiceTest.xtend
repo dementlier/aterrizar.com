@@ -13,35 +13,68 @@ import org.junit.After
 class DestinationServiceTest {
 	DestinationService service
 	SocialUser user
-	Destination destination
+	Destination publicDestination
+	Destination friendDestination
+	Destination privateDestination
 	
 	@Before
 	def void setUp(){
 		service = new DestinationService
 		service.dropDB()
 		user = new SocialUser("pepe")
-		destination = new Destination("pompeya", Visibility.FRIENDS)
+		publicDestination = new Destination("pompeya", Visibility.PUBLIC)
+		friendDestination = new Destination("cancun", Visibility.FRIENDS)
+		privateDestination = new Destination("mdq", Visibility.PRIVATE)
 		service.saveUser(user)
 	}
 	
 	@Test
-	def void testAddDestination(){
-		service.addDestination(user, destination)
+	def void testAddFriendDestination(){
+		service.addDestination(user, friendDestination)
 		var visibility = new ArrayList<Visibility>()
 		visibility.add(Visibility.FRIENDS)
 		
 		var result = service.getDestinationsOf(user, visibility)
 		assertEquals(1, result.size)
-		assertEquals(destination.name, result.get(0).name)
+		assertEquals(friendDestination.name, result.get(0).name)
+	}
+	
+	@Test
+	def void testAddEveryDestination(){
+		
+		service.addDestination(user, publicDestination)
+		service.addDestination(user, friendDestination)
+		service.addDestination(user, privateDestination)
+		
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.PUBLIC)
+		visibility.add(Visibility.FRIENDS)
+		visibility.add(Visibility.PRIVATE)
+		
+		var result = service.getDestinationsOf(user, visibility)
+		
+		assertEquals(3, result.size)
+		
+	}
+	
+	@Test
+	def void testAddEveryDestinationAndGetOnlyPublic(){
+		
+		service.addDestination(user, publicDestination)
+		service.addDestination(user, friendDestination)
+		service.addDestination(user, privateDestination)
+		
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.PRIVATE)
+		
+		var result = service.getDestinationsOf(user, visibility)
+		
+		assertEquals(1, result.size)
+		
 	}
 	
 	@After
 	def void tearDown(){
-	}
-	
-	@Test
-	def void tearDownTest(){
-		service.dropDB()
 	}
 	
 }

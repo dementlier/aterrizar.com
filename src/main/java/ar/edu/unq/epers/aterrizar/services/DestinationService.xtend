@@ -10,6 +10,9 @@ import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.models.social.Profile
 import java.util.ArrayList
 import java.util.List
+import com.mongodb.BasicDBObject
+import com.mongodb.util.JSON
+import com.mongodb.BasicDBList
 
 class DestinationService {
 	FriendService fService
@@ -27,7 +30,6 @@ class DestinationService {
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
 		users.insert(user)
-//		users.mongoCollection.update(DBQuery.is("username", user.username), user, true, false)
 	}
 	
 	def updateUser(SocialUser user){
@@ -77,14 +79,18 @@ class DestinationService {
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
 		
-//		var res = users.find(DBQuery.is("_id", user.username))
-		
 		val res = new ArrayList<Destination>()
+		
+		val inLista = new BasicDBList()
+		inLista.addAll(visibilities)
+		val in = new BasicDBObject("$in", inLista )
+		val vis = new BasicDBObject("visibility", in )
+		val elemMatch = new BasicDBObject("$elemMatch", vis )
+		val destinations = new BasicDBObject("destinations", elemMatch )
+		
+		
 		res.addAll(
-			users.find(DBQuery.is("_id", user.username)
-				.in("destinations.visibility", visibilities)
-//				.in("destinations.comments.visibility", visibilities)
-			).next.destinations
+			users.find(DBQuery.is("_id", user.username), destinations).next.destinations
 		)
 		return res
 	}

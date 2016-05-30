@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @Accessors
 class SocialUser {
-	@ObjectId
 	@JsonProperty("_id")
-	String id
 	String username
 	List<Destination> destinations
 

@@ -18,6 +18,7 @@ class DestinationServiceTest {
 	@Before
 	def void setUp(){
 		service = new DestinationService
+		service.dropDB()
 		user = new SocialUser("pepe")
 		destination = new Destination("pompeya", Visibility.FRIENDS)
 		service.saveUser(user)
@@ -28,11 +29,18 @@ class DestinationServiceTest {
 		service.addDestination(user, destination)
 		var visibility = new ArrayList<Visibility>()
 		visibility.add(Visibility.FRIENDS)
-		assertTrue(service.getDestinationsOf(user, visibility).isEmpty)
+		
+		var result = service.getDestinationsOf(user, visibility)
+		assertEquals(1, result.size)
+		assertEquals(destination.name, result.get(0).name)
 	}
 	
 	@After
 	def void tearDown(){
+	}
+	
+	@Test
+	def void tearDownTest(){
 		service.dropDB()
 	}
 	

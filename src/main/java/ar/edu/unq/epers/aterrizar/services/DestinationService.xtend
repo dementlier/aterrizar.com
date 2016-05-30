@@ -20,13 +20,20 @@ class DestinationService {
 
 	def void addDestination(SocialUser user, Destination destination){
 		user.addDestination(destination)
-		saveUser(user)
+		updateUser(user)
 	}
 	
 	def saveUser(SocialUser user){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
-		users.mongoCollection.update(DBQuery.is("username", user.username), user)
+		users.insert(user)
+//		users.mongoCollection.update(DBQuery.is("username", user.username), user, true, false)
+	}
+	
+	def updateUser(SocialUser user){
+		var db = MongoDB.instance()
+		var users = db.collection(SocialUser)
+		users.mongoCollection.updateById(user.username, user)
 	}
 	
 	def saveComment(Comment comment){
@@ -69,12 +76,15 @@ class DestinationService {
 	def getDestinationsOf(SocialUser user, List<Visibility> visibilities){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
+		
+//		var res = users.find(DBQuery.is("_id", user.username))
+		
 		val res = new ArrayList<Destination>()
 		res.addAll(
-			users.find(DBQuery.is("username", user.username)
+			users.find(DBQuery.is("_id", user.username)
 				.in("destinations.visibility", visibilities)
-				.in("destinations.comments.visibility", visibilities)
-			).toArray.map[u | u.destinations]
+//				.in("destinations.comments.visibility", visibilities)
+			).next.destinations
 		)
 		return res
 	}
@@ -97,7 +107,7 @@ class DestinationService {
 	}
 	
 	def getProfile(SocialUser user, List<Visibility> visibilities) {
-		return new Profile(user.username, getDestinationsOf(user, visibilities))
+//		return new Profile(user.username, getDestinationsOf(user, visibilities))
 	}
 	
 	def void dropDB(){

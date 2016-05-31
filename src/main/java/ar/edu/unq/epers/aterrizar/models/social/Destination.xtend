@@ -37,4 +37,13 @@ class Destination {
 		this.comments.add(comment)
 	}
 	
+	def updateComment(Comment comment){
+		for(comm : comments){
+			if(comm.id == comment.id){
+				comments.remove(comm)
+				comments.add(comment)
+			}
+		}
+	}
+	
 }

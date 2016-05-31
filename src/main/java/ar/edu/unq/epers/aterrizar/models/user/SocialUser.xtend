@@ -30,5 +30,12 @@ class SocialUser {
 		destinations.add(destination)
 	}
 	
-	
+	def updateDestination(Destination destination){
+		for(dest : destinations){
+			if(dest.name == destination.name){
+				destinations.remove(dest)
+				destinations.add(destination)
+			}
+		}
+	}
 }

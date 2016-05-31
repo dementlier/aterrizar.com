@@ -37,47 +37,66 @@ class DestinationService {
 		users.mongoCollection.updateById(user.username, user)
 	}
 	
-	// No se debería usar, la implementación tendría que cambiar, dado que se le agrega a la destination,
-	// y la destination se tiene updatear en la estructura del user.
-	def saveComment(Comment comment){
-		var db = MongoDB.instance()
-		var comments = db.collection(Comment)
-		comments.insert(comment)
-	}
-	
-	// Parecido a lo de arriba, no tienen sus propias collection, sino que se meten en user...
-	def saveDestination(Destination destination){
-		var db = MongoDB.instance()
-		var destinations = db.collection(Destination)
-		destinations.insert(destination)
-	}
-	
-	def like(SocialUser user, Comment comment){
-		comment.like(user.username)
-		saveComment(comment)
-	}
-	
-	def like(SocialUser user, Destination destination){
-		destination.like(user.username)
-		saveDestination(destination)
-	}
-	
-	def dislike(SocialUser user, Comment comment){
-		comment.dislike(user.username)
-		saveComment(comment)
-	}
-	
-	def dislike(SocialUser user, Destination destination){
-		destination.dislike(user.username)
-		saveDestination(destination)
-	}
-	
-	def addComment(Destination destination, Comment comment){
+	// TODO Hay que testearlo pero debería andar
+	def addComment(SocialUser user, Destination destination, Comment comment){
 		destination.addComment(comment)
-		saveDestination(destination)
+		updateDestination(user, destination)
+	}
+		
+	// TODO Hay que testearlo pero debería andar	
+	def updateComment(SocialUser user, Destination destination, Comment comment){
+		destination.updateComment(comment)
+		var usuario = getUserById(user.username)
+		usuario.updateDestination(destination)
+		updateUser(usuario)
 	}
 	
-	// deprecated
+	// TODO Hay que testear, pero debería andar.
+	def updateDestination(SocialUser user, Destination destination){
+		var usuario = getUserById(user.username)
+		user.updateDestination(destination)
+		updateUser(usuario)
+	}
+	
+	// TODO Hay que testear, pero debería andar.	
+	def like(SocialUser user, SocialUser userLiked, Destination destination, Comment comment){
+		comment.like(user.username)
+		updateComment(userLiked, destination, comment)
+	}
+	
+	// TODO Hay que testear, pero debería andar.	
+	def like(SocialUser user, SocialUser userLiked, Destination destination){
+		destination.like(user.username)
+		updateDestination(userLiked, destination)
+	}
+	
+	// TODO Hay que testear, pero debería andar.	
+	def dislike(SocialUser user, SocialUser userDisliked, Destination destination, Comment comment){
+		comment.dislike(user.username)
+		updateComment(userDisliked, destination, comment)
+	}
+	
+	// TODO Hay que testear, pero debería andar.	
+	def dislike(SocialUser user, SocialUser userDisliked, Destination destination){
+		destination.dislike(user.username)
+		updateDestination(userDisliked, destination)
+	}
+	
+
+	
+	def getUserById(String username){
+		var db = MongoDB.instance()
+		var users = db.collection(SocialUser)
+		
+		var cursor = users.find(DBQuery.is("_id" ,username))
+		if(cursor.hasNext){
+			cursor.next
+		} else {
+			null // O Exception quizas.
+		}
+	}
+	
+	// TODO deprecated, to be deleted
 	def getDestinationsAggregate(SocialUser user, List<Visibility> visibilities){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
@@ -89,8 +108,6 @@ class DestinationService {
 		.unwind("destinations")
 		.match(DBQuery.in("destinations.visibility", visibilities))
 		.group("_id").set("destinations", Group.list("destinations.name"))
-		// No pudimos agregar más cosas al $push, y llegamos a entender bien el nuevo update
-		// a 15 min de la entrega... :(
 		
 		var userResult = users.mongoCollection.aggregate(pipeline, SocialUser).results
 		
@@ -107,6 +124,7 @@ class DestinationService {
 		return res		
 	}
 	
+	// Lo que esta comentado por ahora me tira assertion failed si lo descomento, no se como se hara :(
 	def getDestinationsForVisibilityFilter(SocialUser user, Visibility visibility){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
@@ -119,6 +137,10 @@ class DestinationService {
 					.rtn("destinations")
 					.filter("destinations")
 					.eq("visibility", toString(visibility))
+//					.project
+//					.rtn("destinations.comments")
+//					.filter("destinations.comments")
+//					.eq("visibility", toString(visibility))
 					.execute
 
 

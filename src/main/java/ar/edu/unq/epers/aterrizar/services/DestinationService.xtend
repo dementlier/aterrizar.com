@@ -8,11 +8,8 @@ import ar.edu.unq.epers.aterrizar.persistence.MongoDB
 import ar.edu.unq.epers.aterrizar.models.social.Comment
 import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
 import org.mongojack.DBQuery
-import ar.edu.unq.epers.aterrizar.models.social.Profile
 import java.util.ArrayList
 import java.util.List
-import com.mongodb.BasicDBObject
-import com.mongodb.BasicDBList
 import org.mongojack.Aggregation
 import org.mongojack.Aggregation.Group
 
@@ -80,28 +77,8 @@ class DestinationService {
 		saveDestination(destination)
 	}
 	
-	// Ahora se usa el de abajo, no lo borro por las dudas
-	def getDestinationsOf(SocialUser user, List<Visibility> visibilities){
-		var db = MongoDB.instance()
-		var users = db.collection(SocialUser)
-		
-		val res = new ArrayList<Destination>()
-		
-		val inLista = new BasicDBList()
-		inLista.addAll(visibilities.map[v | toString(v)])
-		val in = new BasicDBObject("$in", inLista )
-		val vis = new BasicDBObject("visibility", in )
-		val elemMatch = new BasicDBObject("$elemMatch", vis )
-		val destinations = new BasicDBObject("destinations", elemMatch )
-		
-		
-		res.addAll(
-			users.find(DBQuery.is("_id", user.username), destinations).next.destinations
-		)
-		return res
-	}
-	
-		def getDestinationsAggregate(SocialUser user, List<Visibility> visibilities){
+	// deprecated
+	def getDestinationsAggregate(SocialUser user, List<Visibility> visibilities){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
 		
@@ -122,6 +99,35 @@ class DestinationService {
 		return res
 	}
 	
+	def getDestinationsFilter(SocialUser user, List<Visibility> visibilities){
+		var res = new ArrayList<Destination>
+		for(vis : visibilities){
+			res.addAll(getDestinationsForVisibilityFilter(user, vis))
+		}
+		return res		
+	}
+	
+	def getDestinationsForVisibilityFilter(SocialUser user, Visibility visibility){
+		var db = MongoDB.instance()
+		var users = db.collection(SocialUser)
+		
+		var res = new ArrayList<Destination>
+		
+		val userRes = users.aggregate
+					.match("_id", user.username)
+					.project
+					.rtn("destinations")
+					.filter("destinations")
+					.eq("visibility", toString(visibility))
+					.execute
+
+
+		res.addAll(userRes.head.destinations)
+		
+		return res
+	}
+
+		
 	def getVisibleProfile(SocialUser watched, SocialUser watching){
 		var list = new ArrayList<Visibility>
 		if(watched.username == watching.username){
@@ -140,7 +146,7 @@ class DestinationService {
 	}
 	
 	def getProfile(SocialUser user, List<Visibility> visibilities) {
-		return new Profile(user.username, getDestinationsAggregate(user, visibilities))
+		return new SocialUser(user.username, getDestinationsFilter(user, visibilities))
 	}
 	
 	def void dropDB(){

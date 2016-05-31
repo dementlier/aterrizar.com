@@ -26,10 +26,9 @@ class MongoDB {
 		db = mongoClient.getDB("admin");
 	}
 	
-	
 	def <T> ProfileRepo<T> collection(Class<T> entityType){
 		val dbCollection = db.getCollection(entityType.getSimpleName());
-		new ProfileRepo<T>(JacksonDBCollection.wrap(dbCollection, entityType, String));
+		new ProfileRepo<T>(JacksonDBCollection.wrap(dbCollection, entityType, String), entityType);
 	}
 	
 }

@@ -34,7 +34,7 @@ class DestinationServiceTest {
 		var visibility = new ArrayList<Visibility>()
 		visibility.add(Visibility.FRIENDS)
 		
-		var result = service.getDestinationsOf(user, visibility)
+		var result = service.getDestinationsAggregate(user, visibility)
 		assertEquals(1, result.size)
 		assertEquals(friendDestination.name, result.get(0).name)
 	}
@@ -51,7 +51,7 @@ class DestinationServiceTest {
 		visibility.add(Visibility.FRIENDS)
 		visibility.add(Visibility.PRIVATE)
 		
-		var result = service.getDestinationsOf(user, visibility)
+		var result = service.getDestinationsAggregate(user, visibility)
 		
 		assertEquals(3, result.size)
 		
@@ -67,7 +67,7 @@ class DestinationServiceTest {
 		var visibility = new ArrayList<Visibility>()
 		visibility.add(Visibility.PRIVATE)
 		
-		var result = service.getDestinationsOf(user, visibility)
+		var result = service.getDestinationsAggregate(user, visibility)
 		
 		assertEquals(1, result.size)
 		

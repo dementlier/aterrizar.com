@@ -12,8 +12,9 @@ import ar.edu.unq.epers.aterrizar.models.social.Profile
 import java.util.ArrayList
 import java.util.List
 import com.mongodb.BasicDBObject
-import com.mongodb.util.JSON
 import com.mongodb.BasicDBList
+import org.mongojack.Aggregation
+import org.mongojack.Aggregation.Group
 
 class DestinationService {
 	FriendService fService
@@ -76,6 +77,7 @@ class DestinationService {
 		saveDestination(destination)
 	}
 	
+	// Ahora se usa el de abajo, no lo borro por las dudas
 	def getDestinationsOf(SocialUser user, List<Visibility> visibilities){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
@@ -93,6 +95,25 @@ class DestinationService {
 		res.addAll(
 			users.find(DBQuery.is("_id", user.username), destinations).next.destinations
 		)
+		return res
+	}
+	
+		def getDestinationsAggregate(SocialUser user, List<Visibility> visibilities){
+		var db = MongoDB.instance()
+		var users = db.collection(SocialUser)
+		
+		val res = new ArrayList<Destination>()
+		
+		val pipeline = Aggregation
+		.match(DBQuery.is("_id", user.username))
+		.unwind("destinations")
+		.match(DBQuery.in("destinations.visibility", visibilities))
+		.group("_id").set("destinations", Group.list("destinations.name"))
+		
+		var userResult = users.mongoCollection.aggregate(pipeline, SocialUser).results
+		
+		res.addAll(userResult.head.destinations)
+		
 		return res
 	}
 	

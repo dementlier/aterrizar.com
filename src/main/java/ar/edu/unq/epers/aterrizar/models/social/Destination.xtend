@@ -17,6 +17,10 @@ class Destination {
 		this.visibility = visibility
 	}
 	
+	new(String name){
+		this.name = name
+	}
+	
 	new(){
 		
 	}

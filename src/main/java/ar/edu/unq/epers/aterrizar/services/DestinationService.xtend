@@ -40,12 +40,15 @@ class DestinationService {
 		users.mongoCollection.updateById(user.username, user)
 	}
 	
+	// No se debería usar, la implementación tendría que cambiar, dado que se le agrega a la destination,
+	// y la destination se tiene updatear en la estructura del user.
 	def saveComment(Comment comment){
 		var db = MongoDB.instance()
 		var comments = db.collection(Comment)
 		comments.insert(comment)
 	}
 	
+	// Parecido a lo de arriba, no tienen sus propias collection, sino que se meten en user...
 	def saveDestination(Destination destination){
 		var db = MongoDB.instance()
 		var destinations = db.collection(Destination)
@@ -109,6 +112,8 @@ class DestinationService {
 		.unwind("destinations")
 		.match(DBQuery.in("destinations.visibility", visibilities))
 		.group("_id").set("destinations", Group.list("destinations.name"))
+		// No pudimos agregar más cosas al $push, y llegamos a entender bien el nuevo update
+		// a 15 min de la entrega... :(
 		
 		var userResult = users.mongoCollection.aggregate(pipeline, SocialUser).results
 		
@@ -135,7 +140,7 @@ class DestinationService {
 	}
 	
 	def getProfile(SocialUser user, List<Visibility> visibilities) {
-//		return new Profile(user.username, getDestinationsOf(user, visibilities))
+		return new Profile(user.username, getDestinationsAggregate(user, visibilities))
 	}
 	
 	def void dropDB(){

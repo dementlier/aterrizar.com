@@ -46,39 +46,37 @@ class DestinationService {
 	// TODO Hay que testearlo pero debería andar	
 	def updateComment(SocialUser user, Destination destination, Comment comment){
 		destination.updateComment(comment)
-		var usuario = getUserById(user.username)
-		usuario.updateDestination(destination)
-		updateUser(usuario)
+		updateDestination(user, destination)
 	}
 	
 	// TODO Hay que testear, pero debería andar.
 	def updateDestination(SocialUser user, Destination destination){
 		var usuario = getUserById(user.username)
-		user.updateDestination(destination)
+		usuario.updateDestination(destination)
 		updateUser(usuario)
 	}
 	
 	// TODO Hay que testear, pero debería andar.	
-	def like(SocialUser user, SocialUser userLiked, Destination destination, Comment comment){
-		comment.like(user.username)
+	def like(String username, SocialUser userLiked, Destination destination, Comment comment){
+		comment.like(username)
 		updateComment(userLiked, destination, comment)
 	}
 	
 	// TODO Hay que testear, pero debería andar.	
-	def like(SocialUser user, SocialUser userLiked, Destination destination){
-		destination.like(user.username)
+	def like(String username, SocialUser userLiked, Destination destination){
+		destination.like(username)
 		updateDestination(userLiked, destination)
 	}
 	
 	// TODO Hay que testear, pero debería andar.	
-	def dislike(SocialUser user, SocialUser userDisliked, Destination destination, Comment comment){
-		comment.dislike(user.username)
+	def dislike(String username, SocialUser userDisliked, Destination destination, Comment comment){
+		comment.dislike(username)
 		updateComment(userDisliked, destination, comment)
 	}
 	
 	// TODO Hay que testear, pero debería andar.	
-	def dislike(SocialUser user, SocialUser userDisliked, Destination destination){
-		destination.dislike(user.username)
+	def dislike(String username, SocialUser userDisliked, Destination destination){
+		destination.dislike(username)
 		updateDestination(userDisliked, destination)
 	}
 	
@@ -132,11 +130,10 @@ class DestinationService {
 		var res = new ArrayList<Destination>
 		
 		val userRes = users.aggregate
-					.match("_id", user.username)
+					.match("_id", user.username)					
 					.project
-					.rtn("destinations")
-					.filter("destinations")
-					.eq("visibility", toString(visibility))
+					.filter("destinations")																
+					.eq("visibility", toString(visibility))		
 //					.project
 //					.rtn("destinations.comments")
 //					.filter("destinations.comments")

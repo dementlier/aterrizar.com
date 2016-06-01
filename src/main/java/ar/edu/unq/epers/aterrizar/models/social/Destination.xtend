@@ -1,8 +1,8 @@
 package ar.edu.unq.epers.aterrizar.models.social
 
 import java.util.List
-import ar.edu.unq.epers.aterrizar.models.user.SocialUser
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.ArrayList
 
 @Accessors
 class Destination {
@@ -15,14 +15,22 @@ class Destination {
 	new(String name, Visibility visibility){
 		this.name = name
 		this.visibility = visibility
+		comments = new ArrayList<Comment>
+		likes = new ArrayList<String>
+		dislikes = new ArrayList<String>
 	}
 	
 	new(String name){
 		this.name = name
+		comments = new ArrayList<Comment>
+		likes = new ArrayList<String>
+		dislikes = new ArrayList<String>
 	}
 	
 	new(){
-		
+		comments = new ArrayList<Comment>
+		likes = new ArrayList<String>
+		dislikes = new ArrayList<String>
 	}
 	
 	def like(String username){

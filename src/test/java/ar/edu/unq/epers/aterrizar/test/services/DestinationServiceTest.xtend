@@ -9,6 +9,7 @@ import ar.edu.unq.epers.aterrizar.models.social.Destination
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import java.util.ArrayList
 import org.junit.After
+import ar.edu.unq.epers.aterrizar.models.social.Comment
 
 class DestinationServiceTest {
 	DestinationService service
@@ -65,14 +66,112 @@ class DestinationServiceTest {
 		service.addDestination(user, privateDestination)
 		
 		var visibility = new ArrayList<Visibility>()
-		visibility.add(Visibility.PRIVATE)
+		visibility.add(Visibility.PUBLIC)
 		
 		var result = service.getDestinationsFilter(user, visibility)
 		
 		assertEquals(1, result.size)
+		assertEquals("pompeya", result.head.name)
 		
 	}
 	
+	@Test
+	def void testUpdateDestinationLikesAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.likes.size)
+						
+		service.like("pepe", user, friendDestination)
+		
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.likes.size)			
+	
+	}
+	
+	@Test
+	def void testUpdateDestinationDislikesAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.dislikes.size)
+						
+		service.dislike("pepa", user, friendDestination)
+		
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.dislikes.size)			
+	}	
+	
+	@Test
+	def void testAddCommentToDestinationAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.comments.size)
+
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)			
+	}
+	
+	@Test
+	def void testLikeCommentAddedToDestinationAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+	
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result.size)
+		assertEquals(1, result.head.comments.size)	
+		assertEquals(0, result.head.comments.head.likes.size)	
+		
+		service.like("pepe", user, friendDestination, comment)	
+		
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)	
+		assertEquals(1, result2.head.comments.head.likes.size)			
+	}	
+
+	@Test
+	def void testDislikeCommentAddedToDestinationAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+	
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result.size)
+		assertEquals(1, result.head.comments.size)	
+		assertEquals(0, result.head.comments.head.dislikes.size)	
+		
+		service.dislike("pepa", user, friendDestination, comment)	
+		
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)	
+		assertEquals(1, result2.head.comments.head.dislikes.size)			
+	}
+			
 	@After
 	def void tearDown(){
 	}

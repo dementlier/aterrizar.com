@@ -37,44 +37,37 @@ class DestinationService {
 		users.mongoCollection.updateById(user.username, user)
 	}
 	
-	// TODO Hay que testearlo pero debería andar
 	def addComment(SocialUser user, Destination destination, Comment comment){
 		destination.addComment(comment)
 		updateDestination(user, destination)
 	}
 		
-	// TODO Hay que testearlo pero debería andar	
 	def updateComment(SocialUser user, Destination destination, Comment comment){
 		destination.updateComment(comment)
 		updateDestination(user, destination)
 	}
 	
-	// TODO Hay que testear, pero debería andar.
 	def updateDestination(SocialUser user, Destination destination){
 		var usuario = getUserById(user.username)
 		usuario.updateDestination(destination)
 		updateUser(usuario)
 	}
-	
-	// TODO Hay que testear, pero debería andar.	
+		
 	def like(String username, SocialUser userLiked, Destination destination, Comment comment){
 		comment.like(username)
 		updateComment(userLiked, destination, comment)
 	}
 	
-	// TODO Hay que testear, pero debería andar.	
 	def like(String username, SocialUser userLiked, Destination destination){
 		destination.like(username)
 		updateDestination(userLiked, destination)
 	}
-	
-	// TODO Hay que testear, pero debería andar.	
+		
 	def dislike(String username, SocialUser userDisliked, Destination destination, Comment comment){
 		comment.dislike(username)
 		updateComment(userDisliked, destination, comment)
 	}
-	
-	// TODO Hay que testear, pero debería andar.	
+		
 	def dislike(String username, SocialUser userDisliked, Destination destination){
 		destination.dislike(username)
 		updateDestination(userDisliked, destination)
@@ -92,26 +85,6 @@ class DestinationService {
 		} else {
 			null // O Exception quizas.
 		}
-	}
-	
-	// TODO deprecated, to be deleted
-	def getDestinationsAggregate(SocialUser user, List<Visibility> visibilities){
-		var db = MongoDB.instance()
-		var users = db.collection(SocialUser)
-		
-		val res = new ArrayList<Destination>()
-		
-		val pipeline = Aggregation
-		.match(DBQuery.is("_id", user.username))
-		.unwind("destinations")
-		.match(DBQuery.in("destinations.visibility", visibilities))
-		.group("_id").set("destinations", Group.list("destinations.name"))
-		
-		var userResult = users.mongoCollection.aggregate(pipeline, SocialUser).results
-		
-		res.addAll(userResult.head.destinations)
-		
-		return res
 	}
 	
 	def getDestinationsFilter(SocialUser user, List<Visibility> visibilities){

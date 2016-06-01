@@ -10,14 +10,22 @@ import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
 import org.mongojack.DBQuery
 import java.util.ArrayList
 import java.util.List
-import org.mongojack.Aggregation
-import org.mongojack.Aggregation.Group
+import ar.edu.unq.epers.aterrizar.models.user.User
 
 class DestinationService {
 	FriendService fService
 	
 	new(){
 		fService = new FriendService
+	}
+
+	def void addUser(User user){
+		if(getUserById(user.username) == null){
+			var db = MongoDB.instance()
+			var users = db.collection(SocialUser)
+			var socUser = new SocialUser(user.username)
+			users.insert(socUser)
+		}
 	}
 
 	def void addDestination(SocialUser user, Destination destination){

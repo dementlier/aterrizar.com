@@ -40,6 +40,7 @@ class UserHibernateService {
             } else {
                 repo.save(user)
                 new FriendService().addUser(user) // Necesario para asegurar que exista el usuario en la base de datos para friendships
+				new DestinationService().addUser(user)
                 this.enviarMail(user.email, user.validationCode)
                 void
             }

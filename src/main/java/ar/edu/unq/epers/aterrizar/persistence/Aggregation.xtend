@@ -5,6 +5,7 @@ import com.mongodb.DBObject
 import java.util.HashMap
 import java.util.List
 import java.util.Map
+import org.eclipse.xtext.xbase.lib.Functions.Function1
 
 class Aggregation<T> {
 	var Filter<T> matchFilter
@@ -74,19 +75,32 @@ class Filter<T> {
 
 	def eq(String property, Object value) {
 		add("$eq", #["$$alias." + property, value])
+		this
+	}
+	
+	def and(List<Function1<Filter<T>, Filter<T>>> criterias) {
+		add("$and", criterias.map[ it.apply(new Filter<T>(aggregation))])
 		aggregation
 	}
 	
+	def or(List<Function1<Filter<T>, Filter<T>>> criterias) {
+		add("$or", criterias.map[ it.apply(new Filter<T>(aggregation)).build])
+		aggregation
+	}
 
 	def DBObject build() {
 		val map = new HashMap()
 		mapping.forEach [ key, value |
-			if (value instanceof Filter) {
-				map.put(key, (value as Filter).build)
-			} else {
-				map.put(key, value)
+			switch value {
+				Filter<T> : map.put(key, value.build)
+				default: map.put(key, value)  
 			}
 		]
 		new BasicDBObject(map)
 	}
+	
+	override toString() {
+		build().toString
+	}
+	
 }

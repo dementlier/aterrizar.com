@@ -11,6 +11,7 @@ import org.mongojack.DBQuery
 import java.util.ArrayList
 import java.util.List
 import ar.edu.unq.epers.aterrizar.models.user.User
+import ar.edu.unq.epers.aterrizar.persistence.Filter
 
 class DestinationService {
 	FriendService fService
@@ -94,17 +95,8 @@ class DestinationService {
 			null // O Exception quizas.
 		}
 	}
-	
+	// Lo que esta comentado por ahora me tira assertion failed si lo descomento, no se como se hara :(	
 	def getDestinationsFilter(SocialUser user, List<Visibility> visibilities){
-		var res = new ArrayList<Destination>
-		for(vis : visibilities){
-			res.addAll(getDestinationsForVisibilityFilter(user, vis))
-		}
-		return res		
-	}
-	
-	// Lo que esta comentado por ahora me tira assertion failed si lo descomento, no se como se hara :(
-	def getDestinationsForVisibilityFilter(SocialUser user, Visibility visibility){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
 		
@@ -114,7 +106,7 @@ class DestinationService {
 					.match("_id", user.username)					
 					.project
 					.filter("destinations")																
-					.eq("visibility", toString(visibility))		
+					.orVisibilities(visibilities)		
 //					.project
 //					.rtn("destinations.comments")
 //					.filter("destinations.comments")
@@ -124,8 +116,28 @@ class DestinationService {
 
 		res.addAll(userRes.head.destinations)
 		
-		return res
+		return res		
 	}
+	
+	def orVisibilities(Filter<SocialUser> filter, List<Visibility> visibilities){
+		val visListString = visibilities.map[v | toString(v)]
+		switch(visListString.size){
+			case 3: filter.or(#[ [it.eq("visibility", visListString.get(0))]
+				, [it.eq("visibility", visListString.get(1))]
+				, [it.eq("visibility", visListString.get(2))]
+			])
+			
+			case 2: filter.or(#[ [it.eq("visibility", visListString.get(0))]
+				, [it.eq("visibility", visListString.get(1))]
+			])
+			
+			case 1: filter.or(#[ [it.eq("visibility", visListString.get(0))] ])
+			
+			// no se si hace falta, pero por si acaso para que no quede vacio el or.			
+			default: filter.or(#[ [it.eq("visibility", "PUBLIC")] ]) 
+		}
+	}
+	
 
 		
 	def getVisibleProfile(SocialUser watched, SocialUser watching){

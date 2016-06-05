@@ -120,22 +120,7 @@ class DestinationService {
 	}
 	
 	def orVisibilities(Filter<SocialUser> filter, List<Visibility> visibilities){
-		val visListString = visibilities.map[v | toString(v)]
-		switch(visListString.size){
-			case 3: filter.or(#[ [it.eq("visibility", visListString.get(0))]
-				, [it.eq("visibility", visListString.get(1))]
-				, [it.eq("visibility", visListString.get(2))]
-			])
-			
-			case 2: filter.or(#[ [it.eq("visibility", visListString.get(0))]
-				, [it.eq("visibility", visListString.get(1))]
-			])
-			
-			case 1: filter.or(#[ [it.eq("visibility", visListString.get(0))] ])
-			
-			// no se si hace falta, pero por si acaso para que no quede vacio el or.			
-			default: filter.or(#[ [it.eq("visibility", "PUBLIC")] ]) 
-		}
+		filter.or(visibilities.map[v | [Filter<SocialUser> f | f.eq("visibility", toString(v))] ])
 	}
 	
 

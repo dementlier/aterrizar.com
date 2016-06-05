@@ -34,11 +34,21 @@ class Destination {
 	}
 	
 	def like(String username){
-		likes.add(username)
+		if(!likes.contains(username) && !dislikes.contains(username)){
+			likes.add(username)
+		} else if(dislikes.contains(username)){
+			dislikes.remove(username)
+			likes.add(username)
+		}
 	}
 	
 	def dislike(String username){
-		dislikes.add(username)
+		if(!dislikes.contains(username) && !likes.contains(username)){
+			dislikes.add(username)
+		} else if(likes.contains(username)){
+			likes.remove(username)
+			dislikes.add(username)
+		}
 	}
 	
 	def addComment(Comment comment){

@@ -94,6 +94,50 @@ class DestinationServiceTest {
 	}
 	
 	@Test
+	def void testUpdateDestinationLikesAfterAddingItAndGettingItUpdatedButWithoutMultipleLikesFromSameUser(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.likes.size)
+						
+		service.like("pepe", user, friendDestination)
+		service.like("pepe", user, friendDestination)
+		service.like("pepe", user, friendDestination)
+				
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.likes.size)			
+	
+	}	
+
+	@Test
+	def void testLikeDestinationAndThenDislikeAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.likes.size)
+						
+		service.like("pepe", user, friendDestination)
+				
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.likes.size)
+		assertEquals(0, result2.head.dislikes.size)			
+		
+		service.dislike("pepe", user, friendDestination)		
+		var result3 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result3.size)
+		assertEquals(0, result3.head.likes.size)	
+		assertEquals(1, result3.head.dislikes.size)		
+	}	
+	
+	@Test
 	def void testUpdateDestinationDislikesAfterAddingItAndGettingItUpdated(){
 		service.addDestination(user, friendDestination)
 		var visibility = new ArrayList<Visibility>()
@@ -108,7 +152,50 @@ class DestinationServiceTest {
 		var result2 = service.getDestinationsFilter(user, visibility)		
 		assertEquals(1, result2.size)
 		assertEquals(1, result2.head.dislikes.size)			
-	}	
+	}
+	
+	@Test
+	def void testUpdateDestinationDislikesAfterAddingItAndGettingItUpdatedButWithoutMultipleDislikesFromSameUser(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.dislikes.size)
+						
+		service.dislike("pepa", user, friendDestination)
+		service.dislike("pepa", user, friendDestination)		
+		service.dislike("pepa", user, friendDestination)
+				
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.dislikes.size)			
+	}
+	
+	@Test
+	def void testDislikeDestinationAndThenLikeAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+		var result = service.getDestinationsFilter(user, visibility)
+		
+		assertEquals(1, result.size)
+		assertEquals(0, result.head.likes.size)
+						
+		service.dislike("pepe", user, friendDestination)
+				
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(0, result2.head.likes.size)
+		assertEquals(1, result2.head.dislikes.size)			
+		
+		service.like("pepe", user, friendDestination)		
+		var result3 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result3.size)
+		assertEquals(1, result3.head.likes.size)	
+		assertEquals(0, result3.head.dislikes.size)		
+	}				
 	
 	@Test
 	def void testAddCommentToDestinationAfterAddingItAndGettingItUpdated(){
@@ -151,6 +238,61 @@ class DestinationServiceTest {
 	}	
 
 	@Test
+	def void testLikeCommentAddedToDestinationAfterAddingItAndGettingItUpdatedWithoutRepeatedLikes(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+	
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result.size)
+		assertEquals(1, result.head.comments.size)	
+		assertEquals(0, result.head.comments.head.likes.size)	
+		
+		service.like("pepe", user, friendDestination, comment)	
+		service.like("pepe", user, friendDestination, comment)	
+		service.like("pepe", user, friendDestination, comment)	
+						
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)	
+		assertEquals(1, result2.head.comments.head.likes.size)			
+	}
+	
+	@Test
+	def void testLikeAndThenDislikeCommentAddedToDestinationAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+	
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result.size)
+		assertEquals(1, result.head.comments.size)	
+		assertEquals(0, result.head.comments.head.likes.size)	
+		
+		service.like("pepe", user, friendDestination, comment)	
+						
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)	
+		assertEquals(1, result2.head.comments.head.likes.size)
+		assertEquals(0, result2.head.comments.head.dislikes.size)
+		
+		service.dislike("pepe", user, friendDestination, comment)
+
+		var result3 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result3.size)
+		assertEquals(1, result3.head.comments.size)	
+		assertEquals(0, result3.head.comments.head.likes.size)
+		assertEquals(1, result3.head.comments.head.dislikes.size)							
+	}			
+
+	@Test
 	def void testDislikeCommentAddedToDestinationAfterAddingItAndGettingItUpdated(){
 		service.addDestination(user, friendDestination)
 		var visibility = new ArrayList<Visibility>()
@@ -171,6 +313,61 @@ class DestinationServiceTest {
 		assertEquals(1, result2.head.comments.size)	
 		assertEquals(1, result2.head.comments.head.dislikes.size)			
 	}
+
+	@Test
+	def void testDislikeCommentAddedToDestinationAfterAddingItAndGettingItUpdatedWithoutRepeatedDislikes(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+	
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result.size)
+		assertEquals(1, result.head.comments.size)	
+		assertEquals(0, result.head.comments.head.dislikes.size)	
+		
+		service.dislike("pepa", user, friendDestination, comment)	
+		service.dislike("pepa", user, friendDestination, comment)
+		service.dislike("pepa", user, friendDestination, comment)
+						
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)	
+		assertEquals(1, result2.head.comments.head.dislikes.size)			
+	}
+	
+	@Test
+	def void testDislikeAndThenLikeCommentAddedToDestinationAfterAddingItAndGettingItUpdated(){
+		service.addDestination(user, friendDestination)
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)			
+	
+		var comment = new Comment(user.username, "Este es un comentario")
+		service.addComment(user, friendDestination, comment)
+		
+		var result = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result.size)
+		assertEquals(1, result.head.comments.size)	
+		assertEquals(0, result.head.comments.head.likes.size)	
+		
+		service.dislike("pepe", user, friendDestination, comment)	
+						
+		var result2 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result2.size)
+		assertEquals(1, result2.head.comments.size)	
+		assertEquals(0, result2.head.comments.head.likes.size)
+		assertEquals(1, result2.head.comments.head.dislikes.size)
+		
+		service.like("pepe", user, friendDestination, comment)
+
+		var result3 = service.getDestinationsFilter(user, visibility)		
+		assertEquals(1, result3.size)
+		assertEquals(1, result3.head.comments.size)	
+		assertEquals(1, result3.head.comments.head.likes.size)
+		assertEquals(0, result3.head.comments.head.dislikes.size)							
+	}	
 			
 	@After
 	def void tearDown(){

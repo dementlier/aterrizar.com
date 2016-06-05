@@ -82,8 +82,6 @@ class DestinationService {
 		updateDestination(userDisliked, destination)
 	}
 	
-
-	
 	def getUserById(String username){
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)

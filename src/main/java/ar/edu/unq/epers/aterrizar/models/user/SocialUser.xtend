@@ -5,7 +5,9 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import java.util.List
 import org.mongojack.Id
+import com.datastax.driver.mapping.annotations.UDT
 
+@UDT(keyspace = "cached_users", name = "social_user")
 @Accessors
 class SocialUser {
 	@Id

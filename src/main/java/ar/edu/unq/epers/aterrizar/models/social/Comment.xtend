@@ -3,7 +3,9 @@ package ar.edu.unq.epers.aterrizar.models.social
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
+import com.datastax.driver.mapping.annotations.UDT
 
+@UDT(keyspace = "cached_users", name = "comment")
 @Accessors
 class Comment {
 	int id

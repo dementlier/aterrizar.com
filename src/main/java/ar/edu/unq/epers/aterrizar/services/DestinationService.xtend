@@ -129,18 +129,18 @@ class DestinationService {
 			list.add(Visibility.PRIVATE)
 			list.add(Visibility.FRIENDS)
 			list.add(Visibility.PUBLIC)
-			getProfile(watched, list)
+			getProfile(watched, list, Visibility.PRIVATE.toString)
 		} else if(fService.areFriends(toUser(watched), toUser(watching))){
 			list.add(Visibility.FRIENDS)
 			list.add(Visibility.PUBLIC)
-			getProfile(watched, list)
+			getProfile(watched, list, Visibility.FRIENDS.toString)
 		} else {
 			list.add(Visibility.PUBLIC)
-			getProfile(watched, list)
+			getProfile(watched, list, Visibility.PUBLIC.toString)
 		}		
 	}
 	
-	def getProfile(SocialUser user, List<Visibility> visibilities) {
+	def getProfile(SocialUser user, List<Visibility> visibilities, String topVisibility) {
 		return new SocialUser(user.username, getDestinationsFilter(user, visibilities))
 	}
 	

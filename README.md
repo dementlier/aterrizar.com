@@ -100,15 +100,9 @@ El objetivo de esta entrega es que el usuario pueda agregar información a su pe
 El objetivo de esta entrega es implementar estos requerimientos utilizando una base de datos orientada a documentos.
 
 ## Entrega #6: Cache
-Fecha de Entrega: 13/06
+Fecha de Entrega: 20/06
 
 #### Requerimientos:
-* Como usuario quiero poder cargar fotos y que estas se puedan ver en mi perfil público.
-* Como usuario quiero establecer niveles de visibilidad para las fotos, igual que los comentarios.
-* Como administrador quiero que los perfiles públicos se guarde en un caché y se consulten solamente de este.
-* Como administrador quiero que los perfiles se actualicen en el caché cuando ocurra un cambio.
-* Como usuario quiero poder cargar fotos y que estas se puedan ver en mi perfil público.
-* Como usuario quiero establecer niveles de visibilidad para las fotos, igual que los comentarios.
 * Como administrador quiero que los perfiles públicos se guarde en un caché y se consulten solamente de este.
 * Como administrador quiero que los perfiles se actualicen en el caché cuando ocurra un cambio.
 

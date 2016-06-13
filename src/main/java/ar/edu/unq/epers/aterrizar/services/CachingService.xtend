@@ -21,7 +21,7 @@ class CachingService {
 		if(user != null) user.user.cached = true
 		return user
 	}
-	
+	//Invalida el usuario
 	def deleteUser(SocialUser user){
 		repo.deleteUser(user)
 	}

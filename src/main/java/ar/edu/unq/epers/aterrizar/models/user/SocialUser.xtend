@@ -29,6 +29,7 @@ class SocialUser {
 	new(String username, List<Destination> destinations){
 		this.username = username
 		this.destinations = destinations
+		cached = false
 	}
 
 	def addDestination(Destination destination){

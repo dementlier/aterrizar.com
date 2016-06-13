@@ -392,7 +392,7 @@ class DestinationServiceTest {
 		var visibility = new ArrayList<Visibility>()
 		visibility.add(Visibility.FRIENDS)
 		service.getProfile(user, visibility, "FRIENDS")
-		service.saveUser(user)
+		service.updateUser(user)
 		var result = service.getProfile(user, visibility, "FRIENDS")
 		assertEquals(false, result.cached)
 	}

@@ -49,6 +49,7 @@ class DestinationService {
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
 		users.mongoCollection.updateById(user.username, user)
+		cService.deleteUser(user)
 	}
 	
 	def addComment(SocialUser user, Destination destination, Comment comment){

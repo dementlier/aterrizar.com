@@ -71,7 +71,7 @@ class CassandraRepo {
 	}
 	
 	def deleteUser(SocialUser user){
-		var query = String.format("DELETE FROM cached_users.users WHERE username = '?'", user.username)
+		var query = String.format("DELETE FROM cached_users.users WHERE username = '" + user.username + "';")
 		session.execute(query)
 	}
 	

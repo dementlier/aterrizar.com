@@ -11,4 +11,12 @@ class VisibilityTransformer {
 			case(Visibility.PUBLIC): return "PUBLIC"
 		}
 	}
+	
+	def static toVisibility(String vis){
+		switch(vis){
+			case("PRIVATE"): return Visibility.PRIVATE
+			case("FRIENDS"): return Visibility.FRIENDS
+			case("PUBLIC"): return Visibility.PUBLIC
+		}
+	}
 }

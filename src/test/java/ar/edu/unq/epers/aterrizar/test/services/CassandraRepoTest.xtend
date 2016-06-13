@@ -14,6 +14,7 @@ class CassandraRepoTest {
 	CassandraRepo repo
 	SocialUser sUser
 	CachedUser user
+	CachedUser user2
 	Destination friendDestination
 	
 	@Before
@@ -23,16 +24,19 @@ class CassandraRepoTest {
 		sUser = new SocialUser("pepe")
 		sUser.addDestination(friendDestination)
 		user = new CachedUser(sUser, Visibility.FRIENDS)
+		user2 = new CachedUser(sUser, Visibility.PUBLIC)
 		
 		repo.save(user)
+		repo.save(user2)
 	}
 	
 	@Test
 	def void obtenerBusqueda() {
-		val busqueda = repo.get(user)
+		val busqueda = repo.get(user.username, user.visibility)
 		assertEquals(busqueda.username, "pepe")
 		assertEquals(busqueda.visibility, Visibility.FRIENDS)
 	}
+	
 	
 	@After
 	def void tearDown(){

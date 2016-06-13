@@ -7,6 +7,7 @@ import com.datastax.driver.mapping.MappingManager
 import com.datastax.driver.core.CodecRegistry
 import com.datastax.driver.extras.codecs.enums.EnumNameCodec
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
+import ar.edu.unq.epers.aterrizar.models.user.SocialUser
 
 class CassandraRepo {
 	Cluster cluster
@@ -65,8 +66,13 @@ class CassandraRepo {
 		mapper.save(user)
 	}
 	
-	def get(CachedUser user){
-		mapper.get(user.username, user.visibility)
+	def get(String username, Visibility visibility){
+		mapper.get(username, visibility)
+	}
+	
+	def deleteUser(SocialUser user){
+		var query = String.format("DELETE FROM cached_users.users WHERE username = '?'", user.username)
+		session.execute(query)
 	}
 	
 	def drop_database(){

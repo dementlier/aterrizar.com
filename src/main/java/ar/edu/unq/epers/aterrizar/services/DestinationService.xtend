@@ -12,12 +12,16 @@ import java.util.ArrayList
 import java.util.List
 import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.persistence.Filter
+import ar.edu.unq.epers.aterrizar.utils.VisibilityTransformer
+import ar.edu.unq.epers.aterrizar.models.user.CachedUser
 
 class DestinationService {
 	FriendService fService
-	
+	CachingService cService
+
 	new(){
-		fService = new FriendService
+		fService 	= new FriendService
+		cService 	= new CachingService
 	}
 
 	def void addUser(User user){
@@ -38,6 +42,7 @@ class DestinationService {
 		var db = MongoDB.instance()
 		var users = db.collection(SocialUser)
 		users.insert(user)
+		cService.deleteUser(user)
 	}
 	
 	def updateUser(SocialUser user){
@@ -87,6 +92,8 @@ class DestinationService {
 		var users = db.collection(SocialUser)
 		
 		var cursor = users.find(DBQuery.is("_id" ,username))
+		var user = cService.get("pepe", Visibility.FRIENDS)
+		
 		if(cursor.hasNext){
 			cursor.next
 		} else {
@@ -141,7 +148,18 @@ class DestinationService {
 	}
 	
 	def getProfile(SocialUser user, List<Visibility> visibilities, String topVisibility) {
-		return new SocialUser(user.username, getDestinationsFilter(user, visibilities))
+		var visibility = VisibilityTransformer.toVisibility(topVisibility)
+		var cUser = cService.get(user.username, visibility)
+		
+		if(cUser != null){
+			return cUser.user
+		}
+		else{
+			var sUser = new SocialUser(user.username, getDestinationsFilter(user, visibilities))
+			cService.save(new CachedUser(sUser, visibility))
+			return sUser
+		}
+		
 	}
 	
 	def void dropDB(){

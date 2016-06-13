@@ -10,6 +10,7 @@ import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import java.util.ArrayList
 import org.junit.After
 import ar.edu.unq.epers.aterrizar.models.social.Comment
+import ar.edu.unq.epers.aterrizar.services.CachingService
 
 class DestinationServiceTest {
 	DestinationService service
@@ -367,10 +368,38 @@ class DestinationServiceTest {
 		assertEquals(1, result3.head.comments.size)	
 		assertEquals(1, result3.head.comments.head.likes.size)
 		assertEquals(0, result3.head.comments.head.dislikes.size)							
-	}	
+	}
+	
+	@Test
+	def void testACachedUserGetsQueriedFromTheCache(){
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)
+		service.getProfile(user, visibility, "FRIENDS")
+		var result = service.getProfile(user, visibility, "FRIENDS")
+		assertEquals(true, result.cached)
+	}
+	
+	@Test
+	def void testANonCachedUserGetsQueriedFromTheRepo(){
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)
+		var result = service.getProfile(user, visibility, "FRIENDS")
+		assertEquals(false, result.cached)
+	}
+	
+	@Test
+	def void testACachedUserGetsInvalidatedWhenItsSaved(){
+		var visibility = new ArrayList<Visibility>()
+		visibility.add(Visibility.FRIENDS)
+		service.getProfile(user, visibility, "FRIENDS")
+		service.saveUser(user)
+		var result = service.getProfile(user, visibility, "FRIENDS")
+		assertEquals(false, result.cached)
+	}
 			
 	@After
 	def void tearDown(){
+		new CachingService().deleteAllUsers
 	}
 	
 }

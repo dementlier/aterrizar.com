@@ -13,14 +13,17 @@ class SocialUser {
 	@Id
 	String username
 	List<Destination> destinations
-
+	boolean cached;
+	
 	new(){
 		destinations = new ArrayList<Destination>
+		cached = false;
 	}
 	
 	new(String username){
 		this.username = username
 		destinations = new ArrayList<Destination>
+		cached = false
 	}
 	
 	new(String username, List<Destination> destinations){

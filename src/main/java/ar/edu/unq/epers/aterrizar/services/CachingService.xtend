@@ -17,11 +17,17 @@ class CachingService {
 	}
 	
 	def get(String username, Visibility visibility){
-		repo.get(username, visibility)
+		var user = repo.get(username, visibility)
+		if(user != null) user.user.cached = true
+		return user
 	}
 	
 	def deleteUser(SocialUser user){
 		repo.deleteUser(user)
+	}
+	
+	def deleteAllUsers(){
+		repo.drop_database
 	}
 	
 	

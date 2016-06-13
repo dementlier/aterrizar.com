@@ -1,17 +1,17 @@
 package ar.edu.unq.epers.aterrizar.test.services
 
+import ar.edu.unq.epers.aterrizar.services.CachingService
+import ar.edu.unq.epers.aterrizar.models.user.SocialUser
+import ar.edu.unq.epers.aterrizar.models.user.CachedUser
+import ar.edu.unq.epers.aterrizar.models.social.Destination
+import org.junit.Before
+import ar.edu.unq.epers.aterrizar.models.social.Visibility
 import org.junit.Test
 import org.junit.After
-import org.junit.Before
 import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.persistence.CassandraRepo
-import ar.edu.unq.epers.aterrizar.models.user.CachedUser
-import ar.edu.unq.epers.aterrizar.models.user.SocialUser
-import ar.edu.unq.epers.aterrizar.models.social.Destination
-import ar.edu.unq.epers.aterrizar.models.social.Visibility
 
-class CassandraRepoTest {
-	CassandraRepo repo
+class CachingServiceTest {
+	CachingService service
 	SocialUser sUser
 	CachedUser user
 	CachedUser user2
@@ -19,27 +19,30 @@ class CassandraRepoTest {
 	
 	@Before
 	def void setUp(){
-		repo = new CassandraRepo
+		service = new CachingService
 		friendDestination = new Destination("cancun", Visibility.FRIENDS)
 		sUser = new SocialUser("pepe")
 		sUser.addDestination(friendDestination)
 		user = new CachedUser(sUser, Visibility.FRIENDS)
 		user2 = new CachedUser(sUser, Visibility.PUBLIC)
 		
-		repo.save(user)
-		repo.save(user2)
+		service.save(user)
+		service.save(user2)
 	}
 	
 	@Test
 	def void obtenerBusqueda() {
-		val busqueda = repo.get(user.username, user.visibility)
+		val busqueda = service.get(user.username, user.visibility)
 		assertEquals(busqueda.username, "pepe")
+		assertEquals(busqueda.user.cached, true)
 		assertEquals(busqueda.visibility, Visibility.FRIENDS)
 	}
 	
-	
 	@After
 	def void tearDown(){
-		repo.drop_database
+		service.deleteAllUsers
 	}
+
+	
+	
 }

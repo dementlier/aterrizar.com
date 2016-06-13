@@ -92,7 +92,6 @@ class DestinationService {
 		var users = db.collection(SocialUser)
 		
 		var cursor = users.find(DBQuery.is("_id" ,username))
-		var user = cService.get("pepe", Visibility.FRIENDS)
 		
 		if(cursor.hasNext){
 			cursor.next

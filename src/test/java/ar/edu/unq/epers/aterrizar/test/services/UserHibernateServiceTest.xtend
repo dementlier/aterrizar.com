@@ -41,7 +41,7 @@ class UserHibernateServiceTest {
 		userService.registerUser(user);
 		
 		// Reservations
-		reserva = new Reservation(new ArrayList<Seat>())
+		reserva = new Reservation(new ArrayList<Seat>, "hola", "hola")
 		
 	}
 	
@@ -56,6 +56,8 @@ class UserHibernateServiceTest {
 	def testAddAReservationToAExistingUser() {
 		var user = new UserHibernateService().getUser("josejuarez");
 		user.addReservation(reserva)
+		userService.saveUser(user)
+		user = userService.getUser("josejuarez")
 		assertEquals(user.reservations.size(), 1);
 	}
 }

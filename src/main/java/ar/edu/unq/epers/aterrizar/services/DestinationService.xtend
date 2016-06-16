@@ -18,10 +18,12 @@ import ar.edu.unq.epers.aterrizar.models.user.CachedUser
 class DestinationService {
 	FriendService fService
 	CachingService cService
+	UserHibernateService uService
 
 	new(){
 		fService 	= new FriendService
 		cService 	= new CachingService
+		uService	= new UserHibernateService
 	}
 
 	def void addUser(User user){
@@ -34,8 +36,11 @@ class DestinationService {
 	}
 
 	def void addDestination(SocialUser user, Destination destination){
-		user.addDestination(destination)
-		updateUser(user)
+		val fullUser = uService.getUser(user.username)
+		if(fullUser != null && fullUser.hasReservationForDestination(destination.name)){
+			user.addDestination(destination)
+			updateUser(user)
+		}
 	}
 	
 	def saveUser(SocialUser user){

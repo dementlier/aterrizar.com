@@ -12,7 +12,9 @@
 		</id>
 
 		<property name="price" column="price" type="int" />
-
+		<property name="orig" column="orig" type="string" />
+		<property name="dest" column="dest" type="string" />
+				
 		<bag name="seats" cascade="all" inverse="false" lazy="false">
 			<key column="reservation_id" />
 			<one-to-many class="ar.edu.unq.epers.aterrizar.models.airlines.Seat" />

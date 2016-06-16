@@ -42,10 +42,11 @@ class SearcherService {
 	
 	def reserveSeats(User user, Section section, List<Seat> seats){
 		val repo = new SearcherHibernateRepo()
+		val userService = new UserHibernateService
 		section.reserveSeats(user, seats)
 		SessionManager.runInSession([
 			repo.saveSection(section)
-			repo.saveX(user)
+			userService.saveUser(user)
 			null
 		])
 	}
@@ -68,5 +69,10 @@ class SearcherService {
 			new SearcherHibernateRepo().saveX(user)
 			null
 		])
+	}
+	
+	def deleteAll(){
+		val repo = new SearcherHibernateRepo()
+		repo.deleteAllSearchersInDB		
 	}
 }

@@ -55,5 +55,15 @@ class User {
 	def void addSearch(Search search) {
 		searches.add(search)
 	}
+	
+	def hasReservationForDestination(String destination) {
+		var res = false
+		for(reservation : reservations){
+			if(reservation.dest == destination){
+				res = true
+			}
+		}
+		res
+	}
 
 }

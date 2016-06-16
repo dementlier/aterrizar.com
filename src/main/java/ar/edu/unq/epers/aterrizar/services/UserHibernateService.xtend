@@ -12,6 +12,10 @@ import ar.edu.unq.epers.aterrizar.models.searches.Search
 class UserHibernateService {
     
     EnviadorDeMails mailSender;
+    
+    new(){
+    	this.mailSender = new EnviadorDeMails
+    }
 
     /**
      * 

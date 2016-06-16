@@ -1,16 +1,24 @@
 package ar.edu.unq.epers.aterrizar.test.services
 
-import org.junit.Test
-import org.junit.Before
-import static org.junit.Assert.*
-import ar.edu.unq.epers.aterrizar.services.DestinationService
-import ar.edu.unq.epers.aterrizar.models.user.SocialUser
+import ar.edu.unq.epers.aterrizar.models.airlines.Seat
+import ar.edu.unq.epers.aterrizar.models.airlines.SeatCategory
+import ar.edu.unq.epers.aterrizar.models.airlines.Section
+import ar.edu.unq.epers.aterrizar.models.social.Comment
 import ar.edu.unq.epers.aterrizar.models.social.Destination
 import ar.edu.unq.epers.aterrizar.models.social.Visibility
+import ar.edu.unq.epers.aterrizar.models.user.SocialUser
+import ar.edu.unq.epers.aterrizar.models.user.User
+import ar.edu.unq.epers.aterrizar.services.CachingService
+import ar.edu.unq.epers.aterrizar.services.DestinationService
+import ar.edu.unq.epers.aterrizar.services.SearcherService
+import ar.edu.unq.epers.aterrizar.services.UserHibernateService
+import java.sql.Date
 import java.util.ArrayList
 import org.junit.After
-import ar.edu.unq.epers.aterrizar.models.social.Comment
-import ar.edu.unq.epers.aterrizar.services.CachingService
+import org.junit.Before
+import org.junit.Test
+
+import static org.junit.Assert.*
 
 class DestinationServiceTest {
 	DestinationService service
@@ -18,16 +26,36 @@ class DestinationServiceTest {
 	Destination publicDestination
 	Destination friendDestination
 	Destination privateDestination
+	UserHibernateService uService
+	User fullUser
+	SearcherService searchService
 	
 	@Before
 	def void setUp(){
 		service = new DestinationService
+		uService = new UserHibernateService
+		searchService = new SearcherService
+		searchService.deleteAll()
+		uService.deleteAllUsersInDB()
 		service.dropDB()
+		fullUser = new User("Pepe", "Osvaldez", "pepe", "pp@pp.com", new Date(0), "1234", true)
 		user = new SocialUser("pepe")
+		uService.registerUser(fullUser)		
 		publicDestination = new Destination("pompeya", Visibility.PUBLIC)
 		friendDestination = new Destination("cancun", Visibility.FRIENDS)
 		privateDestination = new Destination("mdq", Visibility.PRIVATE)
-		service.saveUser(user)
+		var sectionPompeya = new Section(1, "Madrid", "pompeya", new Date(0), new Date(0), new ArrayList<Seat>)
+		var seatPompeya = new Seat(1, SeatCategory.Business)
+		var sectionCancun = new Section(1, "Orlando", "cancun", new Date(0), new Date(0), new ArrayList<Seat>)
+		var seatCancun = new Seat(1, SeatCategory.Tourist)
+		var sectionMDQ = new Section(1, "Tokyo", "mdq", new Date(0), new Date(0), new ArrayList<Seat>)
+		var seatMDQ = new Seat(1, SeatCategory.First)
+		sectionPompeya.addSeat(seatPompeya)
+		sectionCancun.addSeat(seatCancun)
+		sectionMDQ.addSeat(seatMDQ)
+		searchService.reserveSeat(fullUser, sectionPompeya, seatPompeya)
+		searchService.reserveSeat(fullUser, sectionCancun, seatCancun)
+		searchService.reserveSeat(fullUser, sectionMDQ, seatMDQ)
 	}
 	
 	@Test

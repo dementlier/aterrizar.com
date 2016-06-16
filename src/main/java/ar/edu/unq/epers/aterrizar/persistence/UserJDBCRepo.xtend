@@ -93,8 +93,14 @@ class UserJDBCRepo {
 
 	def deleteAllUsersInDB() {
 		execute[ conn |
+			val psPrev = conn.prepareStatement("DELETE FROM asientos;")
+			psPrev.execute()
+			val psPrev2 = conn.prepareStatement("DELETE FROM busquedas;")
+			psPrev2.execute()
+			val psPrev3 = conn.prepareStatement("DELETE FROM reservas;")
+			psPrev3.execute()							
 			val ps = conn.prepareStatement("DELETE FROM usuarios;")
-			ps.execute()
+			ps.execute()			
 		]
 	}
 

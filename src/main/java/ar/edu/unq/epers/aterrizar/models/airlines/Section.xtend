@@ -18,6 +18,7 @@ class Section {
 	private int id
 	
 	new(){
+		seats = new ArrayList<Seat>
 	}
 	//Se define a mano por que hemos tenido problemos con el Annotation Data en el pasado
 	new(int price, String orig, String dest, Date arriv, Date deprtr, List<Seat> buttHolders){
@@ -34,7 +35,7 @@ class Section {
 			for(seat : seatsToBeReserved){
 				seat.reserver = user
 			}
-			user.addReservation(new Reservation(seatsToBeReserved))		
+			user.addReservation(new Reservation(seatsToBeReserved, this.origin, this.destination))		
 		}
 	}
 	

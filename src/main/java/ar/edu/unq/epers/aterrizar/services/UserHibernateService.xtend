@@ -8,6 +8,7 @@ import ar.edu.unq.epers.aterrizar.utils.Mail
 import ar.edu.unq.epers.aterrizar.persistence.HibernateRepo
 import ar.edu.unq.epers.aterrizar.models.user.Reservation
 import ar.edu.unq.epers.aterrizar.models.searches.Search
+import java.util.List
 
 class UserHibernateService {
     
@@ -71,5 +72,23 @@ class UserHibernateService {
             void
         ])
     }
+    
+    def addReservation(User user, Reservation reservation){
+    	user.addReservation(reservation)
+    	SessionManager.runInSession([
+            new HibernateRepo(User).save(user)
+            void
+        ])
+    }
+    
+    def hasReservedDestination(User user, String destination){
+    	var list = SessionManager.runInSession([
+			SessionManager.getSession
+			.createQuery("SELECT user.reservations FROM User as user JOIN Reservation as r WHERE r.destination = '"+ destination + "' AND user.id = '" + user.id + "'")
+			.list() as List<String>
+		])
+    	return list.size > 0
+    }
+    
 
 }

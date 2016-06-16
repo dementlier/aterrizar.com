@@ -22,6 +22,18 @@ class HibernateRepo<T> {
 		instance
 	}
 	
+	def getByTwoParameters(String field1, String value1, String field2, String value2){
+		val list = SessionManager.getSession().createCriteria(entityType)
+												.add(Restrictions.eq(field1, value1))
+												.add(Restrictions.eq(field2, value2)).list()
+		
+		var T instance = null
+		if (list.size > 0){
+			instance = list.get(0) as T
+		}
+		instance
+	}
+	
 	def deleteAllInDB(String entityName){
 		val hql = "DELETE FROM " + entityName
 		val query = SessionManager.getSession().createQuery(hql)

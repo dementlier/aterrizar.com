@@ -12,6 +12,7 @@
 		</id>
 
 		<property name="price" column="price" type="int" />
+		<property name="destination" column="destination" type="string" not-null="false" />
 
 		<bag name="seats" cascade="all" inverse="false" lazy="false">
 			<key column="reservation_id" />

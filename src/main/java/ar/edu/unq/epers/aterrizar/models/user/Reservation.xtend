@@ -9,6 +9,7 @@ class Reservation {
 	private int price
 	private List<Seat> seats
 	private int id
+	private String destination
 	
 	new(){
 		
@@ -20,5 +21,10 @@ class Reservation {
 		for(seat : seats){
 			price += seat.price
 		}
+	}
+	
+	new(List<Seat> buttHolders, String destination){
+		this(buttHolders);
+		this.destination = destination
 	}
 }

@@ -28,9 +28,9 @@ class UserHibernateServiceTest {
 
 		// Inicializaciones
 		searcherService = new SearcherHibernateRepo
-		searcherService.deleteAllSeatsInDB
+		//searcherService.deleteAllSeatsInDB
 		userService = new UserHibernateService()
-		userService.deleteAllUsersInDB()
+		//userService.deleteAllUsersInDB()
 		// Mocks
 		enviador = Mockito.mock(typeof(EnviadorDeMails))
 		mail = new Mail("Su codigo es: " + "pepejuarez".hashCode(), "Codigo de validacion", "p@p.com", "admin@pp.com")
@@ -41,7 +41,7 @@ class UserHibernateServiceTest {
 		userService.registerUser(user);
 		
 		// Reservations
-		reserva = new Reservation(new ArrayList<Seat>())
+		reserva = new Reservation(new ArrayList<Seat>(), "cancun")
 		
 	}
 	
@@ -55,7 +55,9 @@ class UserHibernateServiceTest {
 	@Test
 	def testAddAReservationToAExistingUser() {
 		var user = new UserHibernateService().getUser("josejuarez");
-		user.addReservation(reserva)
-		assertEquals(user.reservations.size(), 1);
+		userService.addReservation(user, reserva)
+		var updatedUser = new UserHibernateService().getUser("josejuarez");
+		assertEquals(updatedUser.reservations.size(), 1);
+		assertTrue(userService.hasReservedDestination(updatedUser, "cancun"))
 	}
 }

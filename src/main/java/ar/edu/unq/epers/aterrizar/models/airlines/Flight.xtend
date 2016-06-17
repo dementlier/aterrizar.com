@@ -42,9 +42,7 @@ class Flight {
 	
 	def hasSeatsOfCategory(SeatCategory category){
 		var bool = true
-		for(section : sections){
-			bool = bool && section.hasSeatsOfCategory(category)
-		}
+		bool = sections.forall[section | section.hasSeatsOfCategory(category)]
 		return bool
 	}
 

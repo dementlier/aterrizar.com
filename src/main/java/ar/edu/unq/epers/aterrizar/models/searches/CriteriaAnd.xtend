@@ -18,13 +18,7 @@ class CriteriaAnd extends Criteria {
 	}
 
 	override getHQL(){
-		var res = "("
-		var i = 0
-		for(;i<criterias.size()-1 ; i++){
-			res = res + criterias.get(i).getHQL() + this.getConnector()
-		}
-		res = res + criterias.get(i).getHQL() + ")"
-		return res
+		return "("+criterias.map[it.getHQL()].join(getConnector())+")"
 	}
 	
 }

@@ -18,7 +18,9 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+import static ar.edu.unq.epers.aterrizar.utils.UserTransformer.*
 import static org.junit.Assert.*
+import ar.edu.unq.epers.aterrizar.services.FriendService
 
 class DestinationServiceTest {
 	DestinationService service
@@ -29,6 +31,7 @@ class DestinationServiceTest {
 	UserHibernateService uService
 	User fullUser
 	SearcherService searchService
+	FriendService fService
 	
 	@Before
 	def void setUp(){
@@ -56,6 +59,7 @@ class DestinationServiceTest {
 		searchService.reserveSeat(fullUser, sectionPompeya, seatPompeya)
 		searchService.reserveSeat(fullUser, sectionCancun, seatCancun)
 		searchService.reserveSeat(fullUser, sectionMDQ, seatMDQ)
+		fService = new FriendService
 	}
 	
 	@Test
@@ -423,6 +427,55 @@ class DestinationServiceTest {
 		service.updateUser(user)
 		var result = service.getProfile(user, visibility, "FRIENDS")
 		assertEquals(false, result.cached)
+	}
+	
+	@Test
+	def void testAUserGetsTheApropiateProfileForAnotherUserThatIsAFriend(){
+		var fullFriend = new User("Pepa", "Ramirez", "pepita", "pp@pp.com", new Date(0), "1234", true)
+		var friend = toSocialUser(fullFriend)
+		fService.addUser(fullFriend)
+		fService.befriend(fullUser, fullFriend)
+		var list = new ArrayList<Visibility>
+		list.add(Visibility.FRIENDS)
+		list.add(Visibility.PUBLIC)
+		var profileAMano = service.getProfile(user, list, Visibility.FRIENDS.toString)
+		var profileAutomatizado = service.getVisibleProfile(user, friend)
+		assertEquals(profileAMano.username, profileAutomatizado.username)
+		assertEquals(profileAMano.destinations.size, profileAutomatizado.destinations.size)
+		for(var i = 0; i< profileAMano.destinations.size; i++){
+			assertEquals(profileAMano.destinations.get(i).name, profileAutomatizado.destinations.get(i).name)
+		}
+	}
+	
+	@Test
+	def void testAUserGetsTheApropiateProfileForAnotherUserThatIsNotAFriend(){
+		var fullNotFriend = new User("Pepo", "Ramirez", "pepito", "pp@pp.com", new Date(0), "1234", true)
+		var notFriend = toSocialUser(fullNotFriend)
+		fService.addUser(fullNotFriend)
+		var list = new ArrayList<Visibility>
+		list.add(Visibility.PUBLIC)
+		var profileAMano = service.getProfile(user, list, Visibility.PUBLIC.toString)
+		var profileAutomatizado = service.getVisibleProfile(user, notFriend)
+		assertEquals(profileAMano.username, profileAutomatizado.username)
+		assertEquals(profileAMano.destinations.size, profileAutomatizado.destinations.size)
+		for(var i = 0; i< profileAMano.destinations.size; i++){
+			assertEquals(profileAMano.destinations.get(i).name, profileAutomatizado.destinations.get(i).name)
+		}
+	}
+	
+	@Test
+	def void testAUserGetsTheApropiateProfileForAnotherUserThatIsHimself(){
+		var list = new ArrayList<Visibility>
+		list.add(Visibility.PRIVATE)
+		list.add(Visibility.FRIENDS)
+		list.add(Visibility.PUBLIC)
+		var profileAMano = service.getProfile(user, list, Visibility.PRIVATE.toString)
+		var profileAutomatizado = service.getVisibleProfile(user, user)
+		assertEquals(profileAMano.username, profileAutomatizado.username)
+		assertEquals(profileAMano.destinations.size, profileAutomatizado.destinations.size)	
+		for(var i = 0; i< profileAMano.destinations.size; i++){
+			assertEquals(profileAMano.destinations.get(i).name, profileAutomatizado.destinations.get(i).name)
+		}
 	}
 			
 	@After

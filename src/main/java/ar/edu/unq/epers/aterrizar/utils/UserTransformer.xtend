@@ -3,7 +3,6 @@ package ar.edu.unq.epers.aterrizar.utils
 import ar.edu.unq.epers.aterrizar.models.user.SocialUser
 import ar.edu.unq.epers.aterrizar.models.user.User
 import ar.edu.unq.epers.aterrizar.models.user.FriendableUser
-import ar.edu.unq.epers.aterrizar.models.user.CachedUser
 
 class UserTransformer {
 	
@@ -28,4 +27,8 @@ class UserTransformer {
 		newUser
 	}
 	
+	def static toSocialUser(User user){
+		var newSocialUser = new SocialUser(user.username)
+		newSocialUser
+	}
 }
